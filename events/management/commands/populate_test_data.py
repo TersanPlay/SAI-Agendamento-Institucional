@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django.utils import timezone
-from events.models import EventType, Location, Department, Event
+from events.models import EventType, Location, Department, Event, EventParticipant
 from accounts.models import UserProfile
 from reports.models import Report
 
@@ -45,14 +45,14 @@ class Command(BaseCommand):
             self.generate_report_data()
             
             self.stdout.write(
-                self.style.SUCCESS(
+                self.style.SUCCESS(  # type: ignore
                     'Dados de teste populados com sucesso!'
                 )
             )
         except Exception as e:
             logger.error(f"Erro ao popular dados de teste: {str(e)}")
             self.stdout.write(
-                self.style.ERROR(
+                self.style.ERROR(  # type: ignore
                     f'Erro ao popular dados de teste: {str(e)}'
                 )
             )
@@ -60,25 +60,25 @@ class Command(BaseCommand):
     def clear_test_data(self):
         """Limpa os dados de teste existentes"""
         # Limpar eventos de teste (com nomes que começam com "Teste")
-        Event.objects.filter(name__startswith='Teste').delete()
+        Event.objects.filter(name__startswith='Teste').delete()  # type: ignore
         
         # Limpar relatórios de teste
-        Report.objects.filter(name__startswith='Relatório Teste').delete()
+        Report.objects.filter(name__startswith='Relatório Teste').delete()  # type: ignore
         
         # Limpar usuários de teste (exceto admin)
-        User.objects.filter(username__startswith='test_').delete()
+        User.objects.filter(username__startswith='test_').delete()  # type: ignore
         
         self.stdout.write('Dados de teste limpos com sucesso.')
     
     def create_test_users(self):
         """Cria usuários de teste para diferentes papéis"""
-        departments = list(Department.objects.all())
+        departments = list(Department.objects.all())  # type: ignore
         user_types = ['administrador', 'gestor', 'visualizador']
         
         for i in range(10):
             username = f'test_user_{i}'
-            if not User.objects.filter(username=username).exists():
-                user = User.objects.create_user(
+            if not User.objects.filter(username=username).exists():  # type: ignore
+                user = User.objects.create_user(  # type: ignore
                     username=username,
                     email=f'test{i}@eventosys.com',
                     password='test123',
@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 )
                 
                 # Criar perfil do usuário
-                UserProfile.objects.get_or_create(
+                UserProfile.objects.get_or_create(  # type: ignore
                     user=user,
                     defaults={
                         'user_type': random.choice(user_types),
@@ -101,14 +101,14 @@ class Command(BaseCommand):
     
     def generate_unique_events(self):
         """Gera eventos únicos (passados, presentes e futuros)"""
-        event_types = list(EventType.objects.all())
-        locations = list(Location.objects.all())
-        departments = list(Department.objects.all())
-        users = list(User.objects.all())
+        event_types = list(EventType.objects.all())  # type: ignore
+        locations = list(Location.objects.all())  # type: ignore
+        departments = list(Department.objects.all())  # type: ignore
+        users = list(User.objects.all())  # type: ignore
         
         if not (event_types and locations and departments and users):
             self.stdout.write(
-                self.style.WARNING(
+                self.style.WARNING(  # type: ignore
                     'Dados insuficientes para criar eventos. Certifique-se de ter tipos de eventos, locais, departamentos e usuários.'
                 )
             )
@@ -142,22 +142,22 @@ class Command(BaseCommand):
             
             # Selecionar dados aleatórios
             event_type = random.choice(event_types)
-            location = random.choice(locations)
+            location_mode = random.choice(location_modes)
+            location = random.choice(locations) if location_mode != 'virtual' else None
             department = random.choice(departments)
             responsible = random.choice(users)
             creator = random.choice(users)
             status = random.choice(statuses)
-            location_mode = random.choice(location_modes)
             target_audience = random.choice(target_audiences)
             
             # Criar evento
-            event = Event.objects.create(
+            event = Event.objects.create(  # type: ignore
                 name=f'Teste Evento Único {i+1}',
                 event_type=event_type,
                 start_datetime=start_datetime,
                 end_datetime=end_datetime,
                 location_mode=location_mode,
-                location=location if location_mode != 'virtual' else None,
+                location=location,
                 virtual_link='https://meet.google.com/test-meeting' if location_mode in ['virtual', 'hibrido'] else '',
                 target_audience=target_audience,
                 responsible_person=responsible,
@@ -173,14 +173,14 @@ class Command(BaseCommand):
     
     def generate_recurring_events(self):
         """Gera eventos recorrentes (diários, semanais, mensais)"""
-        event_types = list(EventType.objects.all())
-        locations = list(Location.objects.all())
-        departments = list(Department.objects.all())
-        users = list(User.objects.all())
+        event_types = list(EventType.objects.all())  # type: ignore
+        locations = list(Location.objects.all())  # type: ignore
+        departments = list(Department.objects.all())  # type: ignore
+        users = list(User.objects.all())  # type: ignore
         
         if not (event_types and locations and departments and users):
             self.stdout.write(
-                self.style.WARNING(
+                self.style.WARNING(  # type: ignore
                     'Dados insuficientes para criar eventos recorrentes.'
                 )
             )
@@ -210,22 +210,22 @@ class Command(BaseCommand):
                 
                 # Selecionar dados aleatórios
                 event_type = random.choice(event_types)
-                location = random.choice(locations)
+                location_mode = random.choice(location_modes)
+                location = random.choice(locations) if location_mode != 'virtual' else None
                 department = random.choice(departments)
                 responsible = random.choice(users)
                 creator = random.choice(users)
                 status = random.choice(statuses)
-                location_mode = random.choice(location_modes)
                 target_audience = random.choice(target_audiences)
                 
                 # Criar evento recorrente base
-                event = Event.objects.create(
+                event = Event.objects.create(  # type: ignore
                     name=f'Teste Evento Recorrente {recurrence_type} {i+1}',
                     event_type=event_type,
                     start_datetime=start_datetime,
                     end_datetime=end_datetime,
                     location_mode=location_mode,
-                    location=location if location_mode != 'virtual' else None,
+                    location=location,
                     virtual_link='https://meet.google.com/test-recurring' if location_mode in ['virtual', 'hibrido'] else '',
                     target_audience=target_audience,
                     responsible_person=responsible,
@@ -256,13 +256,13 @@ class Command(BaseCommand):
                     instance_end = instance_start + timedelta(hours=1)
                     
                     # Criar instância do evento recorrente
-                    recurring_event = Event.objects.create(
+                    recurring_event = Event.objects.create(  # type: ignore
                         name=f'{event.name} - Instância {j}',
                         event_type=event_type,
                         start_datetime=instance_start,
                         end_datetime=instance_end,
                         location_mode=location_mode,
-                        location=location if location_mode != 'virtual' else None,
+                        location=location,
                         virtual_link='https://meet.google.com/test-recurring' if location_mode in ['virtual', 'hibrido'] else '',
                         target_audience=target_audience,
                         responsible_person=responsible,
@@ -278,12 +278,12 @@ class Command(BaseCommand):
     
     def generate_participants(self):
         """Gera participantes e associações para os eventos"""
-        events = list(Event.objects.filter(name__startswith='Teste'))
-        users = list(User.objects.filter(username__startswith='test_'))
+        events = list(Event.objects.filter(name__startswith='Teste'))  # type: ignore
+        users = list(User.objects.filter(username__startswith='test_'))  # type: ignore
         
         if not (events and users):
             self.stdout.write(
-                self.style.WARNING(
+                self.style.WARNING(  # type: ignore
                     'Dados insuficientes para criar participantes.'
                 )
             )
@@ -297,8 +297,7 @@ class Command(BaseCommand):
             
             for user in selected_users:
                 # Criar participante
-                from events.models import EventParticipant
-                participant, created = EventParticipant.objects.get_or_create(
+                participant, created = EventParticipant.objects.get_or_create(  # type: ignore
                     event=event,
                     user=user,
                     defaults={
@@ -314,13 +313,13 @@ class Command(BaseCommand):
     
     def generate_report_data(self):
         """Gera dados para relatórios"""
-        departments = list(Department.objects.all())
-        event_types = list(EventType.objects.all())
-        users = list(User.objects.all())
+        departments = list(Department.objects.all())  # type: ignore
+        event_types = list(EventType.objects.all())  # type: ignore
+        users = list(User.objects.all())  # type: ignore
         
         if not (departments and event_types and users):
             self.stdout.write(
-                self.style.WARNING(
+                self.style.WARNING(  # type: ignore
                     'Dados insuficientes para criar relatórios.'
                 )
             )
@@ -352,7 +351,7 @@ class Command(BaseCommand):
             start_date = now - timedelta(days=random.randint(30, 180))
             end_date = start_date + timedelta(days=random.randint(30, 90))
             
-            report = Report.objects.create(
+            report = Report.objects.create(  # type: ignore
                 name=f'Relatório Teste {i+1} - {report_type}',
                 report_type=report_type,
                 description=f'Relatório de teste do tipo {report_type} gerado automaticamente',
