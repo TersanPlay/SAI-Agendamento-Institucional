@@ -1,0 +1,88 @@
+Sistema de Gestão de Eventos Institucionais 
+
+
+### Estilo Visual
+
+
+Design limpo e minimalista /Cantos arredondados/Hierarquia visual clara/Paleta de cores suaves com fundo branco
+
+## 🧩 Funcionalidades Principais
+
+### 1. Cadastro de Eventos
+- **Nome do evento**
+- **Tipo** Reunião | Audiência Pública | Sessão Plenária | Palestra | Workshop
+Seminário | Congresso | Curso/Capacitação | Mesa-Redonda | Debate
+Conferência | Encontro Temático | Assembleia | Visita Técnica | Cerimônia Oficial
+Lançamento de Projeto/Programa | Coletiva de Imprensa | Atividade Cultural | Atividade Comunitária | Outros
+
+- **Data e horário** (início e fim)
+- **Local** (presencial, virtual ou híbrido)
+- **Localização** Auditório, Plenarinho, Presidência, Gabinete (abre campo para digitar nome do gabinete), Estacionamento (Interno, Externo ou Ambos)
+- **Público-alvo** Público Interno, Público Externo, Ambos
+- **Responsável do Evento**
+- **Status** (planejado, em andamento, concluído, cancelado)
+- **Departamento Responsável** 
+- **Termo de Responsabilidade** -  permite incluir até 5 links externos ; apos eventro criado mostra em forma Visual Icone de Documento PDF
+
+- **Versionamento** histórico de alterações com data, hora e responsável
+
+## 1.2 Interface de Agenda Interativa (Calendário)
+
+Página dedicada: calendário central com todos os eventos já cadastrados
+
+Visualizações: mensal, semanal, diário e em lista
+
+Filtros avançados: setor, tipo, status, responsável, período
+
+Busca inteligente: por palavra-chave, participante, local
+
+Categorização visual: auternar 15 cores diferentes para cada evento 
+
+Integração com cadastro: eventos inseridos no sistema aparecem automaticamente no calendário
+
+Exportação: agenda em PDF, ICS (calendário eletrônico)
+
+Acesso diferenciado:
+
+Gestor → calendário completo 
+
+Administrador → calendário global com todos os eventos
+
+Público/Participante → calendário público dos eventos autorizados
+
+### 3. Notificações
+
+- Notificações automáticas (sistema interno)
+
+
+### 4. Acompanhamento em Tempo Real
+- Painel de controle com indicadores (eventos por mês, tipo, setor, etc.)
+- Status atual de cada evento
+
+
+### 5. Integração com Outros Sistemas
+- Exportação de dados para relatórios oficiais (Excel, PDF)
+- Integração com e-mail e calendários (Google Calendar, Outlook)
+
+### 6. Transparência e Relatórios
+- Relatórios automatizados (por período, setor, tipo de evento)
+- Histórico de alterações com registro de usuário e data
+- Área pública (opcional) com eventos abertos à comunidade
+
+### 7. Segurança e Controle de Acesso
+- Perfis de usuário (Administrador, Gestor, Visualizador)
+- Logs de acesso e modificações
+- Criptografia de dados sensíveis
+
+### 8.RREQUISITOS TÉCNICOS ESPECÍFICOS
+- Plataforma: Web responsiva (desktop/mobile)
+
+### tecnológicas 
+
+Backend & Frontend: Django (Templates, Views, Forms) ultilize a versao mais atual 
+
+Banco: SQLite
+
+Calendário: FullCalendar via template embutido
+
+Estilo: Tailwind css - ultilize a versao mais atual

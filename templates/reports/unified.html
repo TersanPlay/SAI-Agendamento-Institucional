@@ -1,0 +1,285 @@
+{% extends 'base.html' %}
+
+{% block title %}Relatórios - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Relatórios</h1>
+                <p class="text-gray-600 mt-2">Gere relatórios personalizados do sistema</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Meus Relatórios</p>
+                    <p class="text-2xl font-semibold text-gray-900">0</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Execuções Hoje</p>
+                    <p class="text-2xl font-semibold text-gray-900">0</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-play text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Sucesso</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        0
+                    </p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Erros</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        0
+                    </p>
+                </div>
+                <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Report Generation Form -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-gray-900">Gerar Novo Relatório</h2>
+            </div>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Basic Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="report_type" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tipo de Relatório *
+                        </label>
+                        <select id="report_type" name="report_type" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option value="">Selecione o tipo...</option>
+                            {% for value, label in report_types %}
+                            <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="format" class="block text-sm font-medium text-gray-700 mb-2">
+                            Formato *
+                        </label>
+                        <select id="format" name="format" required
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            {% for value, label in format_choices %}
+                            <option value="{{ value }}" {% if value == 'pdf' %}selected{% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Date Range -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            Data Início *
+                        </label>
+                        <input type="date" id="start_date" name="start_date" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                    
+                    <div>
+                        <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            Data Fim *
+                        </label>
+                        <input type="date" id="end_date" name="end_date" required
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                </div>
+                
+                <!-- Quick Date Presets -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <p class="text-sm font-medium text-gray-700 mb-3">Períodos Predefinidos:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="setDateRange(7)" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Últimos 7 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(30)" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Últimos 30 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(90)" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Últimos 3 meses
+                        </button>
+                        <button type="button" onclick="setThisMonth()" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Este mês
+                        </button>
+                        <button type="button" onclick="setLastMonth()" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Mês passado
+                        </button>
+                        <button type="button" onclick="setThisYear()" 
+                                class="px-3 py-1 bg-white border border-gray-300 rounded text-sm hover:bg-gray-50 transition-colors">
+                            Este ano
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="departments" class="block text-sm font-medium text-gray-700 mb-2">
+                            Departamentos
+                        </label>
+                        <select id="departments" name="departments" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            {% for department in departments %}
+                            <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl para selecionar múltiplos</p>
+                    </div>
+                    
+                    <div>
+                        <label for="event_types" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tipos de Evento
+                        </label>
+                        <select id="event_types" name="event_types" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            {% for event_type in event_types %}
+                            <option value="{{ event_type.id }}">{{ event_type.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl para selecionar múltiplos</p>
+                    </div>
+                </div>
+                
+                <!-- Report Type Description -->
+                <div id="reportTypeDescription" class="bg-blue-50 border border-blue-200 rounded-lg p-4 hidden">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-blue-900 mb-1">Sobre este tipo de relatório</h4>
+                            <p id="reportTypeText" class="text-sm text-blue-800"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Actions -->
+                <div class="flex items-center justify-end pt-6 border-t border-gray-200">
+                    <button type="submit" 
+                            class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                        <i class="fas fa-download mr-2"></i>Gerar Relatório
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function generateReport(reportId) {
+    // This function is no longer needed as we're using the unified approach
+    // Users can generate reports directly from the form
+}
+
+const reportDescriptions = {
+    'events_by_period': 'Lista detalhada de todos os eventos no período especificado, incluindo informações completas como data, local, responsável e descrição.',
+    'events_by_type': 'Relatório consolidado mostrando a quantidade de eventos agrupados por tipo (reunião, palestra, workshop, etc.).',
+    'events_by_department': 'Análise da distribuição de eventos por departamento, mostrando qual departamento realizou mais eventos.',
+    'events_by_status': 'Resumo dos eventos agrupados por status (planejado, em andamento, concluído, cancelado).',
+    'participant_summary': 'Relatório consolidado sobre participantes dos eventos, incluindo estatísticas de participação.',
+    'location_usage': 'Análise de utilização dos locais, mostrando quais espaços são mais utilizados para eventos.',
+    'monthly_summary': 'Resumo mensal detalhado com estatísticas e métricas dos eventos do mês.',
+    'yearly_summary': 'Relatório anual consolidado com todas as métricas e análises do ano.',
+    'custom': 'Relatório personalizado que pode incluir diferentes tipos de análises baseadas nos filtros selecionados.'
+};
+
+document.getElementById('report_type').addEventListener('change', function() {
+    const description = document.getElementById('reportTypeDescription');
+    const text = document.getElementById('reportTypeText');
+    
+    if (this.value && reportDescriptions[this.value]) {
+        text.textContent = reportDescriptions[this.value];
+        description.classList.remove('hidden');
+    } else {
+        description.classList.add('hidden');
+    }
+});
+
+function setDateRange(days) {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(endDate.getDate() - days);
+    
+    document.getElementById('start_date').value = startDate.toISOString().split('T')[0];
+    document.getElementById('end_date').value = endDate.toISOString().split('T')[0];
+}
+
+function setThisMonth() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), 1);
+    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+    document.getElementById('start_date').value = start.toISOString().split('T')[0];
+    document.getElementById('end_date').value = end.toISOString().split('T')[0];
+}
+
+function setLastMonth() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const end = new Date(now.getFullYear(), now.getMonth(), 0);
+    
+    document.getElementById('start_date').value = start.toISOString().split('T')[0];
+    document.getElementById('end_date').value = end.toISOString().split('T')[0];
+}
+
+function setThisYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 1);
+    const end = new Date(now.getFullYear(), 11, 31);
+    
+    document.getElementById('start_date').value = start.toISOString().split('T')[0];
+    document.getElementById('end_date').value = end.toISOString().split('T')[0];
+}
+
+// Set default dates (last 30 days)
+document.addEventListener('DOMContentLoaded', function() {
+    setDateRange(30);
+});
+</script>
+{% endblock %}

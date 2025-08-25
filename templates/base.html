@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EventoSys - Sistema de Gestão de Eventos Institucionais{% endblock %}</title>
+    
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        // Extended pastel palette for public institution theme
+                        pastel: {
+                            blue: {
+                                50: '#f0f9ff',
+                                100: '#e0f2fe',
+                                200: '#bae6fd',
+                                300: '#7dd3fc',
+                                400: '#38bdf8',
+                                500: '#0ea5e9',
+                                600: '#0284c7',
+                                700: '#0369a1',
+                                800: '#075985',
+                                900: '#0c4a6e',
+                            },
+                            green: {
+                                50: '#f0fdf4',
+                                100: '#dcfce7',
+                                200: '#bbf7d0',
+                                300: '#86efac',
+                                400: '#4ade80',
+                                500: '#22c55e',
+                                600: '#16a34a',
+                                700: '#15803d',
+                                800: '#166534',
+                                900: '#14532d',
+                            },
+                            purple: {
+                                50: '#faf5ff',
+                                100: '#f3e8ff',
+                                200: '#e9d5ff',
+                                300: '#d8b4fe',
+                                400: '#c084fc',
+                                500: '#a855f7',
+                                600: '#9333ea',
+                                700: '#7e22ce',
+                                800: '#6b21a8',
+                                900: '#581c87',
+                            },
+                            teal: {
+                                50: '#f0fdfa',
+                                100: '#ccfbf1',
+                                200: '#99f6e4',
+                                300: '#5eead4',
+                                400: '#2dd4bf',
+                                500: '#14b8a6',
+                                600: '#0d9488',
+                                700: '#0f766e',
+                                800: '#115e59',
+                                900: '#134e4a',
+                            },
+                            amber: {
+                                50: '#fffbeb',
+                                100: '#fef3c7',
+                                200: '#fde68a',
+                                300: '#fcd34d',
+                                400: '#fbbf24',
+                                500: '#f59e0b',
+                                600: '#d97706',
+                                700: '#b45309',
+                                800: '#92400e',
+                                900: '#78350f',
+                            },
+                            rose: {
+                                50: '#fff1f2',
+                                100: '#ffe4e6',
+                                200: '#fecdd3',
+                                300: '#fda4af',
+                                400: '#fb7185',
+                                500: '#f43f5e',
+                                600: '#e11d48',
+                                700: '#be123c',
+                                800: '#9f1239',
+                                900: '#881337',
+                            }
+                        }
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome with local fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          onload="this.onload=null;this.rel='stylesheet'" 
+          onerror="this.onerror=null;this.href='/static/fontawesome/css/all.min.css';this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="/static/fontawesome/css/all.min.css">
+    </noscript>
+    
+    <!-- FullCalendar CSS -->
+    {% block extra_css %}{% endblock %}
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        /* Custom styles for neutral pastel theme */
+        .btn-primary {
+            @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition duration-150;
+        }
+        
+        .btn-outline {
+            @apply border-2 border-primary-600 text-primary-700 hover:bg-primary-50 font-medium py-2 px-4 rounded-lg transition duration-150;
+        }
+        
+        .card {
+            @apply bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden;
+        }
+        
+        .card-hover {
+            @apply bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-150;
+        }
+        
+        /* Pastel color utilities */
+        .bg-pastel-blue-50 { background-color: #f0f9ff; }
+        .bg-pastel-green-50 { background-color: #f0fdf4; }
+        .bg-pastel-purple-50 { background-color: #faf5ff; }
+        .bg-pastel-teal-50 { background-color: #f0fdfa; }
+        .bg-pastel-amber-50 { background-color: #fffbeb; }
+        .bg-pastel-rose-50 { background-color: #fff1f2; }
+        
+        .text-pastel-blue-700 { color: #0284c7; }
+        .text-pastel-green-700 { color: #15803d; }
+        .text-pastel-purple-700 { color: #7e22ce; }
+        .text-pastel-teal-700 { color: #0d9488; }
+        .text-pastel-amber-700 { color: #b45309; }
+        .text-pastel-rose-700 { color: #be123c; }
+        
+        .border-pastel-blue-100 { border-color: #e0f2fe; }
+        .border-pastel-green-100 { border-color: #dcfce7; }
+        .border-pastel-purple-100 { border-color: #f3e8ff; }
+        .border-pastel-teal-100 { border-color: #ccfbf1; }
+        .border-pastel-amber-100 { border-color: #fef3c7; }
+        .border-pastel-rose-100 { border-color: #ffe4e6; }
+    </style>
+</head>
+<body class="h-full bg-gray-50 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Navigation -->
+        {% if user.is_authenticated %}
+            <nav class="bg-white shadow-sm border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <a href="{% url 'events:dashboard' %}" class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-pastel-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-calendar-alt text-pastel-blue-700 text-lg"></i>
+                                </div>
+                                <span class="font-bold text-xl text-gray-800">EventoSys</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Navigation Links -->
+                        <div class="hidden md:flex items-center space-x-1">
+                            <a href="{% url 'events:dashboard' %}" 
+                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50 transition-colors duration-150">
+                                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                            </a>
+                            <a href="{% url 'events:event_list' %}" 
+                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50 transition-colors duration-150">
+                                <i class="fas fa-list mr-2"></i>Eventos
+                            </a>
+                            <a href="{% url 'events:calendar' %}" 
+                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50 transition-colors duration-150">
+                                <i class="fas fa-calendar mr-2"></i>Calendário
+                            </a>
+                            <a href="{% url 'reports:list' %}" 
+                               class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50 transition-colors duration-150">
+                                <i class="fas fa-chart-bar mr-2"></i>Relatórios
+                            </a>
+                        </div>
+                        
+                        <!-- User Menu -->
+                        <div class="flex items-center space-x-4">
+                            <!-- Notifications -->
+                            {% if user.is_authenticated %}
+                            <div class="relative">
+                                <button id="notificationButton" class="p-1 rounded-full text-gray-600 hover:text-gray-900 focus:outline-none relative">
+                                    <i class="fas fa-bell text-lg"></i>
+                                    <span id="notificationCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                                </button>
+                                
+                                <!-- Notification Dropdown -->
+                                <div id="notificationMenu" class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 hidden">
+                                    <div class="p-4 border-b border-gray-200">
+                                        <h3 class="font-semibold text-gray-900">Notificações</h3>
+                                    </div>
+                                    <div id="notificationList" class="max-h-96 overflow-y-auto">
+                                        <div class="px-4 py-3 text-sm text-gray-600 text-center">Carregando...</div>
+                                    </div>
+                                    <div class="p-2 border-t border-gray-200 text-center">
+                                        <a href="{% url 'notifications:list' %}" class="text-sm text-primary-600 hover:text-primary-700">Ver todas</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- User Dropdown -->
+                            <div class="relative">
+                                <button id="user-menu-button" class="flex items-center space-x-2 text-sm rounded-full focus:outline-none">
+                                    <div class="w-8 h-8 rounded-full bg-pastel-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-user text-pastel-blue-700"></i>
+                                    </div>
+                                    <span class="hidden md:block font-medium text-gray-700">{{ user.get_full_name|default:user.username }}</span>
+                                    <i class="fas fa-chevron-down text-xs text-gray-500 hidden md:block"></i>
+                                </button>
+                                
+                                <!-- User Dropdown Menu -->
+                                <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 hidden">
+                                    <div class="px-4 py-3 border-b border-gray-200">
+                                        <p class="text-sm font-medium text-gray-900">{{ user.get_full_name|default:user.username }}</p>
+                                        <p class="text-xs text-gray-600">{{ user.email }}</p>
+                                    </div>
+                                    <div class="py-1">
+                                        <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-user-circle mr-2"></i>Meu Perfil
+                                        </a>
+                                        <a href="{% url 'accounts:profile_edit' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-cog mr-2"></i>Configurações
+                                        </a>
+                                    </div>
+                                    <div class="border-t border-gray-200">
+                                        <a href="{% url 'accounts:logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Mobile menu button -->
+                            <div class="md:hidden">
+                                <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none">
+                                    <i class="fas fa-bars text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu -->
+                <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200">
+                    <div class="px-2 pt-2 pb-3 space-y-1">
+                        <a href="{% url 'events:dashboard' %}" 
+                           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50">
+                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                        </a>
+                        <a href="{% url 'events:event_list' %}" 
+                           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50">
+                            <i class="fas fa-list mr-2"></i>Eventos
+                        </a>
+                        <a href="{% url 'events:calendar' %}" 
+                           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50">
+                            <i class="fas fa-calendar mr-2"></i>Calendário
+                        </a>
+                        <a href="{% url 'reports:list' %}" 
+                           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pastel-blue-700 hover:bg-pastel-blue-50">
+                            <i class="fas fa-chart-bar mr-2"></i>Relatórios
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        {% endif %}
+        
+        <!-- Flash Messages -->
+        {% if messages %}
+            <div class="pt-4">
+                {% for message in messages %}
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
+                        <div class="{% if message.tags == 'error' %}bg-rose-50 border-rose-200 text-rose-800{% elif message.tags == 'warning' %}bg-amber-50 border-amber-200 text-amber-800{% elif message.tags == 'success' %}bg-green-50 border-green-200 text-green-800{% else %}bg-blue-50 border-blue-200 text-blue-800{% endif %} border rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% elif message.tags == 'success' %}fa-check-circle{% else %}fa-info-circle{% endif %} mr-3"></i>
+                                <span>{{ message }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <!-- Main Content -->
+        <main class="flex-grow">
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Footer -->
+        {% if user.is_authenticated %}
+            <footer class="bg-white border-t border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div class="grid md:grid-cols-4 gap-8">
+                        <div>
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="w-8 h-8 bg-pastel-blue-500 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-calendar-alt text-white text-lg"></i>
+                                </div>
+                                <span class="font-bold text-xl text-gray-900">EventoSys</span>
+                            </div>
+                            <p class="text-gray-700 text-sm">
+                                Sistema completo para gestão de eventos institucionais com transparência e eficiência.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-4">Funcionalidades</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><a href="{% url 'events:event_list' %}" class="hover:text-pastel-blue-600">Gestão de Eventos</a></li>
+                                <li><a href="{% url 'events:calendar' %}" class="hover:text-pastel-blue-600">Calendário Interativo</a></li>
+                                <li><a href="{% url 'reports:list' %}" class="hover:text-pastel-blue-600">Relatórios</a></li>
+                                <li><a href="#" class="hover:text-pastel-blue-600">Notificações</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-4">Suporte</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><a href="#" class="hover:text-pastel-blue-600">Central de Ajuda</a></li>
+                                <li><a href="#" class="hover:text-pastel-blue-600">Documentação</a></li>
+                                <li><a href="#" class="hover:text-pastel-blue-600">Contato</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-4">Sistema</h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-center"><i class="fab fa-python mr-2 text-pastel-blue-500"></i> Django</li>
+                                <li class="flex items-center"><i class="fas fa-database mr-2 text-pastel-blue-500"></i> SQLite</li>
+                                <li class="flex items-center"><i class="fas fa-mobile-alt mr-2 text-pastel-blue-500"></i> Responsivo</li>
+                                <li class="flex items-center"><i class="fas fa-shield-alt mr-2 text-pastel-blue-500"></i> Seguro</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 mt-8 pt-8 text-center">
+                        <p class="text-sm text-gray-600">
+                            © {% now "Y" %} EventoSys. Sistema de Gestão de Eventos Institucionais. Todos os direitos reservados.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        {% endif %}
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // User menu toggle
+        document.getElementById('user-menu-button')?.addEventListener('click', function() {
+            const menu = document.getElementById('user-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Notification menu toggle
+        document.getElementById('notificationButton')?.addEventListener('click', function() {
+            const menu = document.getElementById('notificationMenu');
+            const isHidden = menu.classList.contains('hidden');
+            
+            // Close user menu if open
+            document.getElementById('user-menu')?.classList.add('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                loadRecentNotifications();
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+        
+        // Close menus when clicking outside
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-menu');
+            const userButton = document.getElementById('user-menu-button');
+            const notificationMenu = document.getElementById('notificationMenu');
+            const notificationButton = document.getElementById('notificationButton');
+            
+            if (!userButton?.contains(event.target) && !userMenu?.contains(event.target)) {
+                userMenu?.classList.add('hidden');
+            }
+            
+            if (!notificationButton?.contains(event.target) && !notificationMenu?.contains(event.target)) {
+                notificationMenu?.classList.add('hidden');
+            }
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Load notification count on page load
+        {% if user.is_authenticated %}
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNotificationCount();
+            // Update count every 30 seconds
+            setInterval(updateNotificationCount, 30000);
+        });
+        
+        function updateNotificationCount() {
+            fetch('{% url "notifications:unread_count" %}')
+                .then(response => response.json())
+                .then(data => {
+                    const countElement = document.getElementById('notificationCount');
+                    if (countElement) {
+                        if (data.count > 0) {
+                            countElement.textContent = data.count > 99 ? '99+' : data.count;
+                            countElement.classList.remove('hidden');
+                        } else {
+                            countElement.classList.add('hidden');
+                        }
+                    }
+                })
+                .catch(error => console.error('Error fetching notification count:', error));
+        }
+        
+        function loadRecentNotifications() {
+            const listElement = document.getElementById('notificationList');
+            listElement.innerHTML = '<div class="px-4 py-3 text-sm text-gray-600 text-center">Carregando...</div>';
+            
+            fetch('{% url "notifications:recent" %}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.notifications.length === 0) {
+                        listElement.innerHTML = '<div class="px-4 py-3 text-sm text-gray-600 text-center">Nenhuma notificação nova</div>';
+                        return;
+                    }
+                    
+                    const notificationsHTML = data.notifications.map(notification => {
+                        const priorityColor = {
+                            'low': 'text-gray-600',
+                            'medium': 'text-blue-600',
+                            'high': 'text-amber-600',
+                            'urgent': 'text-rose-600'
+                        }[notification.priority] || 'text-gray-600';
+                        
+                        return `
+                            <div class="px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer" onclick="window.location.href='/notifications/${notification.id}/'">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate">${notification.title}</p>
+                                        <p class="text-xs text-gray-600 truncate">${notification.message}</p>
+                                        <div class="flex items-center space-x-2 mt-1">
+                                            <span class="text-xs ${priorityColor}">${notification.type}</span>
+                                            <span class="text-xs text-gray-500">•</span>
+                                            <span class="text-xs text-gray-500">${notification.created_at}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-2 h-2 bg-pastel-blue-600 rounded-full flex-shrink-0 mt-2"></div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    listElement.innerHTML = notificationsHTML;
+                })
+                .catch(error => {
+                    console.error('Error loading notifications:', error);
+                    listElement.innerHTML = '<div class="px-4 py-3 text-sm text-rose-500 text-center">Erro ao carregar notificações</div>';
+                });
+        }
+        {% endif %}
+        
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(function() {
+            const messages = document.querySelectorAll('[class*="bg-rose-50"], [class*="bg-amber-50"], [class*="bg-green-50"], [class*="bg-blue-50"]');
+            messages.forEach(function(message) {
+                if (message.parentElement && message.parentElement.classList.contains('pt-4')) {
+                    message.style.transition = 'opacity 0.5s ease-out';
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }
+            });
+        }, 5000);
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

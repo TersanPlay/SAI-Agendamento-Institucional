@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+
+{% block title %}Integração de Calendário - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center space-x-4">
+            <a href="{% url 'events:calendar' %}" 
+               class="text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fas fa-arrow-left text-xl"></i>
+            </a>
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Integração de Calendário</h1>
+                <p class="text-gray-600 mt-2">Configure suas integrações com calendários externos</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    {% if has_sample_event %}
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+        <div class="flex items-start">
+            <i class="fas fa-info-circle text-blue-600 mt-1 mr-3 text-lg"></i>
+            <div class="flex-1">
+                <h3 class="font-semibold text-blue-900 mb-2">Adicionar Evento Individual</h3>
+                <p class="text-blue-800 text-sm mb-4">
+                    Para adicionar um evento específico ao seu calendário pessoal, clique nos links abaixo:
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ sample_google_url }}" target="_blank"
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                        <i class="fab fa-google mr-2"></i>
+                        Adicionar ao Google Calendar
+                    </a>
+                    <a href="{{ sample_outlook_url }}" target="_blank"
+                       class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm">
+                        <i class="fab fa-microsoft mr-2"></i>
+                        Adicionar ao Outlook
+                    </a>
+                </div>
+                <p class="text-xs text-blue-700 mt-2">
+                    Exemplo com o evento: "{{ sample_event.name }}"
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Calendar Subscriptions -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Personal Calendar Feed -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-user text-blue-600"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-900">Calendário Pessoal</h2>
+                    <p class="text-sm text-gray-600">Seus eventos personalizados</p>
+                </div>
+            </div>
+            
+            <p class="text-gray-700 text-sm mb-4">
+                Este feed inclui todos os eventos que você pode visualizar, incluindo eventos privados do seu departamento.
+            </p>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">URL de Assinatura:</label>
+                    <div class="flex">
+                        <input type="text" value="{{ user_feed_url }}" readonly
+                               class="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg bg-gray-50 text-xs font-mono">
+                        <button onclick="copyToClipboard('{{ user_feed_url }}')"
+                                class="px-3 py-2 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg hover:bg-gray-300 transition-colors">
+                            <i class="fas fa-copy text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <button onclick="openCalendarApp('google', '{{ user_feed_url }}')"
+                            class="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                        <i class="fab fa-google mr-2"></i>Google
+                    </button>
+                    <button onclick="openCalendarApp('outlook', '{{ user_feed_url }}')"
+                            class="flex-1 bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm">
+                        <i class="fab fa-microsoft mr-2"></i>Outlook
+                    </button>
+                    <button onclick="downloadCalendar('{{ user_feed_url }}')"
+                            class="flex-1 bg-gray-600 text-white px-3 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 mt-0.5 mr-2 text-sm"></i>
+                    <div>
+                        <p class="text-xs text-yellow-800">
+                            <strong>Privacidade:</strong> Esta URL é pessoal e privada. Não compartilhe com outros usuários.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Public Calendar Feed -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-globe text-green-600"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-900">Calendário Público</h2>
+                    <p class="text-sm text-gray-600">Eventos públicos da instituição</p>
+                </div>
+            </div>
+            
+            <p class="text-gray-700 text-sm mb-4">
+                Este feed contém apenas eventos públicos que podem ser visualizados por qualquer pessoa.
+            </p>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">URL de Assinatura:</label>
+                    <div class="flex">
+                        <input type="text" value="{{ public_feed_url }}" readonly
+                               class="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg bg-gray-50 text-xs font-mono">
+                        <button onclick="copyToClipboard('{{ public_feed_url }}')"
+                                class="px-3 py-2 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg hover:bg-gray-300 transition-colors">
+                            <i class="fas fa-copy text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <button onclick="openCalendarApp('google', '{{ public_feed_url }}')"
+                            class="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                        <i class="fab fa-google mr-2"></i>Google
+                    </button>
+                    <button onclick="openCalendarApp('outlook', '{{ public_feed_url }}')"
+                            class="flex-1 bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm">
+                        <i class="fab fa-microsoft mr-2"></i>Outlook
+                    </button>
+                    <button onclick="downloadCalendar('{{ public_feed_url }}')"
+                            class="flex-1 bg-gray-600 text-white px-3 py-2 rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-check-circle text-green-600 mt-0.5 mr-2 text-sm"></i>
+                    <div>
+                        <p class="text-xs text-green-800">
+                            <strong>Público:</strong> Esta URL pode ser compartilhada publicamente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Department Calendar (if available) -->
+    {% if department_feed_url %}
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+        <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-building text-purple-600"></i>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold text-gray-900">Calendário do Departamento</h2>
+                <p class="text-sm text-gray-600">Eventos do {{ user.profile.department.name }}</p>
+            </div>
+        </div>
+        
+        <p class="text-gray-700 text-sm mb-4">
+            Este feed contém eventos públicos do seu departamento.
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">URL de Assinatura:</label>
+                <div class="flex">
+                    <input type="text" value="{{ department_feed_url }}" readonly
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-l-lg bg-gray-50 text-xs font-mono">
+                    <button onclick="copyToClipboard('{{ department_feed_url }}')"
+                            class="px-3 py-2 bg-gray-200 border border-l-0 border-gray-300 rounded-r-lg hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-copy text-xs"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex space-x-2">
+                <button onclick="openCalendarApp('google', '{{ department_feed_url }}')"
+                        class="flex-1 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                    <i class="fab fa-google mr-2"></i>Google
+                </button>
+                <button onclick="openCalendarApp('outlook', '{{ department_feed_url }}')"
+                        class="flex-1 bg-orange-600 text-white px-3 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm">
+                    <i class="fab fa-microsoft mr-2"></i>Outlook
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Instructions -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">
+            <i class="fas fa-question-circle text-gray-600 mr-2"></i>
+            Como Configurar
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Google Calendar Instructions -->
+            <div>
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <i class="fab fa-google text-blue-600 mr-2"></i>
+                    Google Calendar
+                </h3>
+                <ol class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <span class="bg-blue-100 text-blue-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">1</span>
+                        Copie a URL de assinatura do calendário desejado
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-blue-100 text-blue-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">2</span>
+                        Abra o Google Calendar e clique no "+" próximo a "Outros calendários"
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-blue-100 text-blue-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">3</span>
+                        Selecione "A partir do URL" e cole a URL copiada
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-blue-100 text-blue-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">4</span>
+                        Clique em "Adicionar calendário"
+                    </li>
+                </ol>
+            </div>
+            
+            <!-- Outlook Instructions -->
+            <div>
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <i class="fab fa-microsoft text-orange-600 mr-2"></i>
+                    Microsoft Outlook
+                </h3>
+                <ol class="space-y-2 text-sm text-gray-700">
+                    <li class="flex items-start">
+                        <span class="bg-orange-100 text-orange-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">1</span>
+                        Copie a URL de assinatura do calendário desejado
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-100 text-orange-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">2</span>
+                        No Outlook, vá em "Adicionar calendário" → "Assinar da web"
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-100 text-orange-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">3</span>
+                        Cole a URL no campo "Link do calendário"
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-100 text-orange-800 w-5 h-5 rounded-full text-xs flex items-center justify-center mr-2 mt-0.5 font-medium">4</span>
+                        Defina um nome e clique em "Importar"
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Additional Notes -->
+        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <h4 class="font-medium text-gray-800 mb-2">
+                <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                Dicas Importantes
+            </h4>
+            <ul class="space-y-1 text-sm text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-600 mr-2 mt-1 text-xs"></i>
+                    Os calendários são atualizados automaticamente, mas pode levar algumas horas
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-600 mr-2 mt-1 text-xs"></i>
+                    Alterações nos eventos aparecem automaticamente no seu calendário
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-600 mr-2 mt-1 text-xs"></i>
+                    Você pode configurar múltiplos calendários (pessoal + público + departamento)
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-yellow-600 mr-2 mt-1 text-xs"></i>
+                    O calendário pessoal é privado - não compartilhe a URL
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Success Toast -->
+<div id="toast" class="fixed top-4 right-4 z-50 transform translate-x-full transition-transform duration-300">
+    <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div class="flex items-center">
+            <i class="fas fa-check mr-2"></i>
+            <span id="toastMessage">URL copiada para a área de transferência!</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function() {
+            showToast('URL copiada para a área de transferência!');
+        }, function() {
+            fallbackCopyToClipboard(text);
+        });
+    } else {
+        fallbackCopyToClipboard(text);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showToast('URL copiada para a área de transferência!');
+    } catch (err) {
+        showToast('Erro ao copiar URL. Copie manualmente.', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    
+    toastMessage.textContent = message;
+    
+    // Update colors based on type
+    const toastContainer = toast.querySelector('div');
+    if (type === 'error') {
+        toastContainer.className = 'bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
+    } else {
+        toastContainer.className = 'bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+    }
+    
+    // Show toast
+    toast.classList.remove('translate-x-full');
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        toast.classList.add('translate-x-full');
+    }, 3000);
+}
+
+function openCalendarApp(app, url) {
+    if (app === 'google') {
+        // Google Calendar subscription URL
+        const googleUrl = `https://calendar.google.com/calendar/u/0/r/settings/addbyurl?cid=${encodeURIComponent(url)}`;
+        window.open(googleUrl, '_blank');
+    } else if (app === 'outlook') {
+        // For Outlook, we'll just copy the URL and show instructions
+        copyToClipboard(url);
+        showToast('URL copiada! Cole no Outlook: Adicionar calendário → Assinar da web');
+    }
+}
+
+function downloadCalendar(url) {
+    window.open(url, '_blank');
+}
+</script>
+{% endblock %}

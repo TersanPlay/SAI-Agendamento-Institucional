@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Acesso Negado - EventoSys{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Header -->
+        <div class="text-center">
+            <div class="mx-auto h-24 w-24 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-shield-alt text-red-600 text-4xl"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                Acesso Negado
+            </h1>
+            <p class="text-lg text-gray-600">
+                Você não tem permissão para acessar esta área
+            </p>
+        </div>
+
+        <!-- Error Details -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="text-center space-y-4">
+                <div class="bg-red-50 rounded-lg p-4">
+                    <div class="flex items-center justify-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                        </div>
+                        <div class="ml-3 text-left">
+                            <h3 class="text-sm font-medium text-red-800">
+                                Permissão Insuficiente
+                            </h3>
+                            <p class="mt-1 text-sm text-red-700">
+                                Esta funcionalidade requer privilégios de administrador ou gestor.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-sm text-gray-600">
+                    <p class="mb-2">
+                        <strong>Seu nível de acesso atual:</strong> 
+                        {% if user.profile.user_type == 'administrador' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                <i class="fas fa-crown mr-1"></i>
+                                Administrador
+                            </span>
+                        {% elif user.profile.user_type == 'gestor' %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <i class="fas fa-users-cog mr-1"></i>
+                                Gestor
+                            </span>
+                        {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i class="fas fa-eye mr-1"></i>
+                                Visualizador
+                            </span>
+                        {% endif %}
+                    </p>
+                    <p>
+                        <strong>Área solicitada:</strong> Dashboard de Monitoramento
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Available Actions -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4 text-center">
+                O que você pode fazer?
+            </h3>
+            
+            <div class="space-y-3">
+                <a href="{% url 'events:dashboard' %}" 
+                   class="flex items-center justify-center w-full px-4 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-tachometer-alt mr-2"></i>
+                    Voltar ao Dashboard Principal
+                </a>
+
+                <a href="{% url 'events:event_list' %}" 
+                   class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-list mr-2"></i>
+                    Ver Lista de Eventos
+                </a>
+
+                <a href="{% url 'events:calendar' %}" 
+                   class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-calendar mr-2"></i>
+                    Acessar Calendário
+                </a>
+
+                <a href="{% url 'accounts:profile' %}" 
+                   class="flex items-center justify-center w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-user mr-2"></i>
+                    Ver Meu Perfil
+                </a>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="bg-blue-50 rounded-xl border border-blue-200 p-6">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-question-circle text-blue-600 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-900">
+                        Precisa de mais acesso?
+                    </h3>
+                    <div class="mt-2 text-sm text-blue-800">
+                        <p class="mb-2">
+                            Se você acredita que deveria ter acesso a esta área, entre em contato com:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Administrador do sistema</li>
+                            <li>Seu departamento responsável</li>
+                            <li>Suporte técnico interno</li>
+                        </ul>
+                        <p class="mt-3 text-xs">
+                            <strong>Código do erro:</strong> ACCESS_DENIED_MONITORING_DASHBOARD
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Information -->
+        <div class="text-center text-sm text-gray-500">
+            <p>
+                Logado como: <strong>{{ user.get_full_name|default:user.username }}</strong>
+            </p>
+            <p>
+                Departamento: 
+                {% if user.profile.department %}
+                    <strong>{{ user.profile.department.name }}</strong>
+                {% else %}
+                    <strong>Não definido</strong>
+                {% endif %}
+            </p>
+            <p class="mt-2">
+                <a href="{% url 'accounts:logout' %}" class="text-blue-600 hover:text-blue-800 transition-colors">
+                    Fazer logout
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-redirect after 30 seconds (optional)
+    let countdown = 30;
+    let redirectTimer;
+    
+    function startCountdown() {
+        const countdownElement = document.createElement('div');
+        countdownElement.id = 'redirect-countdown';
+        countdownElement.className = 'text-center text-sm text-gray-500 mt-4';
+        countdownElement.innerHTML = `
+            <p>Redirecionando para o dashboard principal em <span id="countdown-number">${countdown}</span> segundos...</p>
+            <button onclick="cancelRedirect()" class="text-blue-600 hover:text-blue-800 text-xs underline ml-2">
+                Cancelar
+            </button>
+        `;
+        
+        document.querySelector('.max-w-md').appendChild(countdownElement);
+        
+        redirectTimer = setInterval(function() {
+            countdown--;
+            document.getElementById('countdown-number').textContent = countdown;
+            
+            if (countdown <= 0) {
+                window.location.href = '{% url "events:dashboard" %}';
+            }
+        }, 1000);
+    }
+    
+    window.cancelRedirect = function() {
+        clearInterval(redirectTimer);
+        const countdownElement = document.getElementById('redirect-countdown');
+        if (countdownElement) {
+            countdownElement.remove();
+        }
+    };
+    
+    // Start countdown after 5 seconds
+    setTimeout(startCountdown, 5000);
+    
+    // Log the access attempt for security purposes
+    console.warn('Access denied to monitoring dashboard - User: {{ user.username }}, Level: {{ user.profile.user_type }}');
+});
+</script>
+{% endblock %}

@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+        <p class="text-gray-700 mt-2">Visão geral dos eventos e atividades</p>
+    </div>
+    
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Eventos Hoje -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-700">Eventos Hoje</p>
+                    <p class="text-2xl font-semibold text-gray-800">{{ events_today.count }}</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-day text-pastel-blue-700 text-xl"></i>
+                </div>
+            </div>
+            {% if events_today %}
+                <div class="mt-4">
+                    <a href="{% url 'events:event_list' %}?start_date={{ 'today'|date:'Y-m-d' }}&end_date={{ 'today'|date:'Y-m-d' }}" 
+                       class="text-sm text-pastel-blue-600 hover:text-pastel-blue-800 font-medium">
+                        Ver eventos <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Eventos Esta Semana -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-700">Esta Semana</p>
+                    <p class="text-2xl font-semibold text-gray-800">{{ events_this_week.count }}</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-week text-pastel-green-700 text-xl"></i>
+                </div>
+            </div>
+            {% if events_this_week %}
+                <div class="mt-4">
+                    <a href="{% url 'events:event_list' %}" 
+                       class="text-sm text-pastel-green-600 hover:text-pastel-green-800 font-medium">
+                        Ver eventos <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Meus Eventos -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-700">Meus Eventos</p>
+                    <p class="text-2xl font-semibold text-gray-800">{{ my_events.count }}</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-purple-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-user-circle text-pastel-purple-700 text-xl"></i>
+                </div>
+            </div>
+            {% if my_events %}
+                <div class="mt-4">
+                    <a href="{% url 'events:event_list' %}?responsible_person={{ user.id }}" 
+                       class="text-sm text-pastel-purple-600 hover:text-pastel-purple-800 font-medium">
+                        Ver eventos <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="bg-gradient-to-br from-pastel-blue-100 to-pastel-indigo-100 rounded-2xl shadow-sm p-6 text-gray-800 border border-pastel-blue-200">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-pastel-blue-700 text-sm font-medium">Ações Rápidas</p>
+                    <p class="text-lg font-semibold">Novo Evento</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-blue-200 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-plus text-pastel-blue-700 text-xl"></i>
+                </div>
+            </div>
+            {% if can_create_events %}
+                <div class="mt-4">
+                    <a href="{% url 'events:event_create' %}" 
+                       class="text-sm text-pastel-blue-700 hover:text-pastel-blue-900 font-medium">
+                        Criar evento <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            {% else %}
+                <div class="mt-4">
+                    <span class="text-sm text-pastel-blue-600">Sem permissão</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Main Content Grid -->
+    <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Left Column - Events -->
+        <div class="lg:col-span-2 space-y-8">
+            <!-- Recent Events -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-800">Eventos Recentes</h2>
+                        <a href="{% url 'events:event_list' %}" 
+                           class="text-sm text-pastel-blue-600 hover:text-pastel-blue-800 font-medium">
+                            Ver todos <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    {% if recent_events %}
+                        <div class="space-y-4">
+                            {% for event in recent_events %}
+                                <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors">
+                                    <!-- Event Type Color -->
+                                    <div class="w-3 h-3 rounded-full flex-shrink-0" 
+                                         style="background-color: {{ event.event_type.color }};"></div>
+                                    
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center space-x-2">
+                                            <h3 class="text-sm font-medium text-gray-800 truncate">
+                                                <a href="{% url 'events:event_detail' event.pk %}" 
+                                                   class="hover:text-pastel-blue-600">
+                                                    {{ event.name }}
+                                                </a>
+                                            </h3>
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                                                {% if event.status == 'planejado' %}bg-pastel-blue-100 text-pastel-blue-800
+                                                {% elif event.status == 'em_andamento' %}bg-pastel-green-100 text-pastel-green-800
+                                                {% elif event.status == 'concluido' %}bg-gray-100 text-gray-800
+                                                {% elif event.status == 'cancelado' %}bg-rose-100 text-rose-800
+                                                {% endif %}">
+                                                {{ event.get_status_display }}
+                                            </span>
+                                        </div>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            <i class="fas fa-calendar mr-1"></i>
+                                            {{ event.start_datetime|date:"d/m/Y H:i" }}
+                                            {% if event.location %}
+                                                • <i class="fas fa-map-marker-alt mr-1"></i>{{ event.location }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-8">
+                            <i class="fas fa-calendar-plus text-gray-300 text-4xl mb-4"></i>
+                            <p class="text-gray-700">Nenhum evento encontrado</p>
+                            {% if can_create_events %}
+                                <a href="{% url 'events:event_create' %}" 
+                                   class="text-pastel-blue-600 hover:text-pastel-blue-800 font-medium mt-2 inline-block">
+                                    Criar seu primeiro evento
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Events by Status Chart -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800">Eventos por Status</h2>
+                </div>
+                
+                <div class="p-6">
+                    {% if events_by_status %}
+                        <div class="space-y-4">
+                            {% for status_data in events_by_status %}
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-3 h-3 rounded-full
+                                            {% if status_data.status == 'planejado' %}bg-pastel-blue-500
+                                            {% elif status_data.status == 'em_andamento' %}bg-pastel-green-500
+                                            {% elif status_data.status == 'concluido' %}bg-gray-500
+                                            {% elif status_data.status == 'cancelado' %}bg-rose-500
+                                            {% endif %}"></div>
+                                        <span class="text-sm font-medium text-gray-800">
+                                            {% if status_data.status == 'planejado' %}Planejado
+                                            {% elif status_data.status == 'em_andamento' %}Em Andamento
+                                            {% elif status_data.status == 'concluido' %}Concluído
+                                            {% elif status_data.status == 'cancelado' %}Cancelado
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                    <span class="text-sm font-semibold text-gray-800">{{ status_data.count }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500 text-center py-4">Nenhum dado disponível</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Column - Sidebar -->
+        <div class="space-y-8">
+            <!-- Quick Calendar -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800">Calendário</h2>
+                </div>
+                
+                <div class="p-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary-600 mb-2">
+                            {{ 'today'|date:"d" }}
+                        </div>
+                        <div class="text-sm text-gray-600 mb-4">
+                            {{ 'today'|date:"F Y" }}
+                        </div>
+                        <a href="{% url 'events:calendar' %}" 
+                           class="inline-flex items-center px-4 py-2 bg-primary-50 text-primary-600 rounded-lg hover:bg-primary-100 transition-colors font-medium">
+                            <i class="fas fa-calendar mr-2"></i>
+                            Ver Calendário Completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events by Type -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800">Tipos Mais Frequentes</h2>
+                </div>
+                
+                <div class="p-6">
+                    {% if events_by_type %}
+                        <div class="space-y-3">
+                            {% for type_data in events_by_type %}
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-600 truncate">
+                                        {% if type_data.event_type__name == 'reuniao' %}Reunião
+                                        {% elif type_data.event_type__name == 'audiencia_publica' %}Audiência Pública
+                                        {% elif type_data.event_type__name == 'sessao_plenaria' %}Sessão Plenária
+                                        {% elif type_data.event_type__name == 'palestra' %}Palestra
+                                        {% elif type_data.event_type__name == 'workshop' %}Workshop
+                                        {% elif type_data.event_type__name == 'seminario' %}Seminário
+                                        {% elif type_data.event_type__name == 'congresso' %}Congresso
+                                        {% elif type_data.event_type__name == 'curso_capacitacao' %}Curso/Capacitação
+                                        {% elif type_data.event_type__name == 'mesa_redonda' %}Mesa-Redonda
+                                        {% elif type_data.event_type__name == 'debate' %}Debate
+                                        {% elif type_data.event_type__name == 'conferencia' %}Conferência
+                                        {% elif type_data.event_type__name == 'encontro_tematico' %}Encontro Temático
+                                        {% elif type_data.event_type__name == 'assembleia' %}Assembleia
+                                        {% elif type_data.event_type__name == 'visita_tecnica' %}Visita Técnica
+                                        {% elif type_data.event_type__name == 'cerimonia_oficial' %}Cerimônia Oficial
+                                        {% elif type_data.event_type__name == 'lancamento_projeto' %}Lançamento de Projeto/Programa
+                                        {% elif type_data.event_type__name == 'coletiva_imprensa' %}Coletiva de Imprensa
+                                        {% elif type_data.event_type__name == 'atividade_cultural' %}Atividade Cultural
+                                        {% elif type_data.event_type__name == 'atividade_comunitaria' %}Atividade Comunitária
+                                        {% else %}Outros
+                                        {% endif %}
+                                    </span>
+                                    <span class="text-sm font-semibold text-gray-900">{{ type_data.count }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500 text-center py-4">Nenhum dado disponível</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">Ações Rápidas</h2>
+                </div>
+                
+                <div class="p-6">
+                    <div class="space-y-3">
+                        {% if can_create_events %}
+                            <a href="{% url 'events:event_create' %}" 
+                               class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-plus text-green-600"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Criar Evento</span>
+                            </a>
+                        {% endif %}
+                        
+                        <a href="{% url 'events:calendar' %}" 
+                           class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-calendar text-blue-600"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Ver Calendário</span>
+                        </a>
+                        
+                        <a href="{% url 'events:event_list' %}" 
+                           class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-list text-purple-600"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Listar Eventos</span>
+                        </a>
+                        
+                        <a href="{% url 'accounts:profile' %}" 
+                           class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-user text-gray-600"></i>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Meu Perfil</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}Meu Perfil - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="flex-1 min-w-0">
+                <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    👤 Meu Perfil
+                </h1>
+                <p class="mt-1 text-sm text-gray-500">
+                    Visualize e gerencie suas informações pessoais
+                </p>
+            </div>
+            <div class="mt-4 flex md:mt-0 md:ml-4">
+                <a href="{% url 'accounts:profile_edit' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-edit mr-2"></i>
+                    Editar Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Profile Picture and Basic Info -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div class="px-6 py-8 text-center">
+                    {% if profile.avatar %}
+                        <img class="mx-auto h-32 w-32 rounded-full object-cover border-4 border-white shadow-lg" 
+                             src="{{ profile.avatar.url }}" 
+                             alt="{{ user.get_full_name|default:user.username }}">
+                    {% else %}
+                        <div class="mx-auto h-32 w-32 rounded-full bg-blue-100 flex items-center justify-center border-4 border-white shadow-lg">
+                            <i class="fas fa-user text-blue-600 text-4xl"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h2 class="mt-4 text-xl font-semibold text-gray-900">
+                        {{ user.get_full_name|default:user.username }}
+                    </h2>
+                    
+                    <div class="mt-2">
+                        {% if profile.user_type == 'administrador' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                                <i class="fas fa-crown mr-1"></i>
+                                Administrador
+                            </span>
+                        {% elif profile.user_type == 'gestor' %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                <i class="fas fa-users-cog mr-1"></i>
+                                Gestor
+                            </span>
+                        {% else %}
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                <i class="fas fa-eye mr-1"></i>
+                                Visualizador
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if profile.department %}
+                        <p class="mt-2 text-sm text-gray-600">
+                            <i class="fas fa-building mr-1"></i>
+                            {{ profile.department.name }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Information -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Personal Information -->
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        📋 Informações Pessoais
+                    </h3>
+                </div>
+                <div class="px-6 py-4">
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Nome Completo</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ user.get_full_name|default:"Não informado" }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Nome de Usuário</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ user.username }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Email</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ user.email|default:"Não informado" }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Telefone</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ profile.phone|default:"Não informado" }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Data de Cadastro</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ user.date_joined|date:"d/m/Y H:i" }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Último Acesso</dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {% if user.last_login %}
+                                    {{ user.last_login|date:"d/m/Y H:i" }}
+                                {% else %}
+                                    Nunca
+                                {% endif %}
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- System Preferences -->
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        ⚙️ Preferências do Sistema
+                    </h3>
+                </div>
+                <div class="px-6 py-4">
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Receber Notificações</dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {% if profile.receive_notifications %}
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-1"></i>
+                                        Ativado
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times mr-1"></i>
+                                        Desativado
+                                    </span>
+                                {% endif %}
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Visualização do Calendário</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ profile.get_calendar_view_preference_display|default:"Padrão (Mensal)" }}</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- Account Status -->
+            <div class="bg-white rounded-xl border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        🔒 Status da Conta
+                    </h3>
+                </div>
+                <div class="px-6 py-4">
+                    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Status</dt>
+                            <dd class="mt-1 text-sm text-gray-900">
+                                {% if user.is_active %}
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check-circle mr-1"></i>
+                                        Ativa
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times-circle mr-1"></i>
+                                        Inativa
+                                    </span>
+                                {% endif %}
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Tipo de Usuário</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ profile.get_user_type_display }}</dd>
+                        </div>
+                        {% if profile.department %}
+                        <div>
+                            <dt class="text-sm font-medium text-gray-500">Departamento</dt>
+                            <dd class="mt-1 text-sm text-gray-900">{{ profile.department.name }}</dd>
+                        </div>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mt-8 bg-gray-50 rounded-xl border border-gray-200 p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">
+            🚀 Ações Rápidas
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="{% url 'accounts:profile_edit' %}" 
+               class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-edit text-blue-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">Editar Perfil</p>
+                    <p class="text-xs text-gray-500">Atualizar informações</p>
+                </div>
+            </a>
+
+            <a href="{% url 'notifications:preferences' %}" 
+               class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-bell text-yellow-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">Notificações</p>
+                    <p class="text-xs text-gray-500">Configurar preferências</p>
+                </div>
+            </a>
+
+            <a href="{% url 'events:dashboard' %}" 
+               class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tachometer-alt text-green-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">Dashboard</p>
+                    <p class="text-xs text-gray-500">Voltar ao painel</p>
+                </div>
+            </a>
+
+            <a href="{% url 'events:calendar' %}" 
+               class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar text-purple-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">Calendário</p>
+                    <p class="text-xs text-gray-500">Ver eventos</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

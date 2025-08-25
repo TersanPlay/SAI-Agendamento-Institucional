@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendário Público - EventoSys{% endblock %}
+
+{% block extra_css %}
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css' rel='stylesheet' />
+<style>
+    /* Custom calendar styling for public view */
+    .fc {
+        font-family: inherit;
+    }
+    
+    .fc-toolbar {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e5e7eb;
+        gap: 0.5rem; /* Add spacing between toolbar sections */
+    }
+    
+    /* Add spacing between button groups */
+    .fc-toolbar-chunk {
+        display: flex;
+        gap: 0.25rem;
+    }
+    
+    .fc-toolbar-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0 0.5rem; /* Add horizontal margin */
+    }
+    
+    .fc-button {
+        background: #f3f4f6 !important;
+        border: 1px solid #d1d5db !important;
+        color: #374151 !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1rem !important;
+        font-weight: 500 !important;
+        transition: all 0.15s ease !important;
+        margin: 0 0.25rem; /* Add small horizontal margin between buttons */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .fc-button:hover {
+        background: #e5e7eb !important;
+        border-color: #9ca3af !important;
+    }
+    
+    .fc-button-primary:not(:disabled).fc-button-active {
+        background: #3b82f6 !important;
+        border-color: #3b82f6 !important;
+        color: white !important;
+    }
+    
+    /* Fix for icon rendering issues - ensure Font Awesome is used */
+    .fc-button .fc-icon {
+        font-family: "Font Awesome 5 Free", "Font Awesome 5 Pro", FontAwesome, sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 900 !important;
+        margin: 0 !important;
+        display: inline-block;
+        line-height: 1;
+    }
+    
+    /* Explicitly define the chevron icons using Font Awesome */
+    .fc-button .fc-icon.fc-icon-chevron-left::before {
+        content: "\f053" !important; /* fa-chevron-left */
+        font-family: "Font Awesome 5 Free" !important;
+        font-weight: 900 !important;
+    }
+    
+    .fc-button .fc-icon.fc-icon-chevron-right::before {
+        content: "\f054" !important; /* fa-chevron-right */
+        font-family: "Font Awesome 5 Free" !important;
+        font-weight: 900 !important;
+    }
+    
+    .fc-daygrid-day {
+        border: 1px solid #f3f4f6;
+    }
+    
+    .fc-day-today {
+        background: #fef3c7 !important;
+    }
+    
+    .fc-event {
+        border-radius: 6px;
+        border: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    
+    .fc-event:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .public-info {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Custom scrollbar for modal */
+    #modalContent::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    #modalContent::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+    
+    #modalContent::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+    }
+    
+    #modalContent::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Public Info Header -->
+    <div class="public-info">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold mb-4">Calendário Público de Eventos</h1>
+            <p class="text-lg opacity-90">
+                Acompanhe os eventos institucionais abertos à participação da comunidade
+            </p>
+        </div>
+    </div>
+    
+    <!-- Calendar Container -->
+    <div class="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+        <div id="calendar" class="p-6"></div>
+    </div>
+    
+    <!-- Legend -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mt-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Como Participar</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-calendar-check text-blue-600 text-xl"></i>
+                </div>
+                <h4 class="font-medium text-gray-900 mb-2">Visualize Eventos</h4>
+                <p class="text-sm text-gray-600">Clique nos eventos para ver detalhes completos</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-info-circle text-green-600 text-xl"></i>
+                </div>
+                <h4 class="font-medium text-gray-900 mb-2">Informações Completas</h4>
+                <p class="text-sm text-gray-600">Veja local, horário e como participar</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-users text-purple-600 text-xl"></i>
+                </div>
+                <h4 class="font-medium text-gray-900 mb-2">Participe</h4>
+                <p class="text-sm text-gray-600">Entre em contato para confirmar presença</p>
+            </div>
+        </div>
+    </div>
+    
+    {% if not user.is_authenticated %}
+    <!-- Login CTA -->
+    <div class="bg-primary-50 border border-primary-200 rounded-xl p-6 mt-6 text-center">
+        <h3 class="text-lg font-semibold text-primary-900 mb-2">Acesso Completo</h3>
+        <p class="text-primary-700 mb-4">
+            Faça login para acessar recursos adicionais e gerenciar eventos
+        </p>
+        <a href="{% url 'accounts:login' %}" 
+           class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
+            Fazer Login
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Event Details Modal -->
+<div id="eventModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gray-900" id="modalTitle">Detalhes do Evento</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="modalContent" class="p-6 overflow-y-auto max-h-[70vh]">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- FullCalendar JS -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    
+    // Initialize calendar for public view
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'pt-br',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,listMonth'
+        },
+        buttonText: {
+            today: 'Hoje',
+            month: 'Mês',
+            list: 'Lista'
+        },
+        height: 'auto',
+        eventDisplay: 'block',
+        dayMaxEvents: 3,
+        moreLinkText: function(num) {
+            return '+' + num + ' mais';
+        },
+        
+        // Load only public events
+        events: function(info, successCallback, failureCallback) {
+            const params = new URLSearchParams({
+                start: info.startStr,
+                end: info.endStr,
+                public_only: 'true'
+            });
+            
+            fetch(`{% url 'events:calendar_data' %}?${params}`)
+                .then(response => response.json())
+                .then(data => {
+                    successCallback(data);
+                })
+                .catch(error => {
+                    console.error('Error loading public events:', error);
+                    failureCallback(error);
+                });
+        },
+        
+        // Event interactions - prevent default navigation
+        eventClick: function(info) {
+            // Prevent the default navigation behavior completely
+            info.jsEvent.preventDefault();
+            info.jsEvent.stopPropagation();
+            
+            // Show event details in modal
+            showEventDetails(info.event);
+            
+            // Return false to prevent navigation
+            return false;
+        },
+        
+        eventMouseEnter: function(info) {
+            info.el.style.transform = 'translateY(-2px)';
+            info.el.style.zIndex = '10';
+        },
+        
+        eventMouseLeave: function(info) {
+            info.el.style.transform = 'translateY(0)';
+            info.el.style.zIndex = '1';
+        },
+        
+        // Add a small delay to ensure toolbar buttons are properly spaced
+        viewDidMount: function() {
+            // Add spacing to toolbar buttons after view is mounted
+            setTimeout(function() {
+                const buttons = document.querySelectorAll('.fc-button');
+                buttons.forEach(function(button) {
+                    button.style.margin = '0 0.25rem';
+                });
+                
+                const title = document.querySelector('.fc-toolbar-title');
+                if (title) {
+                    title.style.margin = '0 0.5rem';
+                }
+            }, 100);
+        }
+    });
+    
+    calendar.render();
+    
+    // Modal functionality
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('eventModal').classList.add('hidden');
+    });
+    
+    document.getElementById('eventModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.add('hidden');
+        }
+    });
+    
+    function showEventDetails(event) {
+        document.getElementById('modalTitle').textContent = event.title;
+        
+        const props = event.extendedProps;
+        const modalContent = document.getElementById('modalContent');
+        
+        modalContent.innerHTML = `
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-4 h-4 rounded" style="background-color: ${event.backgroundColor}"></div>
+                    <span class="text-sm font-medium text-gray-600">${props.type}</span>
+                    <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">Público</span>
+                </div>
+                
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Data e Hora</h4>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-calendar mr-2"></i>
+                        ${new Date(event.start).toLocaleDateString('pt-BR')}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-clock mr-2"></i>
+                        ${new Date(event.start).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
+                        ${new Date(event.end).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                </div>
+                
+                ${props.location ? `
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Local</h4>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        ${props.location}
+                    </p>
+                </div>
+                ` : ''}
+                
+                <div>
+                    <h4 class="text-sm font-medium text-gray-700 mb-2">Responsável</h4>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-user mr-2"></i>
+                        ${props.responsible}
+                    </p>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <p class="text-sm text-blue-800">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Para mais informações sobre este evento público, entre em contato com a instituição.
+                    </p>
+                </div>
+                
+                ${props.url && props.url !== '#' ? `
+                <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+                    <a href="${props.url}" 
+                       class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+                        <i class="fas fa-eye mr-2"></i>
+                        Ver Detalhes
+                    </a>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        document.getElementById('eventModal').classList.remove('hidden');
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+
+{% block title %}Logs de Acesso - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="flex-1 min-w-0">
+                <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    📊 Logs de Acesso
+                </h1>
+                <p class="mt-1 text-sm text-gray-500">
+                    Visualize o histórico de atividades e acessos do sistema
+                </p>
+            </div>
+            <div class="mt-4 flex md:mt-0 md:ml-4">
+                <a href="{% url 'accounts:profile' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Voltar ao Perfil
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <!-- Total Logs -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Total de Logs</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ page_obj.paginator.count }}</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-list text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today's Activities -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Atividades Hoje</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ logs_today_count|default:0 }}</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-day text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Successful Logins -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Logins com Sucesso</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ successful_logins_count|default:0 }}</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Failed Attempts -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Tentativas Falharam</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ failed_attempts_count|default:0 }}</p>
+                </div>
+                <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logs Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900">
+                📋 Histórico de Atividades
+            </h2>
+        </div>
+
+        {% if logs %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Data/Hora
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Usuário
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Ação
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                IP
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                User Agent
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for log in logs %}
+                        <tr class="hover:bg-gray-50">
+                            <!-- Timestamp -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <div>
+                                    <div class="font-medium">{{ log.timestamp|date:"d/m/Y" }}</div>
+                                    <div class="text-gray-500">{{ log.timestamp|time:"H:i:s" }}</div>
+                                </div>
+                            </td>
+
+                            <!-- User -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center mr-3">
+                                        <i class="fas fa-user text-gray-600 text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ log.user.get_full_name|default:log.user.username }}
+                                        </div>
+                                        <div class="text-sm text-gray-500">{{ log.user.username }}</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Action -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ log.get_action_display|default:log.action }}</div>
+                                {% if log.target_object %}
+                                    <div class="text-sm text-gray-500">{{ log.target_object }}</div>
+                                {% endif %}
+                            </td>
+
+                            <!-- IP Address -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <span class="font-mono">{{ log.ip_address }}</span>
+                            </td>
+
+                            <!-- User Agent -->
+                            <td class="px-6 py-4 text-sm text-gray-500 max-w-xs">
+                                <div class="truncate" title="{{ log.user_agent }}">
+                                    {{ log.user_agent|truncatechars:50 }}
+                                </div>
+                            </td>
+
+                            <!-- Status -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if log.success %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check mr-1"></i>
+                                        Sucesso
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times mr-1"></i>
+                                        Falha
+                                    </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if is_paginated %}
+            <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1 flex justify-between sm:hidden">
+                        {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" 
+                           class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Anterior
+                        </a>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" 
+                           class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                            Próximo
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                        <div>
+                            <p class="text-sm text-gray-700">
+                                Mostrando
+                                <span class="font-medium">{{ page_obj.start_index }}</span>
+                                a
+                                <span class="font-medium">{{ page_obj.end_index }}</span>
+                                de
+                                <span class="font-medium">{{ page_obj.paginator.count }}</span>
+                                resultados
+                            </p>
+                        </div>
+                        <div>
+                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}" 
+                                   class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                                {% endif %}
+                                
+                                {% for page_num in page_obj.paginator.page_range %}
+                                    {% if page_num == page_obj.number %}
+                                    <span class="relative inline-flex items-center px-4 py-2 border border-blue-500 bg-blue-50 text-sm font-medium text-blue-600">
+                                        {{ page_num }}
+                                    </span>
+                                    {% elif page_num > page_obj.number|add:'-3' and page_num < page_obj.number|add:'3' %}
+                                    <a href="?page={{ page_num }}" 
+                                       class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                        {{ page_num }}
+                                    </a>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}" 
+                                   class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                                {% endif %}
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-12">
+                <i class="fas fa-list-alt text-gray-400 text-4xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Nenhum log encontrado</h3>
+                <p class="text-sm text-gray-500">
+                    Não há registros de atividade para exibir no momento.
+                </p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Security Notice -->
+    <div class="mt-8 bg-blue-50 rounded-xl border border-blue-200 p-6">
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <i class="fas fa-info-circle text-blue-600 text-xl"></i>
+            </div>
+            <div class="ml-3">
+                <h3 class="text-sm font-medium text-blue-900">
+                    Informações de Segurança
+                </h3>
+                <div class="mt-2 text-sm text-blue-800">
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Os logs são mantidos por 90 dias para fins de auditoria e segurança</li>
+                        <li>Atividades suspeitas são automaticamente monitoradas pelo sistema</li>
+                        <li>Em caso de atividade não autorizada, entre em contato com o administrador</li>
+                        <li>Mantenha suas credenciais seguras e não compartilhe sua conta</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Tooltip for truncated user agents
+    const truncatedElements = document.querySelectorAll('[title]');
+    truncatedElements.forEach(function(element) {
+        element.addEventListener('mouseenter', function() {
+            // Could implement a custom tooltip here if needed
+        });
+    });
+
+    // Auto-refresh logs every 30 seconds (optional)
+    // setInterval(function() {
+    //     window.location.reload();
+    // }, 30000);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block title %}Preferências de Notificação - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Preferências de Notificação</h1>
+                <p class="text-gray-600 mt-2">Configure quais notificações você deseja receber</p>
+            </div>
+            <a href="{% url 'notifications:list' %}" 
+               class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Voltar para Notificações
+            </a>
+        </div>
+    </div>
+    
+    <!-- Preferences Form -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="p-6">
+                {% for group_name, fields in form.notification_groups.items %}
+                    <div class="{% if not forloop.last %}mb-8 pb-8 border-b border-gray-200{% endif %}">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6 flex items-center">
+                            {% if group_name == 'Eventos' %}
+                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-calendar text-blue-600"></i>
+                                </div>
+                            {% elif group_name == 'Lembretes' %}
+                                <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-bell text-yellow-600"></i>
+                                </div>
+                            {% elif group_name == 'Documentos e Participantes' %}
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-users text-green-600"></i>
+                                </div>
+                            {% elif group_name == 'Sistema' %}
+                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-cog text-red-600"></i>
+                                </div>
+                            {% elif group_name == 'Configurações' %}
+                                <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-sliders-h text-purple-600"></i>
+                                </div>
+                            {% endif %}
+                            {{ group_name }}
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            {% for field_name in fields %}
+                                {% if field_name == 'event_created' %}
+                                    {% with field=form.event_created %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'event_updated' %}
+                                    {% with field=form.event_updated %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'event_cancelled' %}
+                                    {% with field=form.event_cancelled %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'event_reminder' %}
+                                    {% with field=form.event_reminder %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'event_starting' %}
+                                    {% with field=form.event_starting %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'document_added' %}
+                                    {% with field=form.document_added %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'participant_added' %}
+                                    {% with field=form.participant_added %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'system_alert' %}
+                                    {% with field=form.system_alert %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% elif field_name == 'reminder_hours' %}
+                                    {% with field=form.reminder_hours %}
+                                        <div class="flex items-start space-x-3">
+                                            <div class="flex items-center h-5">
+                                                {{ field }}
+                                            </div>
+                                            <div class="flex-1">
+                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
+                                                    {{ field.label }}
+                                                </label>
+                                                {% if field.help_text %}
+                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                                                {% endif %}
+                                                {% if field.errors %}
+                                                    <div class="text-xs text-red-600 mt-1">
+                                                        {{ field.errors.0 }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endwith %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Form Actions -->
+            <div class="bg-gray-50 px-6 py-4 flex items-center justify-between">
+                <div class="text-sm text-gray-600">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    As alterações são aplicadas imediatamente após salvar
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{% url 'notifications:list' %}" 
+                       class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium">
+                        Cancelar
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                        <i class="fas fa-save mr-2"></i>
+                        Salvar Preferências
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Information Panel -->
+    <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <div class="flex items-start space-x-3">
+            <div class="flex-shrink-0">
+                <i class="fas fa-lightbulb text-blue-600 text-xl"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-blue-900 mb-2">Sobre as Notificações</h3>
+                <div class="text-blue-800 space-y-2">
+                    <p><strong>Notificações de Eventos:</strong> Receba alertas quando eventos são criados, atualizados ou cancelados.</p>
+                    <p><strong>Lembretes:</strong> Configure lembretes automáticos antes dos eventos começarem.</p>
+                    <p><strong>Documentos e Participantes:</strong> Seja notificado quando documentos são adicionados ou participantes são incluídos em eventos.</p>
+                    <p><strong>Alertas do Sistema:</strong> Receba notificações importantes sobre o funcionamento do sistema.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Add some interactivity
+document.addEventListener('DOMContentLoaded', function() {
+    // Enable/disable reminder hours based on reminder notification setting
+    const reminderCheckbox = document.querySelector('input[name="event_reminder"]');
+    const reminderHoursField = document.querySelector('input[name="reminder_hours"]');
+    
+    if (reminderCheckbox && reminderHoursField) {
+        function toggleReminderHours() {
+            const isEnabled = reminderCheckbox.checked;
+            reminderHoursField.disabled = !isEnabled;
+            reminderHoursField.parentElement.parentElement.style.opacity = isEnabled ? '1' : '0.5';
+        }
+        
+        reminderCheckbox.addEventListener('change', toggleReminderHours);
+        toggleReminderHours(); // Initialize state
+    }
+    
+    // Add visual feedback for form submission
+    const form = document.querySelector('form');
+    const submitButton = form.querySelector('button[type="submit"]');
+    
+    form.addEventListener('submit', function() {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Salvando...';
+    });
+});
+</script>
+{% endblock %}

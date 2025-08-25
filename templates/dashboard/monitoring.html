@@ -1,0 +1,705 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard de Monitoramento - EventoSys{% endblock %}
+
+{% block extra_css %}
+<!-- Chart.js CSS -->
+<style>
+    .metric-card {
+        transition: all 0.3s ease;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin: 1rem 0;
+    }
+    
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        z-index: 10;
+    }
+    
+    .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+    }
+    
+    .status-indicator.online { background-color: #10b981; }
+    .status-indicator.warning { background-color: #f59e0b; }
+    .status-indicator.error { background-color: #ef4444; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{% url 'events:dashboard' %}" class="text-gray-700 hover:text-blue-600 text-sm font-medium">
+                    Dashboard
+                </a>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                    <span class="text-gray-500 text-sm">Monitoramento</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    📊 Dashboard de Monitoramento
+                </h1>
+                <p class="mt-1 text-sm text-gray-500">
+                    Acompanhe métricas e indicadores em tempo real
+                </p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Date Range Picker -->
+                <div class="flex items-center space-x-2">
+                    <input type="date" id="startDate" value="{{ start_date }}" 
+                           class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <span class="text-gray-500">até</span>
+                    <input type="date" id="endDate" value="{{ end_date }}" 
+                           class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    <button id="updateDashboard" 
+                            class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
+                        <i class="fas fa-sync-alt mr-2"></i>
+                        Atualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Status Indicators -->
+    <div class="bg-white rounded-xl border border-gray-200 p-6 mb-8">
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-gray-900">Status do Sistema</h2>
+            <div class="text-sm text-gray-500" id="lastUpdated">
+                Última atualização: <span id="lastUpdatedTime">Carregando...</span>
+            </div>
+        </div>
+        
+        <div class="grid md:grid-cols-4 gap-6 mt-6">
+            <div class="flex items-center space-x-3">
+                <div class="status-indicator online" id="systemStatus"></div>
+                <div>
+                    <p class="text-sm text-gray-600">Sistema</p>
+                    <p class="font-semibold text-green-600" id="systemStatusText">Online</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="status-indicator online" id="dbStatus"></div>
+                <div>
+                    <p class="text-sm text-gray-600">Base de Dados</p>
+                    <p class="font-semibold text-green-600" id="dbStatusText">Conectado</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="status-indicator online" id="notificationStatus"></div>
+                <div>
+                    <p class="text-sm text-gray-600">Notificações</p>
+                    <p class="font-semibold text-green-600" id="notificationStatusText">Operacional</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <div class="status-indicator online" id="userActivityStatus"></div>
+                <div>
+                    <p class="text-sm text-gray-600">Atividade</p>
+                    <p class="font-semibold text-green-600" id="userActivityStatusText">Ativa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Key Metrics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Total Events -->
+        <div class="metric-card bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Total de Eventos</p>
+                    <p class="text-2xl font-semibold text-gray-900" id="totalEvents">-</p>
+                    <p class="text-xs text-gray-500 mt-1" id="totalEventsPeriod">No período selecionado</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Events Today -->
+        <div class="metric-card bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Eventos Hoje</p>
+                    <p class="text-2xl font-semibold text-gray-900" id="eventsToday">-</p>
+                    <p class="text-xs text-green-600 mt-1" id="eventsTodayChange">+0% vs ontem</p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-day text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- This Week -->
+        <div class="metric-card bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Esta Semana</p>
+                    <p class="text-2xl font-semibold text-gray-900" id="eventsThisWeek">-</p>
+                    <p class="text-xs text-blue-600 mt-1" id="eventsWeekChange">+0% vs semana anterior</p>
+                </div>
+                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-week text-purple-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upcoming Events -->
+        <div class="metric-card bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Próximos 7 Dias</p>
+                    <p class="text-2xl font-semibold text-gray-900" id="upcomingEvents">-</p>
+                    <p class="text-xs text-yellow-600 mt-1" id="overdueEvents">0 atrasados</p>
+                </div>
+                <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Row -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Events Timeline -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Timeline de Eventos</h3>
+                <div class="text-sm text-gray-500">Últimos 30 dias</div>
+            </div>
+            <div class="chart-container">
+                <div class="loading-overlay" id="timelineLoading">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                </div>
+                <canvas id="timelineChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Status Distribution -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Distribuição por Status</h3>
+                <div class="text-sm text-gray-500">Período atual</div>
+            </div>
+            <div class="chart-container">
+                <div class="loading-overlay" id="statusLoading">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                </div>
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Additional Charts Row -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Events by Type -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Eventos por Tipo</h3>
+                <div class="text-sm text-gray-500">Top 10</div>
+            </div>
+            <div class="chart-container">
+                <div class="loading-overlay" id="typeLoading">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                </div>
+                <canvas id="typeChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Department Performance -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Performance por Departamento</h3>
+                <div class="text-sm text-gray-500">Eventos realizados</div>
+            </div>
+            <div class="chart-container">
+                <div class="loading-overlay" id="departmentLoading">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+                </div>
+                <canvas id="departmentChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    {% if is_admin %}
+    <!-- Admin-only sections -->
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- User Activity -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Atividade de Usuários</h3>
+                <div class="text-sm text-gray-500">Últimas 24h</div>
+            </div>
+            <div id="userActivityContent">
+                <div class="animate-pulse">
+                    <div class="space-y-3">
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Health -->
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Saúde do Sistema</h3>
+                <div class="text-sm text-gray-500">Métricas técnicas</div>
+            </div>
+            <div id="systemHealthContent">
+                <div class="animate-pulse">
+                    <div class="space-y-3">
+                        <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+                        <div class="h-4 bg-gray-200 rounded w-4/5"></div>
+                        <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let charts = {};
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize dashboard
+    loadDashboardData();
+    
+    // Event listeners
+    document.getElementById('updateDashboard').addEventListener('click', loadDashboardData);
+    
+    // Initialize charts
+    initializeCharts();
+});
+
+function loadDashboardData() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    showLoading(true);
+    
+    fetch(`{% url 'events:dashboard_metrics_api' %}?start_date=${startDate}&end_date=${endDate}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            updateMetrics(data);
+            updateCharts(data);
+            updateSystemStatus(data);
+            updateLastUpdated();
+            {% if is_admin %}
+            updateAdminSections(data);
+            {% endif %}
+            showLoading(false);
+        })
+        .catch(error => {
+            console.error('Error loading dashboard data:', error);
+            showError('Erro ao carregar dados do dashboard. Por favor, tente novamente.');
+            showLoading(false);
+            // Reset status indicators to show error state
+            resetStatusIndicators();
+        });
+}
+
+function updateMetrics(data) {
+    const overview = data.overview;
+    
+    document.getElementById('totalEvents').textContent = overview.total_events || 0;
+    document.getElementById('eventsToday').textContent = overview.events_today || 0;
+    document.getElementById('eventsThisWeek').textContent = overview.events_this_week || 0;
+    document.getElementById('upcomingEvents').textContent = overview.upcoming_events || 0;
+    
+    if (overview.overdue_events > 0) {
+        document.getElementById('overdueEvents').textContent = `${overview.overdue_events} atrasados`;
+        document.getElementById('overdueEvents').className = 'text-xs text-red-600 mt-1';
+    }
+}
+
+function updateSystemStatus(data) {
+    // Update system status indicators
+    const notificationStatus = document.getElementById('notificationStatus');
+    const userActivityStatus = document.getElementById('userActivityStatus');
+    const notificationStatusText = document.getElementById('notificationStatusText');
+    const userActivityStatusText = document.getElementById('userActivityStatusText');
+    
+    // Set notification status (always online for now)
+    notificationStatus.className = 'status-indicator online';
+    notificationStatusText.textContent = 'Operacional';
+    notificationStatusText.className = 'font-semibold text-green-600';
+    
+    // Set user activity status (always active for now)
+    userActivityStatus.className = 'status-indicator online';
+    userActivityStatusText.textContent = 'Ativa';
+    userActivityStatusText.className = 'font-semibold text-green-600';
+    
+    {% if is_admin %}
+    // Update admin-specific status indicators
+    if (data.user_activity && data.system_health) {
+        // Check if there's recent user activity
+        if (data.user_activity.unique_users > 0) {
+            userActivityStatus.className = 'status-indicator online';
+            userActivityStatusText.textContent = 'Ativa';
+            userActivityStatusText.className = 'font-semibold text-green-600';
+        } else {
+            userActivityStatus.className = 'status-indicator warning';
+            userActivityStatusText.textContent = 'Baixa';
+            userActivityStatusText.className = 'font-semibold text-yellow-600';
+        }
+    }
+    {% endif %}
+}
+
+function resetStatusIndicators() {
+    // Reset all status indicators to error state when there's an error
+    const indicators = [
+        {indicator: 'notificationStatus', text: 'notificationStatusText', defaultText: 'Erro'},
+        {indicator: 'userActivityStatus', text: 'userActivityStatusText', defaultText: 'Erro'}
+    ];
+    
+    indicators.forEach(item => {
+        const indicatorElement = document.getElementById(item.indicator);
+        const textElement = document.getElementById(item.text);
+        
+        if (indicatorElement && textElement) {
+            indicatorElement.className = 'status-indicator error';
+            textElement.textContent = item.defaultText;
+            textElement.className = 'font-semibold text-red-600';
+        }
+    });
+}
+
+function updateCharts(data) {
+    // Update timeline chart
+    if (charts.timeline && data.daily_events) {
+        const dates = data.daily_events.map(d => new Date(d.date).toLocaleDateString('pt-BR'));
+        const counts = data.daily_events.map(d => d.count);
+        
+        charts.timeline.data.labels = dates;
+        charts.timeline.data.datasets[0].data = counts;
+        charts.timeline.update();
+    }
+    
+    // Update status chart
+    if (charts.status && data.by_status) {
+        const statusLabels = data.by_status.map(s => getStatusLabel(s.status));
+        const statusCounts = data.by_status.map(s => s.count);
+        
+        charts.status.data.labels = statusLabels;
+        charts.status.data.datasets[0].data = statusCounts;
+        charts.status.update();
+    }
+    
+    // Update type chart
+    if (charts.type && data.by_type) {
+        const typeLabels = data.by_type.map(t => getTypeLabel(t.event_type__name));
+        const typeCounts = data.by_type.map(t => t.count);
+        
+        charts.type.data.labels = typeLabels;
+        charts.type.data.datasets[0].data = typeCounts;
+        charts.type.update();
+    }
+    
+    // Update department chart
+    if (charts.department && data.by_department) {
+        const deptLabels = data.by_department.map(d => d.department__name || 'Sem Departamento');
+        const deptCounts = data.by_department.map(d => d.count);
+        
+        charts.department.data.labels = deptLabels;
+        charts.department.data.datasets[0].data = deptCounts;
+        charts.department.update();
+    }
+    
+    hideLoadingOverlays();
+}
+
+function initializeCharts() {
+    // Timeline Chart
+    const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+    charts.timeline = new Chart(timelineCtx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Eventos por Dia',
+                data: [],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    
+    // Status Chart
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    charts.status = new Chart(statusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+    
+    // Type Chart
+    const typeCtx = document.getElementById('typeChart').getContext('2d');
+    charts.type = new Chart(typeCtx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Eventos',
+                data: [],
+                backgroundColor: '#3b82f6',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    
+    // Department Chart
+    const deptCtx = document.getElementById('departmentChart').getContext('2d');
+    charts.department = new Chart(deptCtx, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Eventos',
+                data: [],
+                backgroundColor: '#10b981',
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateLastUpdated() {
+    document.getElementById('lastUpdatedTime').textContent = new Date().toLocaleString('pt-BR');
+}
+
+function showLoading(show) {
+    const overlays = document.querySelectorAll('.loading-overlay');
+    overlays.forEach(overlay => {
+        if (show) {
+            overlay.classList.remove('hidden');
+        } else {
+            overlay.classList.add('hidden');
+        }
+    });
+}
+
+function hideLoadingOverlays() {
+    document.getElementById('timelineLoading').style.display = 'none';
+    document.getElementById('statusLoading').style.display = 'none';
+    document.getElementById('typeLoading').style.display = 'none';
+    document.getElementById('departmentLoading').style.display = 'none';
+}
+
+function showError(message) {
+    // Create and show error toast
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg bg-red-500 text-white';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+}
+
+{% if is_admin %}
+function updateAdminSections(data) {
+    // Update user activity
+    if (data.user_activity) {
+        const activityHTML = `
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600">Usuários ativos (24h)</span>
+                    <span class="font-semibold">${data.user_activity.unique_users || 0}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600">Total de ações</span>
+                    <span class="font-semibold">${data.user_activity.total_actions || 0}</span>
+                </div>
+            </div>
+        `;
+        document.getElementById('userActivityContent').innerHTML = activityHTML;
+    }
+    
+    // Update system health
+    if (data.system_health) {
+        const healthHTML = `
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600">Eventos criados (24h)</span>
+                    <span class="font-semibold">${data.system_health.events_created_24h || 0}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600">Notificações enviadas</span>
+                    <span class="font-semibold">${data.system_health.notifications_sent_24h || 0}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-600">Taxa de erro</span>
+                    <span class="font-semibold ${data.system_health.error_rate > 0 ? 'text-red-600' : 'text-green-600'}">
+                        ${data.system_health.error_rate || 0}
+                    </span>
+                </div>
+            </div>
+        `;
+        document.getElementById('systemHealthContent').innerHTML = healthHTML;
+    }
+}
+{% endif %}
+
+// Helper functions
+function getStatusLabel(status) {
+    const statusMap = {
+        'planejado': 'Planejado',
+        'em_andamento': 'Em Andamento',
+        'concluido': 'Concluído',
+        'cancelado': 'Cancelado'
+    };
+    return statusMap[status] || status;
+}
+
+function getTypeLabel(type) {
+    const typeMap = {
+        'reuniao': 'Reunião',
+        'audiencia_publica': 'Audiência Pública',
+        'sessao_plenaria': 'Sessão Plenária',
+        'palestra': 'Palestra',
+        'workshop': 'Workshop',
+        'seminario': 'Seminário',
+        'congresso': 'Congresso',
+        'curso_capacitacao': 'Curso/Capacitação',
+        'mesa_redonda': 'Mesa-Redonda',
+        'debate': 'Debate',
+        'conferencia': 'Conferência',
+        'encontro_tematico': 'Encontro Temático',
+        'assembleia': 'Assembleia',
+        'visita_tecnica': 'Visita Técnica',
+        'cerimonia_oficial': 'Cerimônia Oficial',
+        'lancamento_projeto': 'Lançamento de Projeto',
+        'coletiva_imprensa': 'Coletiva de Imprensa',
+        'atividade_cultural': 'Atividade Cultural',
+        'atividade_comunitaria': 'Atividade Comunitária',
+        'outros': 'Outros'
+    };
+    return typeMap[type] || type;
+}
+</script>
+{% endblock %}

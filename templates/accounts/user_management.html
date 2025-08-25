@@ -1,0 +1,473 @@
+{% extends 'base.html' %}
+
+{% block title %}Gerenciamento de Usuários - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <div class="md:flex md:items-center md:justify-between">
+            <div class="flex-1 min-w-0">
+                <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    👥 Gerenciamento de Usuários
+                </h1>
+                <p class="mt-1 text-sm text-gray-500">
+                    Gerencie contas de usuário, permissões e configurações do sistema
+                </p>
+            </div>
+            <div class="mt-4 flex md:mt-0 md:ml-4">
+                <a href="{% url 'accounts:register' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Novo Usuário
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <!-- Total Users -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Total de Usuários</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ users.count }}</p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Administrators -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Administradores</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        {{ users|dictsortreversed:"profile.user_type"|dictsort:"profile.user_type"|length }}
+                    </p>
+                </div>
+                <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-crown text-red-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Managers -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Gestores</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        {% for user in users %}{% if user.profile.user_type == 'gestor' %}1{% endif %}{% empty %}0{% endfor %}
+                    </p>
+                </div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-users-cog text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Users -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            <div class="flex items-center">
+                <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-600">Usuários Ativos</p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        {{ users|dictsort:"is_active"|length }}
+                    </p>
+                </div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">
+                🔍 Filtros
+            </h3>
+        </div>
+        <div class="px-6 py-4">
+            <form method="get" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Search -->
+                <div>
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
+                    <input type="text" 
+                           name="search" 
+                           id="search"
+                           value="{{ request.GET.search }}"
+                           placeholder="Nome ou usuário..."
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- User Type -->
+                <div>
+                    <label for="user_type" class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+                    <select name="user_type" id="user_type" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Todos os tipos</option>
+                        <option value="administrador" {% if request.GET.user_type == 'administrador' %}selected{% endif %}>Administrador</option>
+                        <option value="gestor" {% if request.GET.user_type == 'gestor' %}selected{% endif %}>Gestor</option>
+                        <option value="visualizador" {% if request.GET.user_type == 'visualizador' %}selected{% endif %}>Visualizador</option>
+                    </select>
+                </div>
+
+                <!-- Department -->
+                <div>
+                    <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
+                    <select name="department" id="department" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Todos</option>
+                        {% for user in users %}
+                            {% if user.profile.department %}
+                                <option value="{{ user.profile.department.id }}">{{ user.profile.department.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select name="status" id="status" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Todos</option>
+                        <option value="active" {% if request.GET.status == 'active' %}selected{% endif %}>Ativo</option>
+                        <option value="inactive" {% if request.GET.status == 'inactive' %}selected{% endif %}>Inativo</option>
+                    </select>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-end space-x-2">
+                    <button type="submit" 
+                            class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                        <i class="fas fa-search mr-1"></i>
+                        Filtrar
+                    </button>
+                    <a href="{% url 'accounts:user_management' %}" 
+                       class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900">
+                📋 Lista de Usuários
+            </h2>
+        </div>
+
+        {% if users %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Usuário
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tipo
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Departamento
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Último Acesso
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for user in users %}
+                        <tr class="hover:bg-gray-50">
+                            <!-- User Info -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        {% if user.profile.avatar %}
+                                            <img class="h-10 w-10 rounded-full object-cover" 
+                                                 src="{{ user.profile.avatar.url }}" 
+                                                 alt="{{ user.get_full_name|default:user.username }}">
+                                        {% else %}
+                                            <div class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                                <i class="fas fa-user text-gray-600"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ user.get_full_name|default:user.username }}
+                                        </div>
+                                        <div class="text-sm text-gray-500">
+                                            {{ user.username }}
+                                        </div>
+                                        {% if user.email %}
+                                            <div class="text-sm text-gray-400">
+                                                {{ user.email }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- User Type -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if user.profile.user_type == 'administrador' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-crown mr-1"></i>
+                                        Administrador
+                                    </span>
+                                {% elif user.profile.user_type == 'gestor' %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        <i class="fas fa-users-cog mr-1"></i>
+                                        Gestor
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-eye mr-1"></i>
+                                        Visualizador
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Department -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {% if user.profile.department %}
+                                    {{ user.profile.department.name }}
+                                {% else %}
+                                    <span class="text-gray-400">Não definido</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Status -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if user.is_active %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-check-circle mr-1"></i>
+                                        Ativo
+                                    </span>
+                                {% else %}
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        <i class="fas fa-times-circle mr-1"></i>
+                                        Inativo
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Last Login -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% if user.last_login %}
+                                    <div>
+                                        <div>{{ user.last_login|date:"d/m/Y" }}</div>
+                                        <div class="text-xs">{{ user.last_login|time:"H:i" }}</div>
+                                    </div>
+                                {% else %}
+                                    <span class="text-gray-400">Nunca</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- Actions -->
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <a href="/admin/auth/user/{{ user.id }}/change/" 
+                                       class="text-blue-600 hover:text-blue-900 transition-colors"
+                                       title="Editar usuário">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    {% if user != request.user %}
+                                        {% if user.is_active %}
+                                            <button onclick="toggleUserStatus({{ user.id }}, false)" 
+                                                    class="text-red-600 hover:text-red-900 transition-colors"
+                                                    title="Desativar usuário">
+                                                <i class="fas fa-user-slash"></i>
+                                            </button>
+                                        {% else %}
+                                            <button onclick="toggleUserStatus({{ user.id }}, true)" 
+                                                    class="text-green-600 hover:text-green-900 transition-colors"
+                                                    title="Ativar usuário">
+                                                <i class="fas fa-user-check"></i>
+                                            </button>
+                                        {% endif %}
+                                        
+                                        <button onclick="resetPassword({{ user.id }})" 
+                                                class="text-yellow-600 hover:text-yellow-900 transition-colors"
+                                                title="Redefinir senha">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'accounts:access_logs' %}?user={{ user.id }}" 
+                                       class="text-gray-600 hover:text-gray-900 transition-colors"
+                                       title="Ver logs do usuário">
+                                        <i class="fas fa-history"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-12">
+                <i class="fas fa-users text-gray-400 text-4xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Nenhum usuário encontrado</h3>
+                <p class="text-sm text-gray-500 mb-6">
+                    {% if request.GET %}
+                        Nenhum usuário corresponde aos filtros aplicados.
+                    {% else %}
+                        Não há usuários cadastrados no sistema.
+                    {% endif %}
+                </p>
+                <a href="{% url 'accounts:register' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Criar Primeiro Usuário
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mt-8 bg-blue-50 rounded-xl border border-blue-200 p-6">
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <i class="fas fa-lightbulb text-blue-600 text-xl"></i>
+            </div>
+            <div class="ml-3">
+                <h3 class="text-sm font-medium text-blue-900">
+                    Ações Rápidas
+                </h3>
+                <div class="mt-2 text-sm text-blue-800">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <a href="{% url 'accounts:register' %}" 
+                           class="flex items-center p-3 bg-white rounded-lg border border-blue-200 hover:shadow-sm transition-shadow">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-user-plus text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Novo Usuário</p>
+                                <p class="text-xs text-gray-500">Criar conta de usuário</p>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'accounts:access_logs' %}" 
+                           class="flex items-center p-3 bg-white rounded-lg border border-blue-200 hover:shadow-sm transition-shadow">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-history text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Logs de Acesso</p>
+                                <p class="text-xs text-gray-500">Ver atividade do sistema</p>
+                            </div>
+                        </a>
+
+                        <a href="/admin/auth/user/" 
+                           class="flex items-center p-3 bg-white rounded-lg border border-blue-200 hover:shadow-sm transition-shadow">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-cog text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Admin Avançado</p>
+                                <p class="text-xs text-gray-500">Configurações detalhadas</p>
+                            </div>
+                        </a>
+
+                        <a href="{% url 'events:dashboard' %}" 
+                           class="flex items-center p-3 bg-white rounded-lg border border-blue-200 hover:shadow-sm transition-shadow">
+                            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-tachometer-alt text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">Dashboard</p>
+                                <p class="text-xs text-gray-500">Voltar ao painel principal</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle user status
+    window.toggleUserStatus = function(userId, activate) {
+        const action = activate ? 'ativar' : 'desativar';
+        if (confirm(`Tem certeza que deseja ${action} este usuário?`)) {
+            // This would require an AJAX endpoint or form submission
+            fetch(`/admin/auth/user/${userId}/change/`, {  // Django admin URL - cannot be changed
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'is_active': activate
+                })
+            }).then(response => {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Erro ao alterar status do usuário');
+                }
+            });
+        }
+    };
+
+    // Reset password
+    window.resetPassword = function(userId) {
+        if (confirm('Tem certeza que deseja redefinir a senha deste usuário?')) {
+            // This would typically redirect to Django admin password reset
+            window.open(`/admin/auth/user/${userId}/password/`, '_blank');
+        }
+    };
+
+    // Auto-submit filters on change
+    const autoSubmitFields = ['user_type', 'department', 'status'];
+    autoSubmitFields.forEach(fieldName => {
+        const field = document.querySelector(`select[name="${fieldName}"]`);
+        if (field) {
+            field.addEventListener('change', function() {
+                // Optional: Auto-submit on filter change
+                // this.form.submit();
+            });
+        }
+    });
+
+    // Search with debounce
+    const searchInput = document.querySelector('input[name="search"]');
+    if (searchInput) {
+        let searchTimeout;
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                // Optional: Auto-submit search after typing stops
+                // this.form.submit();
+            }, 500);
+        });
+    }
+});
+</script>
+{% endblock %}

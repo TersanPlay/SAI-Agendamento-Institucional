@@ -1,0 +1,975 @@
+{% extends 'base.html' %}
+
+{% block title %}Relatórios Avançados - EventoSys{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Relatórios Avançados</h1>
+                <p class="text-gray-600 mt-2">Gere relatórios personalizados com filtros avançados e análise de dados</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button id="exportPdfBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
+                    <i class="fas fa-file-pdf mr-2"></i>Exportar PDF
+                </button>
+                <button id="exportExcelBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
+                    <i class="fas fa-file-excel mr-2"></i>Exportar Excel
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Advanced Filter Section -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 mb-8 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold text-gray-900">Filtros Avançados</h2>
+            <button id="toggleFilters" class="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center">
+                <i class="fas fa-chevron-up mr-1" id="filterIcon"></i>Recolher Filtros
+            </button>
+        </div>
+        
+        <div id="filterContent">
+            <form id="reportForm" class="space-y-6">
+                <!-- Date Range Filters -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700 mb-2">
+                            Data Início
+                        </label>
+                        <input type="date" id="startDate" name="start_date"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                    
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700 mb-2">
+                            Data Fim
+                        </label>
+                        <input type="date" id="endDate" name="end_date"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                    
+                    <div>
+                        <label for="reportType" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tipo de Relatório
+                        </label>
+                        <select id="reportType" name="report_type"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option value="">Selecione o tipo...</option>
+                            {% for value, label in report_types %}
+                            <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Status do Evento
+                        </label>
+                        <select id="statusFilter" name="status"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option value="">Todos os Status</option>
+                            <option value="planejado">Planejado</option>
+                            <option value="em_andamento">Em Andamento</option>
+                            <option value="concluido">Concluído</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Quick Date Presets -->
+                <div class="bg-pastel-blue-50 rounded-xl p-4">
+                    <p class="text-sm font-medium text-gray-700 mb-3">Períodos Predefinidos:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="setDateRange(7)" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 7 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(30)" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 30 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(90)" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 3 meses
+                        </button>
+                        <button type="button" onclick="setThisMonth()" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Este mês
+                        </button>
+                        <button type="button" onclick="setLastMonth()" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Mês passado
+                        </button>
+                        <button type="button" onclick="setThisYear()" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Este ano
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Advanced Filters -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div>
+                        <label for="departmentFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Departamentos
+                        </label>
+                        <select id="departmentFilter" name="departments" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            {% for department in departments %}
+                            <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                    </div>
+                    
+                    <div>
+                        <label for="eventTypeFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Tipos de Evento
+                        </label>
+                        <select id="eventTypeFilter" name="event_types" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            {% for event_type in event_types %}
+                            <option value="{{ event_type.id }}">{{ event_type.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                    </div>
+                    
+                    <div>
+                        <label for="responsibleFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Responsáveis
+                        </label>
+                        <select id="responsibleFilter" name="responsibles" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            <!-- Responsibles will be populated dynamically -->
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                    </div>
+                    
+                    <div>
+                        <label for="locationFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Localizações
+                        </label>
+                        <select id="locationFilter" name="locations" multiple
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
+                            <!-- Locations will be populated dynamically -->
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                    </div>
+                </div>
+                
+                <!-- Search Filter -->
+                <div>
+                    <label for="searchFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                        Pesquisa por Título ou Descrição
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="searchFilter" name="search"
+                               class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               placeholder="Digite para pesquisar eventos...">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 pt-4">
+                    <button type="button" id="applyFiltersBtn"
+                            class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
+                        <i class="fas fa-filter mr-2"></i>Aplicar Filtros
+                    </button>
+                    <button type="button" id="resetFiltersBtn"
+                            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors font-medium flex items-center">
+                        <i class="fas fa-undo mr-2"></i>Limpar Filtros
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dashboard Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total de Eventos</p>
+                    <p class="text-2xl font-bold text-gray-900 mt-1" id="totalEvents">0</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-blue-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-calendar-alt text-pastel-blue-600 text-xl"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-gray-600">Comparado ao mês anterior:</span>
+                <span class="ml-2 text-green-600 font-medium flex items-center" id="totalEventsChange">
+                    <i class="fas fa-arrow-up mr-1"></i>0%
+                </span>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Eventos Concluídos</p>
+                    <p class="text-2xl font-bold text-gray-900 mt-1" id="completedEvents">0</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-green-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-check-circle text-pastel-green-600 text-xl"></i>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-pastel-green-500 h-2 rounded-full" style="width: 0%" id="completionRate"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Taxa de conclusão: <span id="completionRateText">0%</span></p>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Departamentos Ativos</p>
+                    <p class="text-2xl font-bold text-gray-900 mt-1" id="activeDepartments">0</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-purple-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-building text-pastel-purple-600 text-xl"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-gray-600">Média por departamento:</span>
+                <span class="ml-2 text-gray-900 font-medium" id="avgEventsPerDepartment">0 eventos</span>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Tipos de Eventos</p>
+                    <p class="text-2xl font-bold text-gray-900 mt-1" id="eventTypesCount">0</p>
+                </div>
+                <div class="w-12 h-12 bg-pastel-amber-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-tags text-pastel-amber-600 text-xl"></i>
+                </div>
+            </div>
+            <div class="mt-4 flex items-center text-sm">
+                <span class="text-gray-600">Mais comum:</span>
+                <span class="ml-2 text-gray-900 font-medium truncate" id="mostCommonEventType">-</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Data Visualization -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <!-- Events by Type Chart -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Eventos por Tipo</h3>
+                <div class="flex gap-2">
+                    <button class="text-gray-500 hover:text-gray-700" onclick="toggleChartView('eventsByTypeChart')">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="h-64 flex items-center justify-center" id="eventsByTypeChart">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-chart-pie text-3xl mb-2"></i>
+                    <p>Aplicar filtros para visualizar dados</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Events by Department Chart -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Eventos por Departamento</h3>
+                <div class="flex gap-2">
+                    <button class="text-gray-500 hover:text-gray-700" onclick="toggleChartView('eventsByDepartmentChart')">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="h-64 flex items-center justify-center" id="eventsByDepartmentChart">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-chart-bar text-3xl mb-2"></i>
+                    <p>Aplicar filtros para visualizar dados</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trend Chart -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-semibold text-gray-900">Tendência de Eventos</h3>
+                <div class="flex gap-2">
+                    <button class="text-gray-500 hover:text-gray-700" onclick="loadTrendData()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="h-64 flex items-center justify-center" id="trendChart">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-chart-line text-3xl mb-2"></i>
+                    <p>Carregando tendência...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Events Table -->
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <h3 class="text-lg font-semibold text-gray-900">Eventos Filtrados</h3>
+            <div class="flex flex-wrap gap-2">
+                <div class="relative">
+                    <input type="text" id="tableSearch" placeholder="Pesquisar na tabela..."
+                           class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+                <select id="itemsPerPage" class="py-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                    <option value="10">10 por página</option>
+                    <option value="25" selected>25 por página</option>
+                    <option value="50">50 por página</option>
+                    <option value="100">100 por página</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(0)">
+                            Evento <i class="fas fa-sort ml-1"></i>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(1)">
+                            Tipo <i class="fas fa-sort ml-1"></i>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(2)">
+                            Departamento <i class="fas fa-sort ml-1"></i>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(3)">
+                            Data <i class="fas fa-sort ml-1"></i>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(4)">
+                            Status <i class="fas fa-sort ml-1"></i>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(5)">
+                            Responsável <i class="fas fa-sort ml-1"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="eventsTableBody">
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            <i class="fas fa-filter text-gray-400 mr-2"></i>
+                            Aplique filtros para carregar os eventos
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-6">
+            <div class="text-sm text-gray-700">
+                Mostrando <span id="showingFrom">0</span> a <span id="showingTo">0</span> de <span id="totalResults">0</span> resultados
+            </div>
+            <div class="flex gap-2">
+                <button id="prevPage" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-primary-50 text-primary-700">1</button>
+                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
+                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">3</button>
+                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <button id="nextPage" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Toggle filter section
+document.getElementById('toggleFilters').addEventListener('click', function() {
+    const filterContent = document.getElementById('filterContent');
+    const filterIcon = document.getElementById('filterIcon');
+    
+    if (filterContent.classList.contains('hidden')) {
+        filterContent.classList.remove('hidden');
+        filterIcon.classList.remove('fa-chevron-down');
+        filterIcon.classList.add('fa-chevron-up');
+        this.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Recolher Filtros';
+    } else {
+        filterContent.classList.add('hidden');
+        filterIcon.classList.remove('fa-chevron-up');
+        filterIcon.classList.add('fa-chevron-down');
+        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>Expandir Filtros';
+    }
+});
+
+// Date range functions
+function setDateRange(days) {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(endDate.getDate() - days);
+    
+    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+}
+
+function setThisMonth() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth(), 1);
+    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+    document.getElementById('startDate').value = start.toISOString().split('T')[0];
+    document.getElementById('endDate').value = end.toISOString().split('T')[0];
+}
+
+function setLastMonth() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const end = new Date(now.getFullYear(), now.getMonth(), 0);
+    
+    document.getElementById('startDate').value = start.toISOString().split('T')[0];
+    document.getElementById('endDate').value = end.toISOString().split('T')[0];
+}
+
+function setThisYear() {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 1);
+    const end = new Date(now.getFullYear(), 11, 31);
+    
+    document.getElementById('startDate').value = start.toISOString().split('T')[0];
+    document.getElementById('endDate').value = end.toISOString().split('T')[0];
+}
+
+// Set default dates (last 30 days)
+document.addEventListener('DOMContentLoaded', function() {
+    setDateRange(30);
+    
+    // Load initial data
+    loadReportData();
+    
+    // Load responsible persons and locations
+    loadResponsiblePersons();
+    loadLocations();
+});
+
+// Apply filters
+document.getElementById('applyFiltersBtn').addEventListener('click', function() {
+    loadReportData();
+});
+
+// Reset filters
+document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+    document.getElementById('reportForm').reset();
+    setDateRange(30);
+    
+    // Reload data with default filters
+    loadReportData();
+});
+
+// Export functions
+document.getElementById('exportPdfBtn').addEventListener('click', function() {
+    // Get form data
+    const formData = new FormData(document.getElementById('reportForm'));
+    formData.append('format', 'pdf');
+    formData.append('report_type', 'events_by_period');
+    
+    // Submit form to generate report
+    submitReportForm(formData);
+});
+
+document.getElementById('exportExcelBtn').addEventListener('click', function() {
+    // Get form data
+    const formData = new FormData(document.getElementById('reportForm'));
+    formData.append('format', 'excel');
+    formData.append('report_type', 'events_by_period');
+    
+    // Submit form to generate report
+    submitReportForm(formData);
+});
+
+// Submit report form for export
+function submitReportForm(formData) {
+    // Create a temporary form to submit
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{% url "reports:export" %}';
+    
+    // Add CSRF token
+    const csrfToken = document.createElement('input');
+    csrfToken.type = 'hidden';
+    csrfToken.name = 'csrfmiddlewaretoken';
+    csrfToken.value = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    form.appendChild(csrfToken);
+    
+    // Add form data
+    for (const [key, value] of formData.entries()) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = value;
+        form.appendChild(input);
+    }
+    
+    // Submit form
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+}
+
+// Load report data from API
+function loadReportData() {
+    // Show loading state
+    const tableBody = document.getElementById('eventsTableBody');
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                <div class="flex items-center justify-center">
+                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    Carregando dados...
+                </div>
+            </td>
+        </tr>
+    `;
+    
+    // Get form data
+    const formData = new FormData(document.getElementById('reportForm'));
+    const params = new URLSearchParams();
+    
+    for (const [key, value] of formData.entries()) {
+        if (value) {
+            // Handle multiple values (select multiple)
+            if (key === 'departments' || key === 'event_types' || key === 'responsibles' || key === 'locations') {
+                if (Array.isArray(value)) {
+                    value.forEach(v => params.append(key, v));
+                } else {
+                    params.append(key, value);
+                }
+            } else {
+                params.append(key, value);
+            }
+        }
+    }
+    
+    // Fetch data from API
+    fetch('{% url "reports:api_data" %}?' + params.toString())
+        .then(response => response.json())
+        .then(data => {
+            // Update stats
+            document.getElementById('totalEvents').textContent = data.total_events;
+            document.getElementById('completedEvents').textContent = data.completed_events;
+            document.getElementById('activeDepartments').textContent = data.departments_count;
+            document.getElementById('eventTypesCount').textContent = data.event_types_count;
+            
+            // Update completion rate
+            const completionRate = data.total_events > 0 ? 
+                Math.round((data.completed_events / data.total_events) * 100) : 0;
+            document.getElementById('completionRate').style.width = completionRate + '%';
+            document.getElementById('completionRateText').textContent = completionRate + '%';
+            
+            // Update additional stats
+            const avgEventsPerDepartment = data.departments_count > 0 ? 
+                Math.round(data.total_events / data.departments_count) : 0;
+            document.getElementById('avgEventsPerDepartment').textContent = avgEventsPerDepartment + ' eventos';
+            
+            // Update most common event type
+            if (data.events_by_type && data.events_by_type.length > 0) {
+                document.getElementById('mostCommonEventType').textContent = data.events_by_type[0].event_type__name;
+            } else {
+                document.getElementById('mostCommonEventType').textContent = '-';
+            }
+            
+            // Update comparison data
+            if (data.comparison) {
+                const totalChangeElement = document.getElementById('totalEventsChange');
+                const totalChangePercent = data.comparison.total_change_percent;
+                
+                if (totalChangePercent > 0) {
+                    totalChangeElement.innerHTML = `<i class="fas fa-arrow-up mr-1"></i>${totalChangePercent}%`;
+                    totalChangeElement.className = 'ml-2 text-green-600 font-medium flex items-center';
+                } else if (totalChangePercent < 0) {
+                    totalChangeElement.innerHTML = `<i class="fas fa-arrow-down mr-1"></i>${Math.abs(totalChangePercent)}%`;
+                    totalChangeElement.className = 'ml-2 text-red-600 font-medium flex items-center';
+                } else {
+                    totalChangeElement.innerHTML = `<i class="fas fa-equals mr-1"></i>${totalChangePercent}%`;
+                    totalChangeElement.className = 'ml-2 text-gray-600 font-medium flex items-center';
+                }
+            }
+            
+            // Update table
+            if (data.events && data.events.length > 0) {
+                let tableRows = '';
+                data.events.forEach(event => {
+                    tableRows += `
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">${event.name}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    ${event.event_type}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${event.department}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${event.start_datetime}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                    event.status === 'Concluído' ? 'bg-green-100 text-green-800' :
+                                    event.status === 'Em Andamento' ? 'bg-yellow-100 text-yellow-800' :
+                                    event.status === 'Planejado' ? 'bg-blue-100 text-blue-800' :
+                                    'bg-red-100 text-red-800'
+                                }">
+                                    ${event.status}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${event.responsible_person}
+                            </td>
+                        </tr>
+                    `;
+                });
+                tableBody.innerHTML = tableRows;
+                
+                // Update pagination
+                document.getElementById('showingFrom').textContent = '1';
+                document.getElementById('showingTo').textContent = Math.min(25, data.total_events);
+                document.getElementById('totalResults').textContent = data.total_events;
+            } else {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            <i class="fas fa-info-circle text-gray-400 mr-2"></i>
+                            Nenhum evento encontrado com os filtros aplicados
+                        </td>
+                    </tr>
+                `;
+                
+                // Update pagination
+                document.getElementById('showingFrom').textContent = '0';
+                document.getElementById('showingTo').textContent = '0';
+                document.getElementById('totalResults').textContent = '0';
+            }
+            
+            // Update charts
+            updateCharts(data);
+        })
+        .catch(error => {
+            console.error('Error loading report data:', error);
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center text-red-500">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Erro ao carregar dados. Tente novamente.
+                    </td>
+                </tr>
+            `;
+        });
+}
+
+// Update charts with data
+function updateCharts(data) {
+    // Events by Type Chart
+    if (data.events_by_type && data.events_by_type.length > 0) {
+        let chartHtml = `
+            <div class="w-full h-full flex items-center justify-center">
+                <div class="text-center">
+                    <div class="relative w-48 h-48 mx-auto">
+        `;
+        
+        // Calculate total for percentages
+        const total = data.events_by_type.reduce((sum, item) => sum + item.count, 0);
+        let cumulativePercentage = 0;
+        
+        // Generate pie slices
+        data.events_by_type.forEach((item, index) => {
+            const percentage = (item.count / total) * 100;
+            const startAngle = cumulativePercentage;
+            const endAngle = cumulativePercentage + percentage;
+            cumulativePercentage = endAngle;
+            
+            // Simple color palette
+            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
+            const color = colors[index % colors.length];
+            
+            chartHtml += `<div class="absolute inset-0 rounded-full border-8 border-${color} clip-path-pie-${Math.round(startAngle)}-${Math.round(endAngle)}"></div>`;
+        });
+        
+        chartHtml += `
+                        <div class="absolute inset-8 rounded-full bg-white flex items-center justify-center">
+                            <span class="text-lg font-bold text-gray-900">${data.event_types_count}</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 grid grid-cols-1 gap-2 text-xs max-h-32 overflow-y-auto">
+        `;
+        
+        // Legend
+        data.events_by_type.forEach((item, index) => {
+            const percentage = Math.round((item.count / total) * 100);
+            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
+            const color = colors[index % colors.length];
+            
+            chartHtml += `
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-${color} rounded-full mr-2"></div>
+                    <span>${item.event_type__name} (${percentage}%)</span>
+                </div>
+            `;
+        });
+        
+        chartHtml += `
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('eventsByTypeChart').innerHTML = chartHtml;
+    } else {
+        document.getElementById('eventsByTypeChart').innerHTML = `
+            <div class="text-center text-gray-500">
+                <i class="fas fa-chart-pie text-3xl mb-2"></i>
+                <p>Sem dados suficientes para exibir</p>
+            </div>
+        `;
+    }
+    
+    // Events by Department Chart
+    if (data.events_by_department && data.events_by_department.length > 0) {
+        let chartHtml = `
+            <div class="w-full h-full">
+                <div class="flex items-end h-40 gap-2 justify-center">
+        `;
+        
+        // Find max count for scaling
+        const maxCount = Math.max(...data.events_by_department.map(item => item.count));
+        
+        // Generate bars
+        data.events_by_department.forEach((item, index) => {
+            const heightPercentage = maxCount > 0 ? (item.count / maxCount) * 90 : 0;
+            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
+            const color = colors[index % colors.length];
+            
+            chartHtml += `
+                <div class="flex flex-col items-center">
+                    <div class="w-8 bg-${color} rounded-t hover:bg-${color.replace('500', '600')} transition-colors" style="height: ${heightPercentage}%"></div>
+                    <div class="text-xs text-gray-600 mt-2 truncate max-w-16">${item.department__name}</div>
+                </div>
+            `;
+        });
+        
+        chartHtml += `
+                </div>
+                <div class="mt-4 text-center text-sm text-gray-600">
+                    Eventos por departamento
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('eventsByDepartmentChart').innerHTML = chartHtml;
+    } else {
+        document.getElementById('eventsByDepartmentChart').innerHTML = `
+            <div class="text-center text-gray-500">
+                <i class="fas fa-chart-bar text-3xl mb-2"></i>
+                <p>Sem dados suficientes para exibir</p>
+            </div>
+        `;
+    }
+}
+
+// Load trend data
+function loadTrendData() {
+    fetch('{% url "reports:api_trend" %}')
+        .then(response => response.json())
+        .then(data => {
+            // Create a simple line chart using CSS and HTML
+            let chartHtml = `
+                <div class="w-full h-full flex flex-col">
+                    <div class="flex-1 relative">
+                        <svg viewBox="0 0 400 200" class="w-full h-full">
+            `;
+            
+            // Calculate points for the line chart
+            const maxCount = Math.max(...data.event_counts);
+            const points = [];
+            
+            data.months.forEach((month, index) => {
+                const x = (index / (data.months.length - 1)) * 380 + 10;
+                const y = 190 - (data.event_counts[index] / maxCount) * 180;
+                points.push(`${x},${y}`);
+            });
+            
+            // Draw the line
+            chartHtml += `
+                            <polyline 
+                                points="${points.join(' ')}" 
+                                fill="none" 
+                                stroke="#3b82f6" 
+                                stroke-width="2"
+                                class="drop-shadow-sm">
+                            </polyline>
+            `;
+            
+            // Draw points
+            points.forEach((point, index) => {
+                const [x, y] = point.split(',');
+                chartHtml += `
+                    <circle cx="${x}" cy="${y}" r="4" fill="#3b82f6" class="hover:r-6 transition-all"></circle>
+                    <text x="${x}" y="${y - 10}" text-anchor="middle" font-size="10" fill="#4b5563">${data.event_counts[index]}</text>
+                `;
+            });
+            
+            // Draw x-axis labels
+            data.months.forEach((month, index) => {
+                const x = (index / (data.months.length - 1)) * 380 + 10;
+                chartHtml += `
+                    <text x="${x}" y="210" text-anchor="middle" font-size="10" fill="#6b7280">${month.substring(0, 3)}</text>
+                `;
+            });
+            
+            chartHtml += `
+                        </svg>
+                    </div>
+                    <div class="text-center text-sm text-gray-600 mt-2">
+                        Eventos nos últimos 12 meses
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('trendChart').innerHTML = chartHtml;
+        })
+        .catch(error => {
+            console.error('Error loading trend data:', error);
+            document.getElementById('trendChart').innerHTML = `
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-exclamation-triangle text-3xl mb-2"></i>
+                    <p>Erro ao carregar tendência</p>
+                </div>
+            `;
+        });
+}
+
+// Toggle chart view (expand/collapse)
+function toggleChartView(chartId) {
+    const chart = document.getElementById(chartId);
+    const isExpanded = chart.classList.contains('expanded-chart');
+    
+    if (isExpanded) {
+        chart.classList.remove('expanded-chart');
+        chart.style.height = '16rem';
+    } else {
+        chart.classList.add('expanded-chart');
+        chart.style.height = '32rem';
+    }
+}
+
+// Load responsible persons dynamically
+function loadResponsiblePersons() {
+    fetch('{% url "reports:api_responsibles" %}')
+        .then(response => response.json())
+        .then(data => {
+            const responsibleSelect = document.getElementById('responsibleFilter');
+            responsibleSelect.innerHTML = '';
+            data.responsible_persons.forEach(person => {
+                const option = document.createElement('option');
+                option.value = person.id;
+                option.textContent = person.name;
+                responsibleSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading responsible persons:', error);
+        });
+}
+
+// Load locations dynamically
+function loadLocations() {
+    fetch('{% url "reports:api_locations" %}')
+        .then(response => response.json())
+        .then(data => {
+            const locationSelect = document.getElementById('locationFilter');
+            locationSelect.innerHTML = '';
+            data.locations.forEach(location => {
+                const option = document.createElement('option');
+                option.value = location.id;
+                option.textContent = location.name;
+                locationSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading locations:', error);
+        });
+}
+
+// Sort table by column
+function sortTable(columnIndex) {
+    // In a real implementation, this would re-fetch data with sorting parameters
+    console.log('Sorting by column:', columnIndex);
+}
+
+// Initialize with sample data
+document.addEventListener('DOMContentLoaded', function() {
+    // Set default dates
+    setDateRange(30);
+    
+    // Load trend data
+    loadTrendData();
+});
+
+</script>
+
+<style>
+.clip-path-pie-0-40 {
+    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 80.9% 69.1%);
+}
+
+.clip-path-pie-40-70 {
+    clip-path: polygon(50% 50%, 80.9% 69.1%, 95.1% 30.9%, 100% 50%, 100% 100%, 50% 100%);
+}
+
+.clip-path-pie-70-90 {
+    clip-path: polygon(50% 50%, 95.1% 30.9%, 80.9% 69.1%, 50% 100%, 20% 100%);
+}
+
+.clip-path-pie-90-100 {
+    clip-path: polygon(50% 50%, 20% 100%, 0% 100%, 0% 50%, 50% 0%);
+}
+
+.clip-path-pie-0-25 {
+    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
+}
+
+.clip-path-pie-25-50 {
+    clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%);
+}
+
+.clip-path-pie-50-75 {
+    clip-path: polygon(50% 50%, 50% 100%, 0% 100%, 0% 50%);
+}
+
+.clip-path-pie-75-100 {
+    clip-path: polygon(50% 50%, 0% 50%, 0% 0%, 50% 0%);
+}
+
+.expanded-chart {
+    transition: height 0.3s ease;
+}
+</style>
+{% endblock %}
