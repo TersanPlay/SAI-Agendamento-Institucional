@@ -124,9 +124,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 # DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='sgei@example.com')
 
-# Security settings
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# These security headers are now handled by default in Django 5.x
 X_FRAME_OPTIONS = 'DENY'
 
 # Security middleware settings
