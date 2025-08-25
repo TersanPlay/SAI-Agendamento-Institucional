@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
 from django.utils import timezone
-from events.models import EventType, Location, Department, Event, EventParticipant
+from events.models import EventType, Location, Department, Event  # EventParticipant removed
 from accounts.models import UserProfile
 from reports.models import Report
 
@@ -277,39 +277,13 @@ class Command(BaseCommand):
                     self.stdout.write(f'  Instância criada: {recurring_event.name} - {instance_start.strftime("%d/%m/%Y %H:%M")}')
     
     def generate_participants(self):
-        """Gera participantes e associações para os eventos"""
-        events = list(Event.objects.filter(name__startswith='Teste'))  # type: ignore
-        users = list(User.objects.filter(username__startswith='test_'))  # type: ignore
-        
-        if not (events and users):
-            self.stdout.write(
-                self.style.WARNING(  # type: ignore
-                    'Dados insuficientes para criar participantes.'
-                )
+        """Participantes functionality has been removed from the system"""
+        self.stdout.write(
+            self.style.WARNING(  # type: ignore
+                'Participants functionality has been removed from the system.'
             )
-            return
-        
-        # Para cada evento, adicionar entre 3 e 10 participantes
-        for event in events:
-            # Selecionar aleatoriamente entre 3 e 10 usuários
-            num_participants = random.randint(3, min(10, len(users)))
-            selected_users = random.sample(users, num_participants)
-            
-            for user in selected_users:
-                # Criar participante
-                participant, created = EventParticipant.objects.get_or_create(  # type: ignore
-                    event=event,
-                    user=user,
-                    defaults={
-                        'confirmed': random.choice([True, False]),
-                        'attended': random.choice([True, False]) if event.is_past else False
-                    }
-                )
-                
-                if created:
-                    self.stdout.write(f'Participante adicionado: {user.username} ao evento {event.name}')
-        
-        self.stdout.write('Participantes gerados com sucesso.')
+        )
+        return
     
     def generate_report_data(self):
         """Gera dados para relatórios"""

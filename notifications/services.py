@@ -152,12 +152,7 @@ class NotificationService:
             admins = User.objects.filter(profile__user_type='administrador')
             recipients.update(admins)
         
-        # Include participants for participant-related notifications
-        if notification_type == 'participant_added':
-            participants = User.objects.filter(
-                event_participants__event=event
-            )
-            recipients.update(participants)
+        # Participant-related notifications removed as requested
         
         # Remove the person who triggered the action
         if event.created_by in recipients:
@@ -180,8 +175,8 @@ class NotificationService:
             'event_cancelled': preferences.event_cancelled,
             'event_reminder': preferences.event_reminder,
             'event_starting': preferences.event_starting,
-            'document_added': preferences.document_added,
-            'participant_added': preferences.participant_added,
+            # 'document_added': preferences.document_added, - Removed as requested
+            # 'participant_added': preferences.participant_added, - Removed as requested
             'system_alert': preferences.system_alert,
         }
         
@@ -197,8 +192,8 @@ class NotificationService:
             'system_alert': 'high',
             'event_created': 'low',
             'event_updated': 'low',
-            'document_added': 'low',
-            'participant_added': 'low',
+            # 'document_added': 'low', - Removed as requested
+            # 'participant_added': 'low', - Removed as requested
         }
         
         return priority_mapping.get(notification_type, 'medium')
@@ -212,8 +207,8 @@ class NotificationService:
             'event_cancelled': f"Evento cancelado: {event.name}",
             'event_reminder': f"Lembrete: {event.name}",
             'event_starting': f"Evento iniciando: {event.name}",
-            'document_added': f"Documento adicionado: {event.name}",
-            'participant_added': f"Participante adicionado: {event.name}",
+            # 'document_added': f"Documento adicionado: {event.name}", - Removed as requested
+            # 'participant_added': f"Participante adicionado: {event.name}", - Removed as requested
         }
         
         return titles.get(notification_type, f"Notificação: {event.name}")
@@ -227,8 +222,8 @@ class NotificationService:
             'event_cancelled': f"O evento '{event.name}' que estava agendado para {event.start_datetime.strftime('%d/%m/%Y às %H:%M')} foi cancelado.",
             'event_reminder': f"O evento '{event.name}' começará em breve ({event.start_datetime.strftime('%d/%m/%Y às %H:%M')}).",
             'event_starting': f"O evento '{event.name}' está começando agora!",
-            'document_added': f"Um novo documento foi adicionado ao evento '{event.name}'.",
-            'participant_added': f"Um novo participante foi adicionado ao evento '{event.name}'.",
+            # 'document_added': f"Um novo documento foi adicionado ao evento '{event.name}'.", - Removed as requested
+            # 'participant_added': f"Um novo participante foi adicionado ao evento '{event.name}'.", - Removed as requested
         }
         
         return messages.get(notification_type, f"Notificação sobre o evento '{event.name}'.")

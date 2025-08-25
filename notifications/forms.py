@@ -9,8 +9,10 @@ class NotificationPreferenceForm(forms.ModelForm):
         model = NotificationPreference
         fields = [
             'event_created', 'event_updated', 'event_cancelled',
-            'event_reminder', 'event_starting', 'document_added',
-            'participant_added', 'system_alert', 'reminder_hours'
+            'event_reminder', 'event_starting',
+            # 'document_added' removed as requested
+            # 'participant_added' removed as requested
+            'system_alert', 'reminder_hours'
         ]
         labels = {
             'event_created': 'Evento Criado',
@@ -18,8 +20,8 @@ class NotificationPreferenceForm(forms.ModelForm):
             'event_cancelled': 'Evento Cancelado',
             'event_reminder': 'Lembrete de Evento',
             'event_starting': 'Evento Iniciando',
-            'document_added': 'Documento Adicionado',
-            'participant_added': 'Participante Adicionado',
+            # 'document_added': 'Documento Adicionado', - Removed as requested
+            # 'participant_added': 'Participante Adicionado', - Removed as requested
             'system_alert': 'Alertas do Sistema',
             'reminder_hours': 'Lembrete (horas antes)',
         }
@@ -42,12 +44,8 @@ class NotificationPreferenceForm(forms.ModelForm):
             'event_starting': forms.CheckboxInput(attrs={
                 'class': 'w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500'
             }),
-            'document_added': forms.CheckboxInput(attrs={
-                'class': 'w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500'
-            }),
-            'participant_added': forms.CheckboxInput(attrs={
-                'class': 'w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500'
-            }),
+            # document_added widget removed as requested
+            # participant_added widget removed as requested
             'system_alert': forms.CheckboxInput(attrs={
                 'class': 'w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500'
             }),
@@ -65,7 +63,8 @@ class NotificationPreferenceForm(forms.ModelForm):
         self.notification_groups = {
             'Eventos': ['event_created', 'event_updated', 'event_cancelled'],
             'Lembretes': ['event_reminder', 'event_starting'],
-            'Documentos e Participantes': ['document_added', 'participant_added'],
+            # 'Documentos': ['document_added'],  # Documents removed
+            # Participants removed
             'Sistema': ['system_alert'],
             'Configurações': ['reminder_hours'],
         }

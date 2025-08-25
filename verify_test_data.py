@@ -56,21 +56,8 @@ def verify_test_data():
         print(f"    Período: {report.start_date} a {report.end_date}")
         print()
     
-    # Verificar participantes
-    from events.models import EventParticipant
-    total_participants = EventParticipant.objects.count()
-    test_participants = EventParticipant.objects.filter(event__name__startswith='Teste').count()
-    print(f"Total de participações: {total_participants}")
-    print(f"Participações em eventos de teste: {test_participants}")
-    
-    # Mostrar alguns exemplos de participantes
-    print("\nExemplos de participações:")
-    participants = EventParticipant.objects.filter(event__name__startswith='Teste')[:5]
-    for participant in participants:
-        print(f"  - {participant.user.username} em {participant.event.name}")
-        print(f"    Confirmado: {'Sim' if participant.confirmed else 'Não'}")
-        print(f"    Compareceu: {'Sim' if participant.attended else 'Não'}")
-        print()
+    # Participants functionality has been removed from the system
+    print("\nParticipants functionality has been removed from the system.")
 
 if __name__ == "__main__":
     verify_test_data()

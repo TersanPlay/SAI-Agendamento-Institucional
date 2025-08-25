@@ -40,7 +40,7 @@ class Report(models.Model):
         ('events_by_type', 'Eventos por Tipo'),
         ('events_by_department', 'Eventos por Departamento'),
         ('events_by_status', 'Eventos por Status'),
-        ('participant_summary', 'Resumo de Participantes'),
+        # ('participant_summary', 'Resumo de Participantes'), - Removed as requested
         ('location_usage', 'Uso de Localizações'),
         ('monthly_summary', 'Resumo Mensal'),
         ('yearly_summary', 'Resumo Anual'),

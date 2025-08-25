@@ -194,6 +194,30 @@ class Event(models.Model):
         duration = self.end_datetime - self.start_datetime  # type: ignore
         return duration.total_seconds() / 3600  # type: ignore
     
+    @property
+    def virtual_links_list(self):
+        """Retorna uma lista de links virtuais (suporte para múltiplos links)"""
+        if not self.virtual_link:
+            return []
+        
+        try:
+            # Try to parse as JSON (multiple links)
+            import json
+            links_data = json.loads(self.virtual_link)
+            if isinstance(links_data, list):
+                return links_data
+        except (json.JSONDecodeError, TypeError, ValueError):
+            # Single URL string (backward compatibility)
+            pass
+        
+        # Return single link as list
+        return [self.virtual_link]
+    
+    @property
+    def has_multiple_virtual_links(self):
+        """Verifica se o evento tem múltiplos links virtuais"""
+        return len(self.virtual_links_list) > 1
+    
     def clean(self):
         """Validações customizadas"""
         from django.core.exceptions import ValidationError
@@ -206,22 +230,7 @@ class Event(models.Model):
             raise ValidationError("Link virtual é obrigatório para eventos virtuais.")
 
 
-class EventDocument(models.Model):
-    """Termos de responsabilidade e documentos anexos ao evento"""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='documents')
-    title = models.CharField(max_length=100, verbose_name="Título do Documento")
-    external_link = models.URLField(verbose_name="Link Externo")
-    uploaded_file = models.FileField(upload_to='event_documents/', blank=True, 
-                                   verbose_name="Arquivo (opcional)")
-    created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.PROTECT)
-    
-    class Meta:
-        verbose_name = "Documento do Evento"
-        verbose_name_plural = "Documentos dos Eventos"
-    
-    def __str__(self) -> str:
-        return f"{self.event.name} - {self.title}"
+# EventDocument model has been removed as requested
 
 
 class EventHistory(models.Model):
@@ -241,27 +250,3 @@ class EventHistory(models.Model):
     def __str__(self) -> str:
         return f"{self.event.name} - {self.field_name} - {self.changed_at.strftime('%d/%m/%Y %H:%M')}"  # type: ignore
 
-
-class EventParticipant(models.Model):
-    """Participantes dos eventos"""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='participants')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=100, verbose_name="Nome", 
-                          help_text="Para participantes externos")
-    email = models.EmailField(blank=True, verbose_name="Email")
-    confirmed = models.BooleanField(default=False, verbose_name="Confirmado")  # type: ignore
-    attended = models.BooleanField(default=False, verbose_name="Compareceu")  # type: ignore
-    added_at = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        verbose_name = "Participante"
-        verbose_name_plural = "Participantes"
-        unique_together = ['event', 'user']
-    
-    def __str__(self):
-        if self.user:
-            # Using getattr to avoid static analysis issues with ForeignKey attributes
-            user_full_name = getattr(self.user, 'get_full_name', lambda: '')()
-            user_username = getattr(self.user, 'username', '')
-            return f"{self.event.name} - {user_full_name or user_username}"
-        return f"{self.event.name} - {self.name}"

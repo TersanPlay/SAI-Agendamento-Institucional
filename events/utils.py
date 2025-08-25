@@ -223,8 +223,9 @@ def export_calendar_pdf(request):
     return response
 
 
+@login_required
 def export_public_calendar_ics(request):
-    """Export public calendar events to ICS format (no authentication required)"""
+    """Export public calendar events to ICS format (requires authentication)"""
     # Get only public events
     events = Event.objects.filter(is_public=True)
     

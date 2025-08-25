@@ -111,7 +111,7 @@
                 </div>
                 
                 <!-- Advanced Filters -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div>
                         <label for="departmentFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Departamentos
@@ -139,17 +139,6 @@
                     </div>
                     
                     <div>
-                        <label for="responsibleFilter" class="block text-sm font-medium text-gray-700 mb-2">
-                            Responsáveis
-                        </label>
-                        <select id="responsibleFilter" name="responsibles" multiple
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
-                            <!-- Responsibles will be populated dynamically -->
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
-                    </div>
-                    
-                    <div>
                         <label for="locationFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Localizações
                         </label>
@@ -162,16 +151,32 @@
                 </div>
                 
                 <!-- Search Filter -->
-                <div>
-                    <label for="searchFilter" class="block text-sm font-medium text-gray-700 mb-2">
-                        Pesquisa por Título ou Descrição
-                    </label>
-                    <div class="relative">
-                        <input type="text" id="searchFilter" name="search"
-                               class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                               placeholder="Digite para pesquisar eventos...">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="searchFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Pesquisa por Título ou Descrição
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="searchFilter" name="search"
+                                   class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="Digite para pesquisar eventos...">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="responsibleSearchFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                            Pesquisa por Responsável
+                        </label>
+                        <div class="relative">
+                            <input type="text" id="responsibleSearchFilter" name="responsible_search"
+                                   class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="Digite o nome do responsável...">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -463,8 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load initial data
     loadReportData();
     
-    // Load responsible persons and locations
-    loadResponsiblePersons();
+    // Load locations
     loadLocations();
 });
 
@@ -878,25 +882,6 @@ function toggleChartView(chartId) {
         chart.classList.add('expanded-chart');
         chart.style.height = '32rem';
     }
-}
-
-// Load responsible persons dynamically
-function loadResponsiblePersons() {
-    fetch('{% url "reports:api_responsibles" %}')
-        .then(response => response.json())
-        .then(data => {
-            const responsibleSelect = document.getElementById('responsibleFilter');
-            responsibleSelect.innerHTML = '';
-            data.responsible_persons.forEach(person => {
-                const option = document.createElement('option');
-                option.value = person.id;
-                option.textContent = person.name;
-                responsibleSelect.appendChild(option);
-            });
-        })
-        .catch(error => {
-            console.error('Error loading responsible persons:', error);
-        });
 }
 
 // Load locations dynamically

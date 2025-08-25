@@ -187,32 +187,41 @@
                             </dd>
                         </div>
 
-                        <!-- Virtual Link -->
-                        {% if event.virtual_link %}
+                        <!-- Virtual Links -->
+                        {% if event.virtual_links_list %}
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Link Virtual</dt>
+                            <dt class="text-sm font-medium text-gray-500">
+                                {% if event.has_multiple_virtual_links %}
+                                    Links Virtuais
+                                {% else %}
+                                    Link Virtual
+                                {% endif %}
+                            </dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                <a href="{{ event.virtual_link }}" target="_blank" 
-                                   class="inline-flex items-center text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-external-link-alt mr-2"></i>
-                                    Acessar Link
-                                </a>
+                                {% if event.has_multiple_virtual_links %}
+                                    <div class="space-y-2">
+                                        {% for link in event.virtual_links_list %}
+                                        <div>
+                                            <a href="{{ link }}" target="_blank" 
+                                               class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-external-link-alt mr-2"></i>
+                                                Link {{ forloop.counter }}
+                                            </a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <a href="{{ event.virtual_links_list.0 }}" target="_blank" 
+                                       class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                                        <i class="fas fa-external-link-alt mr-2"></i>
+                                        Acessar Link
+                                    </a>
+                                {% endif %}
                             </dd>
                         </div>
                         {% endif %}
 
-                        <!-- Expected Participants -->
-                        {% if event.expected_participants %}
-                        <div>
-                            <dt class="text-sm font-medium text-gray-500">Participantes Esperados</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
-                                <div class="flex items-center">
-                                    <i class="fas fa-user-friends text-gray-400 mr-2"></i>
-                                    {{ event.expected_participants }}
-                                </div>
-                            </dd>
-                        </div>
-                        {% endif %}
+                        <!-- Expected Participants section removed as requested -->
 
                         <!-- Target Audience -->
                         {% if event.target_audience %}
@@ -268,74 +277,11 @@
             </div>
             {% endif %}
 
-            <!-- Documents -->
-            {% if documents %}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900">
-                        📎 Documentos
-                    </h2>
-                </div>
-                <div class="px-6 py-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {% for document in documents %}
-                        <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:shadow-sm transition-shadow">
-                            <div class="flex-shrink-0">
-                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-file-pdf text-red-600"></i>
-                                </div>
-                            </div>
-                            <div class="ml-4 flex-1">
-                                <h4 class="text-sm font-medium text-gray-900">{{ document.name }}</h4>
-                                {% if document.description %}
-                                    <p class="text-sm text-gray-500">{{ document.description|truncatechars:50 }}</p>
-                                {% endif %}
-                            </div>
-                            <div class="ml-4">
-                                <a href="{{ document.file.url }}" target="_blank" 
-                                   class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-download"></i>
-                                </a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+            <!-- Documents section removed as requested -->
+            <!-- All document functionality has been eliminated -->
 
-            <!-- Participants -->
-            {% if participants %}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-medium text-gray-900">
-                        👥 Participantes
-                    </h2>
-                </div>
-                <div class="px-6 py-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {% for participant in participants %}
-                        <div class="flex items-center p-3 border border-gray-200 rounded-lg">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-user text-blue-600 text-sm"></i>
-                                </div>
-                            </div>
-                            <div class="ml-3 flex-1">
-                                <h4 class="text-sm font-medium text-gray-900">{{ participant.name }}</h4>
-                                {% if participant.email %}
-                                    <p class="text-sm text-gray-500">{{ participant.email }}</p>
-                                {% endif %}
-                                {% if participant.role %}
-                                    <p class="text-xs text-gray-400">{{ participant.role }}</p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
+            <!-- Participants section removed as requested -->
+            <!-- All participant functionality has been eliminated -->
         </div>
 
         <!-- Sidebar -->
@@ -366,14 +312,42 @@
                         <span class="text-sm font-medium text-gray-900">Ver no Calendário</span>
                     </a>
 
-                    {% if event.virtual_link %}
-                    <a href="{{ event.virtual_link }}" target="_blank" 
-                       class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-video text-green-600"></i>
-                        </div>
-                        <span class="text-sm font-medium text-gray-900">Acessar Reunião</span>
-                    </a>
+                    {% if event.virtual_links_list %}
+                        {% if event.has_multiple_virtual_links %}
+                            <!-- Dropdown for multiple links -->
+                            <div class="relative">
+                                <button onclick="toggleVirtualLinksDropdown()" 
+                                        class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                            <i class="fas fa-video text-green-600"></i>
+                                        </div>
+                                        <span class="text-sm font-medium text-gray-900">Acessar Reuniões</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                                </button>
+                                <div id="virtualLinksDropdown" class="hidden absolute top-full left-0 w-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                                    {% for link in event.virtual_links_list %}
+                                    <a href="{{ link }}" target="_blank" 
+                                       class="flex items-center px-4 py-3 hover:bg-gray-50 transition-colors {% if not forloop.last %}border-b border-gray-100{% endif %}">
+                                        <div class="w-6 h-6 bg-green-100 rounded flex items-center justify-center mr-3">
+                                            <i class="fas fa-external-link-alt text-green-600 text-xs"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-900">Link {{ forloop.counter }}</span>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <!-- Single link -->
+                            <a href="{{ event.virtual_links_list.0 }}" target="_blank" 
+                               class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-video text-green-600"></i>
+                                </div>
+                                <span class="text-sm font-medium text-gray-900">Acessar Reunião</span>
+                            </a>
+                        {% endif %}
                     {% endif %}
 
                     <div class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer" 
@@ -422,14 +396,8 @@
                     📊 Estatísticas
                 </h3>
                 <div class="space-y-3">
-                    <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Documentos</span>
-                        <span class="text-sm font-medium text-gray-900">{{ documents.count|default:0 }}</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Participantes</span>
-                        <span class="text-sm font-medium text-gray-900">{{ participants.count|default:0 }}</span>
-                    </div>
+                    <!-- Documents count removed as requested -->
+                    <!-- Participants count removed as requested -->
                     <div class="flex justify-between">
                         <span class="text-sm text-gray-600">Alterações</span>
                         <span class="text-sm font-medium text-gray-900">{{ history.count|default:0 }}</span>
@@ -444,6 +412,24 @@
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Virtual links dropdown toggle
+    window.toggleVirtualLinksDropdown = function() {
+        const dropdown = document.getElementById('virtualLinksDropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('hidden');
+        }
+    };
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('virtualLinksDropdown');
+        const button = event.target.closest('[onclick*="toggleVirtualLinksDropdown"]');
+        
+        if (dropdown && !dropdown.contains(event.target) && !button) {
+            dropdown.classList.add('hidden');
+        }
+    });
+
     // Share event function
     window.shareEvent = function() {
         if (navigator.share) {

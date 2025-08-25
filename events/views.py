@@ -11,20 +11,13 @@ from django.utils import timezone
 from django.db import transaction
 from accounts.utils import has_permission, can_edit_event, can_view_event, get_user_accessible_events, log_user_action
 from .models import Event, EventType, Department, Location
-from .forms import EventForm, EventFilterForm, EventDocumentFormSet, EventParticipantFormSet
+from .forms import EventForm, EventFilterForm  # EventDocumentFormSet removed
 import json
 
 
 def home_view(request):
     """Página inicial pública"""
-    # Eventos públicos próximos
-    public_events = Event.objects.filter(  # type: ignore
-        is_public=True,
-        start_datetime__gte=timezone.now()
-    ).order_by('start_datetime')[:6]
-    
     context = {
-        'public_events': public_events,
         'event_types_count': EventType.objects.count(),  # type: ignore
         'departments_count': Department.objects.count(),  # type: ignore
     }
@@ -206,8 +199,8 @@ class EventDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         event = self.object
         context['can_edit'] = can_edit_event(self.request.user, event)
-        context['documents'] = event.documents.all()
-        context['participants'] = event.participants.all()
+        context['documents'] = []  # Documents functionality removed
+        # Participants functionality removed as requested
         context['history'] = event.history.all()[:10]  # Últimas 10 alterações
         
         log_user_action(self.request, self.request.user, 'view_event', f'event_{event.id}')
@@ -240,20 +233,8 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         with transaction.atomic():  # type: ignore
             event.save()
             
-            # Processar documentos
-            document_formset = EventDocumentFormSet(self.request.POST, self.request.FILES, instance=event)
-            if document_formset.is_valid():
-                for doc_form in document_formset:
-                    if doc_form.cleaned_data and not doc_form.cleaned_data.get('DELETE'):
-                        doc = doc_form.save(commit=False)
-                        doc.event = event
-                        doc.created_by = self.request.user
-                        doc.save()
-            
-            # Processar participantes
-            participant_formset = EventParticipantFormSet(self.request.POST, instance=event)
-            if participant_formset.is_valid():
-                participant_formset.save()
+            # Document processing removed as requested
+            # Participant processing removed as requested
         
         messages.success(self.request, f'Evento "{event.name}" criado com sucesso!')
         log_user_action(self.request, self.request.user, 'create_event', f'event_{event.id}')
@@ -262,12 +243,7 @@ class EventCreateView(LoginRequiredMixin, CreateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['document_formset'] = EventDocumentFormSet(self.request.POST, self.request.FILES)
-            context['participant_formset'] = EventParticipantFormSet(self.request.POST)
-        else:
-            context['document_formset'] = EventDocumentFormSet()
-            context['participant_formset'] = EventParticipantFormSet()
+        # Document and participant formsets removed as requested
         return context
 
 
@@ -297,17 +273,8 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         with transaction.atomic():  # type: ignore
             event.save()
             
-            # Processar documentos
-            document_formset = EventDocumentFormSet(
-                self.request.POST, self.request.FILES, instance=event
-            )
-            if document_formset.is_valid():
-                document_formset.save()
-            
-            # Processar participantes
-            participant_formset = EventParticipantFormSet(self.request.POST, instance=event)
-            if participant_formset.is_valid():
-                participant_formset.save()
+            # Document processing removed as requested
+            # Participant processing removed as requested
         
         messages.success(self.request, f'Evento "{event.name}" atualizado com sucesso!')
         log_user_action(self.request, self.request.user, 'update_event', f'event_{event.id}')
@@ -316,16 +283,7 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.POST:
-            context['document_formset'] = EventDocumentFormSet(
-                self.request.POST, self.request.FILES, instance=self.object
-            )
-            context['participant_formset'] = EventParticipantFormSet(
-                self.request.POST, instance=self.object
-            )
-        else:
-            context['document_formset'] = EventDocumentFormSet(instance=self.object)
-            context['participant_formset'] = EventParticipantFormSet(instance=self.object)
+        # Document and participant formsets removed as requested
         context['is_edit'] = True
         return context
 
@@ -433,8 +391,9 @@ def calendar_data_view(request):
     return JsonResponse(calendar_events, safe=False)
 
 
+@login_required
 def public_calendar_view(request):
-    """Calendário público (apenas eventos públicos)"""
+    """Calendário público (apenas eventos públicos) - Acesso restrito a usuários logados"""
     return render(request, 'events/public_calendar.html')
 
 

@@ -13,8 +13,8 @@ class Notification(models.Model):
         ('event_reminder', 'Lembrete de Evento'),
         ('event_starting', 'Evento Iniciando'),
         ('event_ended', 'Evento Finalizado'),
-        ('document_added', 'Documento Adicionado'),
-        ('participant_added', 'Participante Adicionado'),
+        # ('document_added', 'Documento Adicionado'), - Removed as requested
+        # ('participant_added', 'Participante Adicionado'), - Removed as requested
         ('system_alert', 'Alerta do Sistema'),
     ]
     
@@ -131,8 +131,8 @@ class NotificationPreference(models.Model):
     event_cancelled = models.BooleanField(default=True, verbose_name="Evento Cancelado")  # type: ignore
     event_reminder = models.BooleanField(default=True, verbose_name="Lembrete de Evento")  # type: ignore
     event_starting = models.BooleanField(default=True, verbose_name="Evento Iniciando")  # type: ignore
-    document_added = models.BooleanField(default=True, verbose_name="Documento Adicionado")  # type: ignore
-    participant_added = models.BooleanField(default=False, verbose_name="Participante Adicionado")  # type: ignore
+    # document_added field removed as requested
+    # participant_added field removed as requested
     system_alert = models.BooleanField(default=True, verbose_name="Alertas do Sistema")  # type: ignore
     
     # Configurações de tempo

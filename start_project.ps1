@@ -23,9 +23,9 @@ if ($env:VIRTUAL_ENV -eq $null) {
 
 Write-Host ""
 Write-Host "Available commands:" -ForegroundColor Cyan
-Write-Host "  python manage.py runserver          # Start the development server" -ForegroundColor White
-Write-Host "  python manage.py migrate            # Apply database migrations" -ForegroundColor White
-Write-Host "  python manage.py collectstatic      # Collect static files" -ForegroundColor White
-Write-Host "  python verify_environment.py        # Verify environment setup" -ForegroundColor White
+Write-Host "  py manage.py runserver          # Start the development server" -ForegroundColor White
+Write-Host "  py manage.py migrate            # Apply database migrations" -ForegroundColor White
+Write-Host "  py manage.py collectstatic      # Collect static files" -ForegroundColor White
+Write-Host "  py verify_environment.py        # Verify environment setup" -ForegroundColor White
 Write-Host ""
 Write-Host "Happy coding!" -ForegroundColor Green

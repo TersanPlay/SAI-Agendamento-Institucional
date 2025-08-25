@@ -23,10 +23,10 @@
                         <i class="fas fa-sign-in-alt mr-2"></i>
                         Fazer Login
                     </a>
-                    <a href="{% url 'events:public_calendar' %}" 
+                    <a href="{% url 'accounts:register' %}" 
                        class="border-2 border-blue-600 text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition duration-150 flex items-center justify-center">
-                        <i class="fas fa-calendar mr-2"></i>
-                        Ver Calendário Público
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Criar Conta
                     </a>
                 </div>
             {% else %}
@@ -78,85 +78,6 @@
     </div>
 </div>
 
-<!-- Public Events Section -->
-{% if public_events %}
-<div class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Próximos Eventos Públicos</h2>
-            <p class="text-lg text-gray-700">Eventos abertos à participação da comunidade</p>
-        </div>
-        
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {% for event in public_events %}
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-150">
-                    <!-- Event Type Header -->
-                    <div class="h-2" style="background-color: {{ event.event_type.color }};"></div>
-                    
-                    <div class="p-6">
-                        <!-- Event Date -->
-                        <div class="flex items-center text-sm text-gray-600 mb-3">
-                            <i class="fas fa-calendar mr-2"></i>
-                            {{ event.start_datetime|date:"d/m/Y" }} às {{ event.start_datetime|time:"H:i" }}
-                        </div>
-                        
-                        <!-- Event Title -->
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ event.name }}</h3>
-                        
-                        <!-- Event Type -->
-                        <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium mb-3"
-                             style="background-color: {{ event.event_type.color }}20; color: {{ event.event_type.color }};">
-                            <i class="{{ event.event_type.icon }} mr-1"></i>
-                            {{ event.event_type.get_name_display }}
-                        </div>
-                        
-                        <!-- Event Details -->
-                        <div class="space-y-2 text-sm text-gray-700">
-                            {% if event.location %}
-                                <div class="flex items-center">
-                                    <i class="fas fa-map-marker-alt mr-2 w-4"></i>
-                                    {{ event.location }}
-                                </div>
-                            {% endif %}
-                            
-                            <div class="flex items-center">
-                                <i class="fas fa-user mr-2 w-4"></i>
-                                {{ event.responsible_person.get_full_name|default:event.responsible_person.username }}
-                            </div>
-                            
-                            {% if event.description %}
-                                <p class="text-gray-700 mt-2">
-                                    {{ event.description|truncatewords:20 }}
-                                </p>
-                            {% endif %}
-                        </div>
-                        
-                        <!-- Status Badge -->
-                        <div class="mt-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                {% if event.status == 'planejado' %}bg-blue-100 text-blue-800
-                                {% elif event.status == 'em_andamento' %}bg-green-100 text-green-800
-                                {% elif event.status == 'concluido' %}bg-gray-100 text-gray-800
-                                {% elif event.status == 'cancelado' %}bg-red-100 text-red-800
-                                {% endif %}">
-                                {{ event.get_status_display }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-8">
-            <a href="{% url 'events:public_calendar' %}" 
-               class="inline-flex items-center px-6 py-3 border border-blue-400 rounded-xl text-blue-700 hover:bg-blue-50 font-medium transition duration-150">
-                <i class="fas fa-calendar mr-2"></i>
-                Ver Todos os Eventos Públicos
-            </a>
-        </div>
-    </div>
-</div>
-{% endif %}
 
 <!-- Features Section -->
 <div class="py-16 bg-white">

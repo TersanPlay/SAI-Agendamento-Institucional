@@ -115,9 +115,9 @@ def report_data_api(request):
     status = request.GET.get('status')
     department_ids = request.GET.getlist('departments')
     event_type_ids = request.GET.getlist('event_types')
-    responsible_ids = request.GET.getlist('responsibles')
     location_ids = request.GET.getlist('locations')
     search = request.GET.get('search')
+    responsible_search = request.GET.get('responsible_search')
     
     # Parse dates if provided
     if start_date:
@@ -146,10 +146,6 @@ def report_data_api(request):
     if event_type_ids:
         events = events.filter(event_type_id__in=event_type_ids)
     
-    # Apply responsible person filter
-    if responsible_ids:
-        events = events.filter(responsible_person_id__in=responsible_ids)
-    
     # Apply location filter
     if location_ids:
         events = events.filter(location_id__in=location_ids)
@@ -159,6 +155,14 @@ def report_data_api(request):
         events = events.filter(
             Q(name__icontains=search) | 
             Q(description__icontains=search)
+        )
+    
+    # Apply responsible person search filter
+    if responsible_search:
+        events = events.filter(
+            Q(responsible_person__first_name__icontains=responsible_search) |
+            Q(responsible_person__last_name__icontains=responsible_search) |
+            Q(responsible_person__username__icontains=responsible_search)
         )
     
     # Prepare response data
@@ -203,29 +207,6 @@ def report_data_api(request):
     )
     
     return JsonResponse(data)
-
-
-@login_required
-def responsible_persons_api(request):
-    """API endpoint to fetch responsible persons for dropdown"""
-    if not has_permission(request.user, 'view_reports'):
-        return JsonResponse({'error': 'Permission denied'}, status=403)
-    
-    # Get all responsible persons from events accessible to the user
-    events = get_user_accessible_events(request.user)
-    responsible_persons = events.values('responsible_person_id', 'responsible_person__username', 'responsible_person__first_name', 'responsible_person__last_name').distinct()
-    
-    # Format the data
-    persons_data = []
-    for person in responsible_persons:
-        full_name = f"{person['responsible_person__first_name']} {person['responsible_person__last_name']}".strip()
-        display_name = full_name if full_name else person['responsible_person__username']
-        persons_data.append({
-            'id': person['responsible_person_id'],
-            'name': display_name
-        })
-    
-    return JsonResponse({'responsible_persons': persons_data})
 
 
 @login_required
@@ -378,10 +359,9 @@ def export_report(request):
             created_by=request.user
         )
         
-        # Add departments, event types, responsibles, and locations if selected
+        # Add departments, event types, and locations if selected
         departments = request.POST.getlist('departments')
         event_types = request.POST.getlist('event_types')
-        responsibles = request.POST.getlist('responsibles')
         locations = request.POST.getlist('locations')
         
         # Set departments and event types on the temporary report

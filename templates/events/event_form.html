@@ -107,13 +107,15 @@
 
                             <!-- Responsible Person -->
                             <div>
-                                <label for="{{ form.responsible_person.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                                    {{ form.responsible_person.label }}
+                                <label for="{{ form.responsible_person_text.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ form.responsible_person_text.label }}
                                 </label>
-                                {{ form.responsible_person }}
-                                {% if form.responsible_person.errors %}
-                                    <p class="mt-1 text-sm text-red-600">{{ form.responsible_person.errors.0 }}</p>
+                                {{ form.responsible_person_text }}
+                                {% if form.responsible_person_text.errors %}
+                                    <p class="mt-1 text-sm text-red-600">{{ form.responsible_person_text.errors.0 }}</p>
                                 {% endif %}
+                                <!-- Hidden field for the actual responsible_person FK -->
+                                {{ form.responsible_person }}
                             </div>
 
                             <!-- Department -->
@@ -170,11 +172,14 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Virtual Link -->
+                            <!-- Virtual Links -->
                             <div>
                                 <label for="{{ form.virtual_link.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                                     {{ form.virtual_link.label }}
                                 </label>
+                                <div class="text-xs text-gray-500 mb-2">
+                                    Insira até 5 links virtuais, um por linha. Para eventos virtuais ou híbridos.
+                                </div>
                                 {{ form.virtual_link }}
                                 {% if form.virtual_link.errors %}
                                     <p class="mt-1 text-sm text-red-600">{{ form.virtual_link.errors.0 }}</p>
@@ -212,110 +217,15 @@
                                     <p class="mt-1 text-sm text-red-600">{{ form.observations.errors.0 }}</p>
                                 {% endif %}
                             </div>
-
-                            <!-- Is Public -->
-                            <div class="flex items-center">
-                                {{ form.is_public }}
-                                <label for="{{ form.is_public.id_for_label }}" class="ml-2 block text-sm text-gray-900">
-                                    {{ form.is_public.label }}
-                                </label>
-                                {% if form.is_public.errors %}
-                                    <p class="mt-1 text-sm text-red-600">{{ form.is_public.errors.0 }}</p>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Documents -->
-                <div class="bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-                            📎 Documentos (Opcional)
-                        </h3>
-                        {{ document_formset.management_form }}
-                        <div id="document-formset">
-                            {% for form in document_formset %}
-                                <div class="document-form border border-gray-200 rounded-lg p-4 mb-4">
-                                    {{ form.id }}
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Título do Documento
-                                            </label>
-                                            {{ form.title }}
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Link Externo
-                                            </label>
-                                            {{ form.external_link }}
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Arquivo
-                                            </label>
-                                            {{ form.uploaded_file }}
-                                        </div>
-                                        {% if form.DELETE %}
-                                            <div class="md:col-span-2">
-                                                {{ form.DELETE }}
-                                                <label for="{{ form.DELETE.id_for_label }}" class="ml-2 text-sm text-red-600">
-                                                    Remover documento
-                                                </label>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+                <!-- Documents section removed as requested -->
+                <!-- All document functionality has been eliminated -->
 
-                <!-- Participants -->
-                <div class="bg-white shadow rounded-lg">
-                    <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-                            👥 Participantes (Opcional)
-                        </h3>
-                        {{ participant_formset.management_form }}
-                        <div id="participant-formset">
-                            {% for form in participant_formset %}
-                                <div class="participant-form border border-gray-200 rounded-lg p-4 mb-4">
-                                    {{ form.id }}
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Usuário do Sistema
-                                            </label>
-                                            {{ form.user }}
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Nome (Externo)
-                                            </label>
-                                            {{ form.name }}
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                                Email
-                                            </label>
-                                            {{ form.email }}
-                                        </div>
-                                        {% if form.DELETE %}
-                                            <div class="md:col-span-3">
-                                                {{ form.DELETE }}
-                                                <label for="{{ form.DELETE.id_for_label }}" class="ml-2 text-sm text-red-600">
-                                                    Remover participante
-                                                </label>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+                <!-- Participants section removed as requested -->
+                <!-- All participant functionality has been eliminated -->
 
                 <!-- Form Errors -->
                 {% if form.non_field_errors %}

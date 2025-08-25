@@ -159,48 +159,8 @@
                                             </div>
                                         </div>
                                     {% endwith %}
-                                {% elif field_name == 'document_added' %}
-                                    {% with field=form.document_added %}
-                                        <div class="flex items-start space-x-3">
-                                            <div class="flex items-center h-5">
-                                                {{ field }}
-                                            </div>
-                                            <div class="flex-1">
-                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
-                                                    {{ field.label }}
-                                                </label>
-                                                {% if field.help_text %}
-                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
-                                                {% endif %}
-                                                {% if field.errors %}
-                                                    <div class="text-xs text-red-600 mt-1">
-                                                        {{ field.errors.0 }}
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endwith %}
                                 {% elif field_name == 'participant_added' %}
-                                    {% with field=form.participant_added %}
-                                        <div class="flex items-start space-x-3">
-                                            <div class="flex items-center h-5">
-                                                {{ field }}
-                                            </div>
-                                            <div class="flex-1">
-                                                <label for="{{ field.id_for_label }}" class="text-sm font-medium text-gray-900 cursor-pointer">
-                                                    {{ field.label }}
-                                                </label>
-                                                {% if field.help_text %}
-                                                    <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
-                                                {% endif %}
-                                                {% if field.errors %}
-                                                    <div class="text-xs text-red-600 mt-1">
-                                                        {{ field.errors.0 }}
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endwith %}
+                                    <!-- participant_added section removed as requested -->
                                 {% elif field_name == 'system_alert' %}
                                     {% with field=form.system_alert %}
                                         <div class="flex items-start space-x-3">
@@ -282,7 +242,7 @@
                 <div class="text-blue-800 space-y-2">
                     <p><strong>Notificações de Eventos:</strong> Receba alertas quando eventos são criados, atualizados ou cancelados.</p>
                     <p><strong>Lembretes:</strong> Configure lembretes automáticos antes dos eventos começarem.</p>
-                    <p><strong>Documentos e Participantes:</strong> Seja notificado quando documentos são adicionados ou participantes são incluídos em eventos.</p>
+                    <!-- Documents and participants references removed as requested -->
                     <p><strong>Alertas do Sistema:</strong> Receba notificações importantes sobre o funcionamento do sistema.</p>
                 </div>
             </div>

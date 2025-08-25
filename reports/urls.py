@@ -9,7 +9,6 @@ urlpatterns = [
     path('advanced/', views.reports_view, name='advanced'),
     path('export/', views.export_report, name='export'),
     path('api/data/', views.report_data_api, name='api_data'),
-    path('api/responsibles/', views.responsible_persons_api, name='api_responsibles'),
     path('api/locations/', views.locations_api, name='api_locations'),
     path('api/trend/', views.trend_data_api, name='api_trend'),
     path('debug/', views.debug_view, name='debug'),  # Debug endpoint

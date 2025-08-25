@@ -163,18 +163,7 @@
                     </div>
                     {% endif %}
 
-                    <!-- Expected Participants -->
-                    {% if event.expected_participants %}
-                    <div>
-                        <dt class="text-sm font-medium text-gray-500">Participantes Esperados</dt>
-                        <dd class="mt-1 text-sm text-gray-900">
-                            <div class="flex items-center">
-                                <i class="fas fa-user-friends text-gray-400 mr-2"></i>
-                                {{ event.expected_participants }}
-                            </div>
-                        </dd>
-                    </div>
-                    {% endif %}
+                    <!-- Expected Participants section removed as requested -->
                 </dl>
             </div>
 
@@ -190,8 +179,8 @@
                         </h4>
                         <div class="mt-2 text-sm text-yellow-700">
                             <ul class="list-disc list-inside space-y-1">
-                                <li>Todos os documentos anexados ({{ event.documents.count|default:0 }} documento{{ event.documents.count|pluralize }})</li>
-                                <li>Lista de participantes ({{ event.participants.count|default:0 }} participante{{ event.participants.count|pluralize }})</li>
+                                <!-- Documents count removed as requested -->
+                                <!-- Participants list removed as requested -->
                                 <li>Histórico de alterações ({{ event.history.count|default:0 }} registro{{ event.history.count|pluralize }})</li>
                                 <li>Notificações relacionadas ao evento</li>
                                 <li>Registros de auditoria do evento</li>
@@ -255,7 +244,7 @@
                     <ul class="list-disc list-inside space-y-1">
                         <li>A exclusão do evento é permanente e não pode ser desfeita</li>
                         <li>Todos os dados relacionados ao evento serão removidos do sistema</li>
-                        <li>Participantes que receberam notificações não serão informados automaticamente sobre a exclusão</li>
+                        <!-- Participant notification reference removed as requested -->
                         <li>Recomendamos exportar os dados importantes antes de proceder com a exclusão</li>
                         <li>Esta ação será registrada nos logs de auditoria do sistema</li>
                     </ul>
