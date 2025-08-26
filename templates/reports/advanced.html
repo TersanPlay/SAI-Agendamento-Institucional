@@ -40,7 +40,8 @@
                             Data Início
                         </label>
                         <input type="date" id="startDate" name="start_date"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               onchange="applyFiltersDebounced()">
                     </div>
                     
                     <div>
@@ -48,7 +49,8 @@
                             Data Fim
                         </label>
                         <input type="date" id="endDate" name="end_date"
-                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               onchange="applyFiltersDebounced()">
                     </div>
                     
                     <div>
@@ -56,7 +58,8 @@
                             Tipo de Relatório
                         </label>
                         <select id="reportType" name="report_type"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                onchange="applyFiltersDebounced()">
                             <option value="">Selecione o tipo...</option>
                             {% for value, label in report_types %}
                             <option value="{{ value }}">{{ label }}</option>
@@ -69,7 +72,8 @@
                             Status do Evento
                         </label>
                         <select id="statusFilter" name="status"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                onchange="applyFiltersDebounced()">
                             <option value="">Todos os Status</option>
                             <option value="planejado">Planejado</option>
                             <option value="em_andamento">Em Andamento</option>
@@ -83,27 +87,27 @@
                 <div class="bg-pastel-blue-50 rounded-xl p-4">
                     <p class="text-sm font-medium text-gray-700 mb-3">Períodos Predefinidos:</p>
                     <div class="flex flex-wrap gap-2">
-                        <button type="button" onclick="setDateRange(7)" 
+                        <button type="button" onclick="setDateRange(7); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Últimos 7 dias
                         </button>
-                        <button type="button" onclick="setDateRange(30)" 
+                        <button type="button" onclick="setDateRange(30); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Últimos 30 dias
                         </button>
-                        <button type="button" onclick="setDateRange(90)" 
+                        <button type="button" onclick="setDateRange(90); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Últimos 3 meses
                         </button>
-                        <button type="button" onclick="setThisMonth()" 
+                        <button type="button" onclick="setThisMonth(); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Este mês
                         </button>
-                        <button type="button" onclick="setLastMonth()" 
+                        <button type="button" onclick="setLastMonth(); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Mês passado
                         </button>
-                        <button type="button" onclick="setThisYear()" 
+                        <button type="button" onclick="setThisYear(); applyFiltersDebounced();" 
                                 class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
                             Este ano
                         </button>
@@ -112,41 +116,85 @@
                 
                 <!-- Advanced Filters -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Departments Filter -->
                     <div>
-                        <label for="departmentFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             Departamentos
                         </label>
-                        <select id="departmentFilter" name="departments" multiple
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
-                            {% for department in departments %}
-                            <option value="{{ department.id }}">{{ department.name }}</option>
-                            {% endfor %}
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                        <div class="custom-multiselect" id="departmentMultiselect">
+                            <div class="multiselect-trigger" onclick="toggleMultiselect('departmentMultiselect')">
+                                <span class="multiselect-selected" id="departmentSelected">Selecionar departamentos...</span>
+                                <div class="multiselect-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="multiselect-dropdown" id="departmentDropdown">
+                                <div class="multiselect-search">
+                                    <input type="text" placeholder="Buscar departamentos..." class="multiselect-search-input" oninput="filterMultiselectOptions('departmentMultiselect', this.value)">
+                                </div>
+                                <div class="multiselect-options">
+                                    {% for department in departments %}
+                                    <label class="multiselect-option" data-value="{{ department.id }}" data-text="{{ department.name }}">
+                                        <input type="checkbox" name="departments" value="{{ department.id }}" onchange="updateMultiselectSelection('departmentMultiselect'); applyFiltersDebounced();">
+                                        <span class="checkmark"></span>
+                                        <span class="option-text">{{ department.name }}</span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
+                    <!-- Event Types Filter -->
                     <div>
-                        <label for="eventTypeFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             Tipos de Evento
                         </label>
-                        <select id="eventTypeFilter" name="event_types" multiple
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
-                            {% for event_type in event_types %}
-                            <option value="{{ event_type.id }}">{{ event_type.name }}</option>
-                            {% endfor %}
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                        <div class="custom-multiselect" id="eventTypeMultiselect">
+                            <div class="multiselect-trigger" onclick="toggleMultiselect('eventTypeMultiselect')">
+                                <span class="multiselect-selected" id="eventTypeSelected">Selecionar tipos...</span>
+                                <div class="multiselect-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="multiselect-dropdown" id="eventTypeDropdown">
+                                <div class="multiselect-search">
+                                    <input type="text" placeholder="Buscar tipos..." class="multiselect-search-input" oninput="filterMultiselectOptions('eventTypeMultiselect', this.value)">
+                                </div>
+                                <div class="multiselect-options">
+                                    {% for event_type in event_types %}
+                                    <label class="multiselect-option" data-value="{{ event_type.id }}" data-text="{{ event_type.name }}">
+                                        <input type="checkbox" name="event_types" value="{{ event_type.id }}" onchange="updateMultiselectSelection('eventTypeMultiselect'); applyFiltersDebounced();">
+                                        <span class="checkmark"></span>
+                                        <span class="option-text">{{ event_type.name }}</span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
+                    <!-- Locations Filter -->
                     <div>
-                        <label for="locationFilter" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             Localizações
                         </label>
-                        <select id="locationFilter" name="locations" multiple
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 h-32">
-                            <!-- Locations will be populated dynamically -->
-                        </select>
-                        <p class="text-xs text-gray-500 mt-1">Segure Ctrl/Cmd para selecionar múltiplos</p>
+                        <div class="custom-multiselect" id="locationMultiselect">
+                            <div class="multiselect-trigger" onclick="toggleMultiselect('locationMultiselect')">
+                                <span class="multiselect-selected" id="locationSelected">Selecionar localizações...</span>
+                                <div class="multiselect-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="multiselect-dropdown" id="locationDropdown">
+                                <div class="multiselect-search">
+                                    <input type="text" placeholder="Buscar localizações..." class="multiselect-search-input" oninput="filterMultiselectOptions('locationMultiselect', this.value)">
+                                </div>
+                                <div class="multiselect-options" id="locationOptions">
+                                    <!-- Options will be populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -159,9 +207,15 @@
                         <div class="relative">
                             <input type="text" id="searchFilter" name="search"
                                    class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                   placeholder="Digite para pesquisar eventos...">
+                                   placeholder="Digite para pesquisar eventos..."
+                                   oninput="applyFiltersDebounced()">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <div class="loading-spinner hidden" id="searchLoading">
+                                    <i class="fas fa-spinner fa-spin text-gray-400"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -173,9 +227,15 @@
                         <div class="relative">
                             <input type="text" id="responsibleSearchFilter" name="responsible_search"
                                    class="w-full px-3 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                   placeholder="Digite o nome do responsável...">
+                                   placeholder="Digite o nome do responsável..."
+                                   oninput="applyFiltersDebounced()">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <div class="loading-spinner hidden" id="responsibleLoading">
+                                    <i class="fas fa-spinner fa-spin text-gray-400"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -183,12 +243,18 @@
                 
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap gap-3 pt-4">
-                    <button type="button" id="applyFiltersBtn"
-                            class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
-                        <i class="fas fa-filter mr-2"></i>Aplicar Filtros
-                    </button>
+                    <div class="flex items-center text-sm text-gray-600">
+                        <div class="loading-indicator hidden" id="globalLoading">
+                            <i class="fas fa-spinner fa-spin mr-2 text-primary-600"></i>
+                            <span>Atualizando resultados...</span>
+                        </div>
+                        <div class="success-indicator hidden" id="globalSuccess">
+                            <i class="fas fa-check-circle mr-2 text-green-600"></i>
+                            <span>Filtros aplicados automaticamente</span>
+                        </div>
+                    </div>
                     <button type="button" id="resetFiltersBtn"
-                            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors font-medium flex items-center">
+                            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-lg transition-colors font-medium flex items-center ml-auto">
                         <i class="fas fa-undo mr-2"></i>Limpar Filtros
                     </button>
                 </div>
@@ -470,19 +536,68 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load locations
     loadLocations();
+    
+    // Initialize multiselect dropdowns
+    initializeMultiselects();
 });
 
-// Apply filters
-document.getElementById('applyFiltersBtn').addEventListener('click', function() {
-    loadReportData();
-});
+// Dynamic filtering with debounce
+let filterTimeout;
+function applyFiltersDebounced() {
+    // Show loading indicator
+    showLoadingIndicator();
+    
+    // Clear existing timeout
+    clearTimeout(filterTimeout);
+    
+    // Set new timeout for 500ms delay
+    filterTimeout = setTimeout(() => {
+        loadReportData();
+    }, 500);
+}
 
-// Reset filters
+// Show loading indicators
+function showLoadingIndicator() {
+    const globalLoading = document.getElementById('globalLoading');
+    const globalSuccess = document.getElementById('globalSuccess');
+    
+    if (globalLoading) {
+        globalLoading.classList.remove('hidden');
+    }
+    if (globalSuccess) {
+        globalSuccess.classList.add('hidden');
+    }
+}
+
+// Hide loading indicators and show success
+function hideLoadingIndicator() {
+    const globalLoading = document.getElementById('globalLoading');
+    const globalSuccess = document.getElementById('globalSuccess');
+    
+    if (globalLoading) {
+        globalLoading.classList.add('hidden');
+    }
+    if (globalSuccess) {
+        globalSuccess.classList.remove('hidden');
+        // Auto-hide success message after 2 seconds
+        setTimeout(() => {
+            globalSuccess.classList.add('hidden');
+        }, 2000);
+    }
+}
+
+// Reset filters with immediate update
 document.getElementById('resetFiltersBtn').addEventListener('click', function() {
+    // Reset form
     document.getElementById('reportForm').reset();
+    
+    // Reset multiselect dropdowns
+    resetAllMultiselects();
+    
+    // Set default dates
     setDateRange(30);
     
-    // Reload data with default filters
+    // Reload data immediately
     loadReportData();
 });
 
@@ -536,7 +651,7 @@ function submitReportForm(formData) {
     document.body.removeChild(form);
 }
 
-// Load report data from API
+// Load report data from API with improved form handling
 function loadReportData() {
     // Show loading state
     const tableBody = document.getElementById('eventsTableBody');
@@ -544,36 +659,47 @@ function loadReportData() {
         <tr>
             <td colspan="6" class="px-6 py-4 text-center text-gray-500">
                 <div class="flex items-center justify-center">
-                    <i class="fas fa-spinner fa-spin mr-2"></i>
+                    <i class="fas fa-spinner fa-spin mr-2 text-primary-600"></i>
                     Carregando dados...
                 </div>
             </td>
         </tr>
     `;
     
-    // Get form data
-    const formData = new FormData(document.getElementById('reportForm'));
+    // Get form data from multiselects and other inputs
     const params = new URLSearchParams();
     
-    for (const [key, value] of formData.entries()) {
-        if (value) {
-            // Handle multiple values (select multiple)
-            if (key === 'departments' || key === 'event_types' || key === 'responsibles' || key === 'locations') {
-                if (Array.isArray(value)) {
-                    value.forEach(v => params.append(key, v));
-                } else {
-                    params.append(key, value);
-                }
-            } else {
-                params.append(key, value);
-            }
-        }
-    }
+    // Get date filters
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const reportType = document.getElementById('reportType').value;
+    const status = document.getElementById('statusFilter').value;
+    const search = document.getElementById('searchFilter').value;
+    const responsibleSearch = document.getElementById('responsibleSearchFilter').value;
+    
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+    if (reportType) params.append('report_type', reportType);
+    if (status) params.append('status', status);
+    if (search) params.append('search', search);
+    if (responsibleSearch) params.append('responsible_search', responsibleSearch);
+    
+    // Get multiselect values
+    const departmentValues = getMultiselectValues('departmentMultiselect');
+    const eventTypeValues = getMultiselectValues('eventTypeMultiselect');
+    const locationValues = getMultiselectValues('locationMultiselect');
+    
+    departmentValues.forEach(value => params.append('departments', value));
+    eventTypeValues.forEach(value => params.append('event_types', value));
+    locationValues.forEach(value => params.append('locations', value));
     
     // Fetch data from API
     fetch('{% url "reports:api_data" %}?' + params.toString())
         .then(response => response.json())
         .then(data => {
+            // Hide loading indicators
+            hideLoadingIndicator();
+            
             // Update stats
             document.getElementById('totalEvents').textContent = data.total_events;
             document.getElementById('completedEvents').textContent = data.completed_events;
@@ -884,23 +1010,126 @@ function toggleChartView(chartId) {
     }
 }
 
-// Load locations dynamically
+// Load locations dynamically for multiselect
 function loadLocations() {
     fetch('{% url "reports:api_locations" %}')
         .then(response => response.json())
         .then(data => {
-            const locationSelect = document.getElementById('locationFilter');
-            locationSelect.innerHTML = '';
+            const optionsContainer = document.getElementById('locationOptions');
+            optionsContainer.innerHTML = '';
+            
             data.locations.forEach(location => {
-                const option = document.createElement('option');
-                option.value = location.id;
-                option.textContent = location.name;
-                locationSelect.appendChild(option);
+                const label = document.createElement('label');
+                label.className = 'multiselect-option';
+                label.setAttribute('data-value', location.id);
+                label.setAttribute('data-text', location.name);
+                
+                label.innerHTML = `
+                    <input type="checkbox" name="locations" value="${location.id}" onchange="updateMultiselectSelection('locationMultiselect'); applyFiltersDebounced();">
+                    <span class="checkmark"></span>
+                    <span class="option-text">${location.name}</span>
+                `;
+                
+                optionsContainer.appendChild(label);
             });
         })
         .catch(error => {
             console.error('Error loading locations:', error);
         });
+}
+
+// Custom Multiselect Functions
+function initializeMultiselects() {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.custom-multiselect')) {
+            document.querySelectorAll('.multiselect-dropdown').forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+            document.querySelectorAll('.multiselect-arrow i').forEach(arrow => {
+                arrow.className = 'fas fa-chevron-down';
+            });
+        }
+    });
+}
+
+function toggleMultiselect(multiselectId) {
+    const multiselect = document.getElementById(multiselectId);
+    const dropdown = multiselect.querySelector('.multiselect-dropdown');
+    const arrow = multiselect.querySelector('.multiselect-arrow i');
+    
+    // Close other dropdowns
+    document.querySelectorAll('.multiselect-dropdown').forEach(dd => {
+        if (dd !== dropdown) {
+            dd.style.display = 'none';
+        }
+    });
+    document.querySelectorAll('.multiselect-arrow i').forEach(arr => {
+        if (arr !== arrow) {
+            arr.className = 'fas fa-chevron-down';
+        }
+    });
+    
+    // Toggle current dropdown
+    if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        arrow.className = 'fas fa-chevron-down';
+    } else {
+        dropdown.style.display = 'block';
+        arrow.className = 'fas fa-chevron-up';
+    }
+}
+
+function updateMultiselectSelection(multiselectId) {
+    const multiselect = document.getElementById(multiselectId);
+    const selectedSpan = multiselect.querySelector('.multiselect-selected');
+    const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]:checked');
+    
+    if (checkboxes.length === 0) {
+        const defaultTexts = {
+            'departmentMultiselect': 'Selecionar departamentos...',
+            'eventTypeMultiselect': 'Selecionar tipos...',
+            'locationMultiselect': 'Selecionar localizações...'
+        };
+        selectedSpan.textContent = defaultTexts[multiselectId] || 'Selecionar...';
+        selectedSpan.className = 'multiselect-selected';
+    } else if (checkboxes.length === 1) {
+        selectedSpan.textContent = checkboxes[0].closest('.multiselect-option').getAttribute('data-text');
+        selectedSpan.className = 'multiselect-selected selected';
+    } else {
+        selectedSpan.textContent = `${checkboxes.length} itens selecionados`;
+        selectedSpan.className = 'multiselect-selected selected';
+    }
+}
+
+function getMultiselectValues(multiselectId) {
+    const multiselect = document.getElementById(multiselectId);
+    const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
+function filterMultiselectOptions(multiselectId, searchText) {
+    const multiselect = document.getElementById(multiselectId);
+    const options = multiselect.querySelectorAll('.multiselect-option');
+    
+    options.forEach(option => {
+        const text = option.getAttribute('data-text').toLowerCase();
+        if (text.includes(searchText.toLowerCase())) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+}
+
+function resetAllMultiselects() {
+    document.querySelectorAll('.custom-multiselect').forEach(multiselect => {
+        const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = false);
+        
+        const multiselectId = multiselect.id;
+        updateMultiselectSelection(multiselectId);
+    });
 }
 
 // Sort table by column
@@ -921,6 +1150,220 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
+/* Custom Multiselect Styles */
+.custom-multiselect {
+    position: relative;
+    width: 100%;
+}
+
+.multiselect-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+}
+
+.multiselect-trigger:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.multiselect-trigger:focus-within {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.multiselect-selected {
+    color: #6b7280;
+    font-size: 14px;
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.multiselect-selected.selected {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.multiselect-arrow {
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+.multiselect-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    display: none;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+.multiselect-search {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.multiselect-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.multiselect-search-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.multiselect-options {
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.multiselect-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 2px 0;
+    transition: background-color 0.15s ease;
+    position: relative;
+    user-select: none;
+}
+
+.multiselect-option:hover {
+    background-color: #f3f4f6;
+}
+
+.multiselect-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    margin-right: 12px;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.multiselect-option input[type="checkbox"]:checked ~ .checkmark {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.multiselect-option input[type="checkbox"]:checked ~ .checkmark:after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.option-text {
+    font-size: 14px;
+    color: #374151;
+    flex: 1;
+}
+
+/* Loading Indicators */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.success-indicator {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    color: #059669;
+    font-size: 14px;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Improved transitions */
+.transition-all {
+    transition: all 0.2s ease;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .multiselect-dropdown {
+        max-height: 200px;
+    }
+    
+    .multiselect-options {
+        max-height: 150px;
+    }
+    
+    .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Hide default scrollbar styling */
+.multiselect-options::-webkit-scrollbar {
+    width: 6px;
+}
+
+.multiselect-options::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.multiselect-options::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.multiselect-options::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Existing pie chart styles */
 .clip-path-pie-0-40 {
     clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 80.9% 69.1%);
 }
