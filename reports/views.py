@@ -333,53 +333,89 @@ def trend_data_api(request):
 @login_required
 def export_report(request):
     """View to handle report export functionality"""
-    if not has_permission(request.user, 'generate_reports'):
-        messages.error(request, 'Você não tem permissão para gerar relatórios.')
-        return redirect('reports:list')
+    if not has_permission(request.user, 'view_reports'):
+        return JsonResponse({'error': 'Permission denied'}, status=403)
     
     if request.method == 'POST':
-        # Processar formulário
-        report_type = request.POST.get('report_type')
-        format_type = request.POST.get('format', 'pdf')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        
-        # Generate name automatically
-        report_type_label = dict(Report.REPORT_TYPES).get(report_type, 'Relatório')
-        name = f"{report_type_label} - {start_date} a {end_date}"
-        
-        # Create temporary report object (not saved to database)
-        report = Report(
-            name=name,
-            report_type=report_type,
-            description='',  # Empty description
-            start_date=datetime.strptime(start_date, '%Y-%m-%d').date(),
-            end_date=datetime.strptime(end_date, '%Y-%m-%d').date(),
-            format=format_type,
-            created_by=request.user
-        )
-        
-        # Add departments, event types, and locations if selected
-        departments = request.POST.getlist('departments')
-        event_types = request.POST.getlist('event_types')
-        locations = request.POST.getlist('locations')
-        
-        # Set departments and event types on the temporary report
-        if departments:
-            report.departments.set(departments)  # type: ignore
-        if event_types:
-            report.event_types.set(event_types)  # type: ignore
-        
         try:
-            # Generate the report directly without saving
+            # Get filter parameters
+            start_date = request.POST.get('start_date')
+            end_date = request.POST.get('end_date')
+            report_type = request.POST.get('report_type', 'events_by_period')
+            format_type = request.POST.get('format', 'pdf')
+            status = request.POST.get('status')
+            department_ids = request.POST.getlist('departments')
+            event_type_ids = request.POST.getlist('event_types')
+            location_ids = request.POST.getlist('locations')
+            search = request.POST.get('search')
+            responsible_search = request.POST.get('responsible_search')
+            
+            # Parse dates
+            if start_date:
+                start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+            if end_date:
+                end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+            
+            # Generate name automatically
+            report_type_label = dict(Report.REPORT_TYPES).get(report_type, 'Relatório')
+            period_str = ''
+            if start_date and end_date:
+                period_str = f" - {start_date.strftime('%d/%m/%Y')} a {end_date.strftime('%d/%m/%Y')}"
+            elif start_date:
+                period_str = f" - a partir de {start_date.strftime('%d/%m/%Y')}"
+            elif end_date:
+                period_str = f" - até {end_date.strftime('%d/%m/%Y')}"
+            
+            name = f"{report_type_label}{period_str}"
+            
+            # Get filtered events data directly
+            events = get_user_accessible_events(request.user)
+            
+            # Apply all filters
+            if start_date:
+                events = events.filter(start_datetime__date__gte=start_date)
+            if end_date:
+                events = events.filter(start_datetime__date__lte=end_date)
+            if status:
+                events = events.filter(status=status)
+            if department_ids:
+                events = events.filter(department_id__in=department_ids)
+            if event_type_ids:
+                events = events.filter(event_type_id__in=event_type_ids)
+            if location_ids:
+                events = events.filter(location_id__in=location_ids)
+            if search:
+                events = events.filter(
+                    Q(name__icontains=search) | 
+                    Q(description__icontains=search)
+                )
+            if responsible_search:
+                events = events.filter(
+                    Q(responsible_person__first_name__icontains=responsible_search) |
+                    Q(responsible_person__last_name__icontains=responsible_search) |
+                    Q(responsible_person__username__icontains=responsible_search)
+                )
+            
+            # Create export data structure
+            export_data = {
+                'name': name,
+                'report_type': report_type,
+                'start_date': start_date,
+                'end_date': end_date,
+                'events': events,
+                'created_by': request.user,
+                'format': format_type
+            }
+            
+            # Generate the report
             if format_type == 'pdf':
-                file_content, filename = generate_pdf_report(report)
+                file_content, filename = generate_dynamic_pdf_report(export_data)
                 content_type = 'application/pdf'
             elif format_type == 'excel':
-                file_content, filename = generate_excel_report(report)
+                file_content, filename = generate_dynamic_excel_report(export_data)
                 content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             else:
-                file_content, filename = generate_csv_report(report)
+                file_content, filename = generate_dynamic_csv_report(export_data)
                 content_type = 'text/csv'
             
             # Return the file as download
@@ -388,8 +424,7 @@ def export_report(request):
             return response
             
         except Exception as e:
-            messages.error(request, f'Erro ao gerar relatório: {str(e)}')
-            return redirect('reports:list')
+            return JsonResponse({'error': f'Erro ao gerar relatório: {str(e)}'}, status=500)
     
     # If not POST, redirect to the reports page
     return redirect('reports:list')
@@ -709,6 +744,253 @@ def generate_csv_report(report):
     output.close()
     
     filename = f"relatorio_{report.report_type}_{timezone.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    return csv_content, filename
+
+
+def generate_dynamic_pdf_report(export_data):
+    """Generate PDF report from dynamic data"""
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4)
+    styles = getSampleStyleSheet()
+    
+    # Elements for the document
+    elements = []
+    
+    # Title
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=18,
+        spaceAfter=30,
+        alignment=1  # Center
+    )
+    
+    elements.append(Paragraph(f"Relatório: {export_data['name']}", title_style))
+    
+    # Period info
+    period_info = ""
+    if export_data['start_date'] and export_data['end_date']:
+        period_info = f"Período: {export_data['start_date'].strftime('%d/%m/%Y')} a {export_data['end_date'].strftime('%d/%m/%Y')}"
+    elif export_data['start_date']:
+        period_info = f"A partir de: {export_data['start_date'].strftime('%d/%m/%Y')}"
+    elif export_data['end_date']:
+        period_info = f"Até: {export_data['end_date'].strftime('%d/%m/%Y')}"
+    
+    if period_info:
+        elements.append(Paragraph(period_info, styles['Normal']))
+    
+    elements.append(Paragraph(f"Gerado em: {timezone.now().strftime('%d/%m/%Y às %H:%M')}", styles['Normal']))
+    elements.append(Spacer(1, 20))
+    
+    # Get events data
+    events = export_data['events'].select_related('event_type', 'department', 'location', 'responsible_person')
+    
+    if not events.exists():
+        elements.append(Paragraph("Nenhum evento encontrado para os critérios especificados.", styles['Normal']))
+    else:
+        # Create table
+        table_data = [[
+            'Título', 'Tipo', 'Departamento', 'Data Início', 
+            'Status', 'Responsável', 'Local'
+        ]]
+        
+        for event in events:
+            responsible_name = ''
+            if event.responsible_person:
+                responsible_name = event.responsible_person.get_full_name() or event.responsible_person.username
+            
+            location_name = ''
+            if event.location:
+                location_name = event.location.custom_name or event.location.name
+            
+            table_data.append([
+                event.name[:30] + '...' if len(event.name) > 30 else event.name,
+                event.event_type.name,
+                event.department.name,
+                event.start_datetime.strftime('%d/%m/%Y %H:%M'),
+                event.get_status_display(),
+                responsible_name,
+                location_name
+            ])
+        
+        # Create table
+        table = Table(table_data)
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+            ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+        ]))
+        
+        elements.append(table)
+        
+        # Summary
+        elements.append(Spacer(1, 20))
+        elements.append(Paragraph(f"Total de eventos: {events.count()}", styles['Normal']))
+    
+    # Build PDF
+    doc.build(elements)
+    pdf_content = buffer.getvalue()
+    buffer.close()
+    
+    filename = f"relatorio_{export_data['report_type']}_{timezone.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+    return pdf_content, filename
+
+
+def generate_dynamic_excel_report(export_data):
+    """Generate Excel report from dynamic data"""
+    wb = Workbook()
+    ws = wb.active
+    if ws is None:
+        ws = wb.create_sheet("Relatório")
+    else:
+        ws.title = "Relatório"
+    
+    # Styles
+    header_font = Font(bold=True, color="FFFFFF")
+    header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
+    
+    # Report header
+    ws['A1'] = f"Relatório: {export_data['name']}"
+    ws['A1'].font = Font(bold=True, size=14)
+    
+    # Period info
+    row = 2
+    if export_data['start_date'] and export_data['end_date']:
+        ws[f'A{row}'] = f"Período: {export_data['start_date'].strftime('%d/%m/%Y')} a {export_data['end_date'].strftime('%d/%m/%Y')}"
+        row += 1
+    elif export_data['start_date']:
+        ws[f'A{row}'] = f"A partir de: {export_data['start_date'].strftime('%d/%m/%Y')}"
+        row += 1
+    elif export_data['end_date']:
+        ws[f'A{row}'] = f"Até: {export_data['end_date'].strftime('%d/%m/%Y')}"
+        row += 1
+    
+    ws[f'A{row}'] = f"Gerado em: {timezone.now().strftime('%d/%m/%Y às %H:%M')}"
+    row += 2
+    
+    # Get events data
+    events = export_data['events'].select_related('event_type', 'department', 'location', 'responsible_person')
+    
+    if not events.exists():
+        ws[f'A{row}'] = "Nenhum evento encontrado para os critérios especificados."
+    else:
+        # Headers
+        headers = ['Título', 'Tipo', 'Departamento', 'Data Início', 'Data Fim', 'Status', 'Responsável', 'Local', 'Descrição']
+        
+        for col_idx, header in enumerate(headers, 1):
+            col_letter = get_column_letter(col_idx)
+            cell = ws[f'{col_letter}{row}']
+            cell.value = header
+            cell.font = header_font
+            cell.fill = header_fill
+        
+        # Data
+        for event in events:
+            row += 1
+            responsible_name = ''
+            if event.responsible_person:
+                responsible_name = event.responsible_person.get_full_name() or event.responsible_person.username
+            
+            location_name = ''
+            if event.location:
+                location_name = event.location.custom_name or event.location.name
+            
+            data_row = [
+                event.name,
+                event.event_type.name,
+                event.department.name,
+                event.start_datetime.strftime('%d/%m/%Y %H:%M'),
+                event.end_datetime.strftime('%d/%m/%Y %H:%M') if event.end_datetime else '',
+                event.get_status_display(),
+                responsible_name,
+                location_name,
+                event.description or ''
+            ]
+            
+            for col_idx, value in enumerate(data_row, 1):
+                col_letter = get_column_letter(col_idx)
+                ws[f'{col_letter}{row}'] = str(value)
+    
+    # Adjust column widths
+    for column in ws.columns:
+        max_length = 0
+        column_letter = get_column_letter(column[0].column) if column[0].column else 'A'
+        for cell in column:
+            try:
+                if len(str(cell.value)) > max_length:
+                    max_length = len(str(cell.value))
+            except:
+                pass
+        adjusted_width = min(max_length + 2, 50)
+        ws.column_dimensions[column_letter].width = adjusted_width
+    
+    # Save to buffer
+    buffer = BytesIO()
+    wb.save(buffer)
+    buffer.seek(0)
+    
+    filename = f"relatorio_{export_data['report_type']}_{timezone.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+    return buffer.getvalue(), filename
+
+
+def generate_dynamic_csv_report(export_data):
+    """Generate CSV report from dynamic data"""
+    import csv
+    from io import StringIO
+    
+    output = StringIO()
+    writer = csv.writer(output, delimiter=';')
+    
+    # Header
+    writer.writerow(['Relatório', export_data['name']])
+    if export_data['start_date'] and export_data['end_date']:
+        writer.writerow(['Período', f"{export_data['start_date'].strftime('%d/%m/%Y')} a {export_data['end_date'].strftime('%d/%m/%Y')}"])
+    writer.writerow(['Gerado em', timezone.now().strftime('%d/%m/%Y às %H:%M')])
+    writer.writerow([])  # Empty line
+    
+    # Get events data
+    events = export_data['events'].select_related('event_type', 'department', 'location', 'responsible_person')
+    
+    if not events.exists():
+        writer.writerow(['Nenhum evento encontrado para os critérios especificados.'])
+    else:
+        # Headers
+        writer.writerow(['Título', 'Tipo', 'Departamento', 'Data Início', 'Data Fim', 'Status', 'Responsável', 'Local', 'Descrição'])
+        
+        # Data
+        for event in events:
+            responsible_name = ''
+            if event.responsible_person:
+                responsible_name = event.responsible_person.get_full_name() or event.responsible_person.username
+            
+            location_name = ''
+            if event.location:
+                location_name = event.location.custom_name or event.location.name
+            
+            writer.writerow([
+                event.name,
+                event.event_type.name,
+                event.department.name,
+                event.start_datetime.strftime('%d/%m/%Y %H:%M'),
+                event.end_datetime.strftime('%d/%m/%Y %H:%M') if event.end_datetime else '',
+                event.get_status_display(),
+                responsible_name,
+                location_name,
+                event.description or ''
+            ])
+    
+    # Convert to bytes
+    csv_content = output.getvalue().encode('utf-8')
+    output.close()
+    
+    filename = f"relatorio_{export_data['report_type']}_{timezone.now().strftime('%Y%m%d_%H%M%S')}.csv"
     return csv_content, filename
 
 

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Relatórios Avançados - EventoSys{% endblock %}
 
 {% block content %}
+{% csrf_token %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Page Header -->
     <div class="mb-8">
@@ -11,14 +13,7 @@
                 <h1 class="text-3xl font-bold text-gray-900">Relatórios Avançados</h1>
                 <p class="text-gray-600 mt-2">Gere relatórios personalizados com filtros avançados e análise de dados</p>
             </div>
-            <div class="flex flex-wrap gap-2">
-                <button id="exportPdfBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
-                    <i class="fas fa-file-pdf mr-2"></i>Exportar PDF
-                </button>
-                <button id="exportExcelBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
-                    <i class="fas fa-file-excel mr-2"></i>Exportar Excel
-                </button>
-            </div>
+
         </div>
     </div>
     
@@ -334,25 +329,7 @@
     </div>
     
     <!-- Data Visualization -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-        <!-- Events by Type Chart -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-900">Eventos por Tipo</h3>
-                <div class="flex gap-2">
-                    <button class="text-gray-500 hover:text-gray-700" onclick="toggleChartView('eventsByTypeChart')">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="h-64 flex items-center justify-center" id="eventsByTypeChart">
-                <div class="text-center text-gray-500">
-                    <i class="fas fa-chart-pie text-3xl mb-2"></i>
-                    <p>Aplicar filtros para visualizar dados</p>
-                </div>
-            </div>
-        </div>
-        
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         <!-- Events by Department Chart -->
         <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
             <div class="flex items-center justify-between mb-6">
@@ -395,6 +372,12 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <h3 class="text-lg font-semibold text-gray-900">Eventos Filtrados</h3>
             <div class="flex flex-wrap gap-2">
+                <button id="exportPdfBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
+                    <i class="fas fa-file-pdf mr-2"></i>Exportar PDF
+                </button>
+                <button id="exportExcelBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors font-medium flex items-center shadow-sm">
+                    <i class="fas fa-file-excel mr-2"></i>Exportar Excel
+                </button>
                 <div class="relative">
                     <input type="text" id="tableSearch" placeholder="Pesquisar na tabela..."
                            class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
@@ -498,6 +481,69 @@ function setDateRange(days) {
     
     document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
     document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+}
+
+function setThisMonth() {
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    const endDate = today;
+    
+    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+}
+
+function setLastMonth() {
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+    const endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+    
+    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+}
+
+function setThisYear() {
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), 0, 1);
+    const endDate = today;
+    
+    document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
+}
+
+// Loading indicators
+function applyFiltersDebounced() {
+    showLoadingIndicator();
+    clearTimeout(filterTimeout);
+    filterTimeout = setTimeout(() => {
+        loadReportData();
+    }, 500);
+}
+
+function showLoadingIndicator() {
+    const globalLoading = document.getElementById('globalLoading');
+    const globalSuccess = document.getElementById('globalSuccess');
+    
+    if (globalLoading) {
+        globalLoading.classList.remove('hidden');
+    }
+    if (globalSuccess) {
+        globalSuccess.classList.add('hidden');
+    }
+}
+
+function hideLoadingIndicator() {
+    const globalLoading = document.getElementById('globalLoading');
+    const globalSuccess = document.getElementById('globalSuccess');
+    
+    if (globalLoading) {
+        globalLoading.classList.add('hidden');
+    }
+    if (globalSuccess) {
+        globalSuccess.classList.remove('hidden');
+        setTimeout(() => {
+            globalSuccess.classList.add('hidden');
+        }, 2000);
+    }
 }
 
 function setThisMonth() {
@@ -817,98 +863,93 @@ function loadReportData() {
 
 // Update charts with data
 function updateCharts(data) {
-    // Events by Type Chart
-    if (data.events_by_type && data.events_by_type.length > 0) {
-        let chartHtml = `
-            <div class="w-full h-full flex items-center justify-center">
-                <div class="text-center">
-                    <div class="relative w-48 h-48 mx-auto">
-        `;
-        
-        // Calculate total for percentages
-        const total = data.events_by_type.reduce((sum, item) => sum + item.count, 0);
-        let cumulativePercentage = 0;
-        
-        // Generate pie slices
-        data.events_by_type.forEach((item, index) => {
-            const percentage = (item.count / total) * 100;
-            const startAngle = cumulativePercentage;
-            const endAngle = cumulativePercentage + percentage;
-            cumulativePercentage = endAngle;
-            
-            // Simple color palette
-            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
-            const color = colors[index % colors.length];
-            
-            chartHtml += `<div class="absolute inset-0 rounded-full border-8 border-${color} clip-path-pie-${Math.round(startAngle)}-${Math.round(endAngle)}"></div>`;
-        });
-        
-        chartHtml += `
-                        <div class="absolute inset-8 rounded-full bg-white flex items-center justify-center">
-                            <span class="text-lg font-bold text-gray-900">${data.event_types_count}</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 grid grid-cols-1 gap-2 text-xs max-h-32 overflow-y-auto">
-        `;
-        
-        // Legend
-        data.events_by_type.forEach((item, index) => {
-            const percentage = Math.round((item.count / total) * 100);
-            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
-            const color = colors[index % colors.length];
-            
-            chartHtml += `
-                <div class="flex items-center">
-                    <div class="w-3 h-3 bg-${color} rounded-full mr-2"></div>
-                    <span>${item.event_type__name} (${percentage}%)</span>
-                </div>
-            `;
-        });
-        
-        chartHtml += `
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('eventsByTypeChart').innerHTML = chartHtml;
-    } else {
-        document.getElementById('eventsByTypeChart').innerHTML = `
-            <div class="text-center text-gray-500">
-                <i class="fas fa-chart-pie text-3xl mb-2"></i>
-                <p>Sem dados suficientes para exibir</p>
-            </div>
-        `;
-    }
-    
     // Events by Department Chart
     if (data.events_by_department && data.events_by_department.length > 0) {
         let chartHtml = `
             <div class="w-full h-full">
-                <div class="flex items-end h-40 gap-2 justify-center">
+                <div class="flex flex-col h-full">
+                    <div class="flex-1 overflow-hidden">
         `;
         
         // Find max count for scaling
         const maxCount = Math.max(...data.events_by_department.map(item => item.count));
         
-        // Generate bars
-        data.events_by_department.forEach((item, index) => {
-            const heightPercentage = maxCount > 0 ? (item.count / maxCount) * 90 : 0;
-            const colors = ['pastel-blue-500', 'pastel-green-500', 'pastel-purple-500', 'pastel-amber-500', 'pastel-rose-500'];
-            const color = colors[index % colors.length];
+        // Determine layout based on number of items
+        const itemCount = data.events_by_department.length;
+        const useHorizontalLayout = itemCount > 4;
+        
+        if (useHorizontalLayout) {
+            // Horizontal bar chart for many departments
+            chartHtml += `
+                <div class="space-y-3 max-h-48 overflow-y-auto">
+            `;
+            
+            data.events_by_department.forEach((item, index) => {
+                const widthPercentage = maxCount > 0 ? (item.count / maxCount) * 100 : 0;
+                const colors = ['bg-pastel-blue-500', 'bg-pastel-green-500', 'bg-pastel-purple-500', 'bg-pastel-amber-500', 'bg-pastel-rose-500'];
+                const color = colors[index % colors.length];
+                
+                chartHtml += `
+                    <div class="flex items-center">
+                        <div class="w-24 text-xs text-gray-600 truncate pr-2" title="${item.department__name}">
+                            ${item.department__name}
+                        </div>
+                        <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                            <div class="${color} h-6 rounded-full flex items-center justify-end pr-2 transition-all duration-300" style="width: ${widthPercentage}%">
+                                <span class="text-xs font-medium text-white">${item.count}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
             
             chartHtml += `
-                <div class="flex flex-col items-center">
-                    <div class="w-8 bg-${color} rounded-t hover:bg-${color.replace('500', '600')} transition-colors" style="height: ${heightPercentage}%"></div>
-                    <div class="text-xs text-gray-600 mt-2 truncate max-w-16">${item.department__name}</div>
                 </div>
             `;
-        });
+        } else {
+            // Vertical bar chart for fewer departments
+            chartHtml += `
+                <div class="flex items-end justify-center h-40 gap-4">
+            `;
+            
+            data.events_by_department.forEach((item, index) => {
+                const heightPercentage = maxCount > 0 ? (item.count / maxCount) * 90 : 0;
+                const colors = ['bg-pastel-blue-500', 'bg-pastel-green-500', 'bg-pastel-purple-500', 'bg-pastel-amber-500', 'bg-pastel-rose-500'];
+                const hoverColors = ['hover:bg-pastel-blue-600', 'hover:bg-pastel-green-600', 'hover:bg-pastel-purple-600', 'hover:bg-pastel-amber-600', 'hover:bg-pastel-rose-600'];
+                const color = colors[index % colors.length];
+                const hoverColor = hoverColors[index % hoverColors.length];
+                
+                chartHtml += `
+                    <div class="flex flex-col items-center group">
+                        <div class="relative">
+                            <div class="w-12 ${color} ${hoverColor} rounded-t transition-all duration-300 flex items-end justify-center pb-1" style="height: ${heightPercentage}%">
+                                <span class="text-xs font-bold text-white">${item.count}</span>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600 mt-2 text-center max-w-20">
+                            <div class="truncate" title="${item.department__name}">
+                                ${item.department__name}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            chartHtml += `
+                </div>
+            `;
+        }
         
         chartHtml += `
-                </div>
-                <div class="mt-4 text-center text-sm text-gray-600">
-                    Eventos por departamento
+                    </div>
+                    <div class="mt-4 text-center">
+                        <div class="text-sm text-gray-600 font-medium">
+                            Eventos por departamento
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1">
+                            Total: ${data.events_by_department.reduce((sum, item) => sum + item.count, 0)} eventos
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -916,9 +957,12 @@ function updateCharts(data) {
         document.getElementById('eventsByDepartmentChart').innerHTML = chartHtml;
     } else {
         document.getElementById('eventsByDepartmentChart').innerHTML = `
-            <div class="text-center text-gray-500">
-                <i class="fas fa-chart-bar text-3xl mb-2"></i>
-                <p>Sem dados suficientes para exibir</p>
+            <div class="text-center text-gray-500 h-full flex items-center justify-center">
+                <div>
+                    <i class="fas fa-chart-bar text-3xl mb-2"></i>
+                    <p>Sem dados suficientes para exibir</p>
+                    <p class="text-xs mt-1">Aplique filtros para visualizar dados</p>
+                </div>
             </div>
         `;
     }
@@ -1138,13 +1182,224 @@ function sortTable(columnIndex) {
     console.log('Sorting by column:', columnIndex);
 }
 
+// Table search functionality
+let tableSearchTimeout;
+function initializeTableSearch() {
+    const searchInput = document.getElementById('tableSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            clearTimeout(tableSearchTimeout);
+            tableSearchTimeout = setTimeout(() => {
+                filterTableRows(this.value);
+            }, 300);
+        });
+    }
+    
+    // Items per page functionality
+    const itemsPerPageSelect = document.getElementById('itemsPerPage');
+    if (itemsPerPageSelect) {
+        itemsPerPageSelect.addEventListener('change', function() {
+            updateTablePagination(parseInt(this.value));
+        });
+    }
+}
+
+function filterTableRows(searchTerm) {
+    const tableBody = document.getElementById('eventsTableBody');
+    const rows = tableBody.getElementsByTagName('tr');
+    let visibleCount = 0;
+    
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+        let found = false;
+        
+        if (cells.length > 1) { // Skip empty state rows
+            for (let j = 0; j < cells.length; j++) {
+                const cellText = cells[j].textContent.toLowerCase();
+                if (cellText.includes(searchTerm.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        
+        if (found || searchTerm === '') {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    }
+    
+    // Update pagination info
+    updatePaginationInfo(visibleCount);
+}
+
+function updateTablePagination(itemsPerPage) {
+    // This would normally re-fetch data with new page size
+    // For now, we'll just update the display
+    console.log('Items per page changed to:', itemsPerPage);
+    applyFiltersDebounced();
+}
+
+function updatePaginationInfo(visibleCount) {
+    document.getElementById('showingFrom').textContent = visibleCount > 0 ? '1' : '0';
+    document.getElementById('showingTo').textContent = visibleCount.toString();
+    document.getElementById('totalResults').textContent = visibleCount.toString();
+}
+
+// Export functionality
+function initializeExportButtons() {
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const exportExcelBtn = document.getElementById('exportExcelBtn');
+    
+    if (exportPdfBtn) {
+        exportPdfBtn.addEventListener('click', function() {
+            exportReport('pdf');
+        });
+    }
+    
+    if (exportExcelBtn) {
+        exportExcelBtn.addEventListener('click', function() {
+            exportReport('excel');
+        });
+    }
+}
+
+function exportReport(format) {
+    // Show loading state
+    const button = format === 'pdf' ? document.getElementById('exportPdfBtn') : document.getElementById('exportExcelBtn');
+    const originalText = button.innerHTML;
+    button.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i>Gerando ${format.toUpperCase()}...`;
+    button.disabled = true;
+    
+    // Collect all current filter data
+    const formData = new FormData();
+    
+    // Get filter values
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const reportType = document.getElementById('reportType').value || 'events_by_period';
+    const status = document.getElementById('statusFilter').value;
+    const search = document.getElementById('searchFilter').value;
+    const responsibleSearch = document.getElementById('responsibleSearchFilter').value;
+    
+    // Add basic filters
+    if (startDate) formData.append('start_date', startDate);
+    if (endDate) formData.append('end_date', endDate);
+    formData.append('report_type', reportType);
+    if (status) formData.append('status', status);
+    if (search) formData.append('search', search);
+    if (responsibleSearch) formData.append('responsible_search', responsibleSearch);
+    formData.append('format', format);
+    
+    // Add multiselect values
+    const departmentValues = getMultiselectValues('departmentMultiselect');
+    const eventTypeValues = getMultiselectValues('eventTypeMultiselect');
+    const locationValues = getMultiselectValues('locationMultiselect');
+    
+    departmentValues.forEach(value => formData.append('departments', value));
+    eventTypeValues.forEach(value => formData.append('event_types', value));
+    locationValues.forEach(value => formData.append('locations', value));
+    
+    // Add CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (csrfToken) {
+        formData.append('csrfmiddlewaretoken', csrfToken.value);
+    }
+    
+    // Submit the export request
+    fetch('{% url "reports:export" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.blob();
+        }
+        throw new Error('Erro na resposta do servidor');
+    })
+    .then(blob => {
+        // Create download link
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `relatorio_${reportType}_${new Date().getTime()}.${format === 'pdf' ? 'pdf' : 'xlsx'}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        // Show success message
+        showExportSuccess(format);
+    })
+    .catch(error => {
+        console.error('Export error:', error);
+        showExportError(format, error.message);
+    })
+    .finally(() => {
+        // Restore button state
+        button.innerHTML = originalText;
+        button.disabled = false;
+    });
+}
+
+function showExportSuccess(format) {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    successDiv.innerHTML = `
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span>Relatório ${format.toUpperCase()} gerado com sucesso!</span>
+        </div>
+    `;
+    document.body.appendChild(successDiv);
+    
+    setTimeout(() => {
+        document.body.removeChild(successDiv);
+    }, 3000);
+}
+
+function showExportError(format, message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    errorDiv.innerHTML = `
+        <div class="flex items-center">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            <span>Erro ao gerar ${format.toUpperCase()}: ${message}</span>
+        </div>
+    `;
+    document.body.appendChild(errorDiv);
+    
+    setTimeout(() => {
+        document.body.removeChild(errorDiv);
+    }, 5000);
+}
+
 // Initialize with sample data
 document.addEventListener('DOMContentLoaded', function() {
     // Set default dates
     setDateRange(30);
     
+    // Initialize multiselects
+    initializeMultiselects();
+    
+    // Initialize table search and pagination
+    initializeTableSearch();
+    
+    // Initialize export buttons
+    initializeExportButtons();
+    
+    // Load locations
+    loadLocations();
+    
     // Load trend data
     loadTrendData();
+    
+    // Load initial report data
+    loadReportData();
 });
 
 </script>
@@ -1363,41 +1618,72 @@ document.addEventListener('DOMContentLoaded', function() {
     background: #94a3b8;
 }
 
-/* Existing pie chart styles */
-.clip-path-pie-0-40 {
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 80.9% 69.1%);
-}
-
-.clip-path-pie-40-70 {
-    clip-path: polygon(50% 50%, 80.9% 69.1%, 95.1% 30.9%, 100% 50%, 100% 100%, 50% 100%);
-}
-
-.clip-path-pie-70-90 {
-    clip-path: polygon(50% 50%, 95.1% 30.9%, 80.9% 69.1%, 50% 100%, 20% 100%);
-}
-
-.clip-path-pie-90-100 {
-    clip-path: polygon(50% 50%, 20% 100%, 0% 100%, 0% 50%, 50% 0%);
-}
-
-.clip-path-pie-0-25 {
-    clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%);
-}
-
-.clip-path-pie-25-50 {
-    clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%);
-}
-
-.clip-path-pie-50-75 {
-    clip-path: polygon(50% 50%, 50% 100%, 0% 100%, 0% 50%);
-}
-
-.clip-path-pie-75-100 {
-    clip-path: polygon(50% 50%, 0% 50%, 0% 0%, 50% 0%);
-}
-
+/* Chart transitions */
 .expanded-chart {
     transition: height 0.3s ease;
+}
+
+/* Enhanced chart styles */
+.bg-pastel-blue-500 {
+    background-color: #3b82f6;
+}
+
+.bg-pastel-green-500 {
+    background-color: #10b981;
+}
+
+.bg-pastel-purple-500 {
+    background-color: #8b5cf6;
+}
+
+.bg-pastel-amber-500 {
+    background-color: #f59e0b;
+}
+
+.bg-pastel-rose-500 {
+    background-color: #f43f5e;
+}
+
+.hover\:bg-pastel-blue-600:hover {
+    background-color: #2563eb;
+}
+
+.hover\:bg-pastel-green-600:hover {
+    background-color: #059669;
+}
+
+.hover\:bg-pastel-purple-600:hover {
+    background-color: #7c3aed;
+}
+
+.hover\:bg-pastel-amber-600:hover {
+    background-color: #d97706;
+}
+
+.hover\:bg-pastel-rose-600:hover {
+    background-color: #e11d48;
+}
+
+/* Export notification styles */
+.notification {
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Table search highlight */
+.search-highlight {
+    background-color: #fef3c7;
+    font-weight: 600;
 }
 </style>
 {% endblock %}
