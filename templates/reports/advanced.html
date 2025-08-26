@@ -49,20 +49,6 @@
                     </div>
                     
                     <div>
-                        <label for="reportType" class="block text-sm font-medium text-gray-700 mb-2">
-                            Tipo de Relatório
-                        </label>
-                        <select id="reportType" name="report_type"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                onchange="applyFiltersDebounced()">
-                            <option value="">Selecione o tipo...</option>
-                            {% for value, label in report_types %}
-                            <option value="{{ value }}">{{ label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <div>
                         <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Status do Evento
                         </label>
@@ -78,118 +64,49 @@
                     </div>
                 </div>
                 
-                <!-- Quick Date Presets -->
-                <div class="bg-pastel-blue-50 rounded-xl p-4">
-                    <p class="text-sm font-medium text-gray-700 mb-3">Períodos Predefinidos:</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button type="button" onclick="setDateRange(7); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Últimos 7 dias
-                        </button>
-                        <button type="button" onclick="setDateRange(30); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Últimos 30 dias
-                        </button>
-                        <button type="button" onclick="setDateRange(90); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Últimos 3 meses
-                        </button>
-                        <button type="button" onclick="setThisMonth(); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Este mês
-                        </button>
-                        <button type="button" onclick="setLastMonth(); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Mês passado
-                        </button>
-                        <button type="button" onclick="setThisYear(); applyFiltersDebounced();" 
-                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
-                            Este ano
-                        </button>
-                    </div>
-                </div>
-                
                 <!-- Advanced Filters -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Departments Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="departmentFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Departamentos
                         </label>
-                        <div class="custom-multiselect" id="departmentMultiselect">
-                            <div class="multiselect-trigger" onclick="toggleMultiselect('departmentMultiselect')">
-                                <span class="multiselect-selected" id="departmentSelected">Selecionar departamentos...</span>
-                                <div class="multiselect-arrow">
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                            <div class="multiselect-dropdown" id="departmentDropdown">
-                                <div class="multiselect-search">
-                                    <input type="text" placeholder="Buscar departamentos..." class="multiselect-search-input" oninput="filterMultiselectOptions('departmentMultiselect', this.value)">
-                                </div>
-                                <div class="multiselect-options">
-                                    {% for department in departments %}
-                                    <label class="multiselect-option" data-value="{{ department.id }}" data-text="{{ department.name }}">
-                                        <input type="checkbox" name="departments" value="{{ department.id }}" onchange="updateMultiselectSelection('departmentMultiselect'); applyFiltersDebounced();">
-                                        <span class="checkmark"></span>
-                                        <span class="option-text">{{ department.name }}</span>
-                                    </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
+                        <select id="departmentFilter" name="departments"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                onchange="applyFiltersDebounced()">
+                            <option value="">Todos os Departamentos</option>
+                            {% for department in departments %}
+                            <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     
                     <!-- Event Types Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="eventTypeFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Tipos de Evento
                         </label>
-                        <div class="custom-multiselect" id="eventTypeMultiselect">
-                            <div class="multiselect-trigger" onclick="toggleMultiselect('eventTypeMultiselect')">
-                                <span class="multiselect-selected" id="eventTypeSelected">Selecionar tipos...</span>
-                                <div class="multiselect-arrow">
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                            <div class="multiselect-dropdown" id="eventTypeDropdown">
-                                <div class="multiselect-search">
-                                    <input type="text" placeholder="Buscar tipos..." class="multiselect-search-input" oninput="filterMultiselectOptions('eventTypeMultiselect', this.value)">
-                                </div>
-                                <div class="multiselect-options">
-                                    {% for event_type in event_types %}
-                                    <label class="multiselect-option" data-value="{{ event_type.id }}" data-text="{{ event_type.name }}">
-                                        <input type="checkbox" name="event_types" value="{{ event_type.id }}" onchange="updateMultiselectSelection('eventTypeMultiselect'); applyFiltersDebounced();">
-                                        <span class="checkmark"></span>
-                                        <span class="option-text">{{ event_type.name }}</span>
-                                    </label>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
+                        <select id="eventTypeFilter" name="event_types"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                onchange="applyFiltersDebounced()">
+                            <option value="">Todos os Tipos</option>
+                            {% for event_type in event_types %}
+                            <option value="{{ event_type.id }}">{{ event_type.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     
                     <!-- Locations Filter -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="locationFilter" class="block text-sm font-medium text-gray-700 mb-2">
                             Localizações
                         </label>
-                        <div class="custom-multiselect" id="locationMultiselect">
-                            <div class="multiselect-trigger" onclick="toggleMultiselect('locationMultiselect')">
-                                <span class="multiselect-selected" id="locationSelected">Selecionar localizações...</span>
-                                <div class="multiselect-arrow">
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                            <div class="multiselect-dropdown" id="locationDropdown">
-                                <div class="multiselect-search">
-                                    <input type="text" placeholder="Buscar localizações..." class="multiselect-search-input" oninput="filterMultiselectOptions('locationMultiselect', this.value)">
-                                </div>
-                                <div class="multiselect-options" id="locationOptions">
-                                    <!-- Options will be populated dynamically -->
-                                </div>
-                            </div>
-                        </div>
+                        <select id="locationFilter" name="locations"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                onchange="applyFiltersDebounced()">
+                            <option value="">Todas as Localizações</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
                     </div>
                 </div>
                 
@@ -236,6 +153,37 @@
                     </div>
                 </div>
                 
+                <!-- Quick Date Presets -->
+                <div class="bg-pastel-blue-50 rounded-xl p-4">
+                    <p class="text-sm font-medium text-gray-700 mb-3">Períodos Predefinidos:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="setDateRange(7); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 7 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(30); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 30 dias
+                        </button>
+                        <button type="button" onclick="setDateRange(90); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Últimos 3 meses
+                        </button>
+                        <button type="button" onclick="setThisMonth(); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Este mês
+                        </button>
+                        <button type="button" onclick="setLastMonth(); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Mês passado
+                        </button>
+                        <button type="button" onclick="setThisYear(); applyFiltersDebounced();" 
+                                class="px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors shadow-sm">
+                            Este ano
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap gap-3 pt-4">
                     <div class="flex items-center text-sm text-gray-600">
@@ -257,114 +205,9 @@
         </div>
     </div>
     
-    <!-- Dashboard Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Total de Eventos</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1" id="totalEvents">0</p>
-                </div>
-                <div class="w-12 h-12 bg-pastel-blue-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-calendar-alt text-pastel-blue-600 text-xl"></i>
-                </div>
-            </div>
-            <div class="mt-4 flex items-center text-sm">
-                <span class="text-gray-600">Comparado ao mês anterior:</span>
-                <span class="ml-2 text-green-600 font-medium flex items-center" id="totalEventsChange">
-                    <i class="fas fa-arrow-up mr-1"></i>0%
-                </span>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Eventos Concluídos</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1" id="completedEvents">0</p>
-                </div>
-                <div class="w-12 h-12 bg-pastel-green-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-check-circle text-pastel-green-600 text-xl"></i>
-                </div>
-            </div>
-            <div class="mt-4">
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-pastel-green-500 h-2 rounded-full" style="width: 0%" id="completionRate"></div>
-                </div>
-                <p class="text-xs text-gray-500 mt-1">Taxa de conclusão: <span id="completionRateText">0%</span></p>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Departamentos Ativos</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1" id="activeDepartments">0</p>
-                </div>
-                <div class="w-12 h-12 bg-pastel-purple-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-building text-pastel-purple-600 text-xl"></i>
-                </div>
-            </div>
-            <div class="mt-4 flex items-center text-sm">
-                <span class="text-gray-600">Média por departamento:</span>
-                <span class="ml-2 text-gray-900 font-medium" id="avgEventsPerDepartment">0 eventos</span>
-            </div>
-        </div>
-        
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm font-medium text-gray-600">Tipos de Eventos</p>
-                    <p class="text-2xl font-bold text-gray-900 mt-1" id="eventTypesCount">0</p>
-                </div>
-                <div class="w-12 h-12 bg-pastel-amber-100 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-tags text-pastel-amber-600 text-xl"></i>
-                </div>
-            </div>
-            <div class="mt-4 flex items-center text-sm">
-                <span class="text-gray-600">Mais comum:</span>
-                <span class="ml-2 text-gray-900 font-medium truncate" id="mostCommonEventType">-</span>
-            </div>
-        </div>
-    </div>
-    
     <!-- Data Visualization -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <!-- Events by Department Chart -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-900">Eventos por Departamento</h3>
-                <div class="flex gap-2">
-                    <button class="text-gray-500 hover:text-gray-700" onclick="toggleChartView('eventsByDepartmentChart')">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="h-64 flex items-center justify-center" id="eventsByDepartmentChart">
-                <div class="text-center text-gray-500">
-                    <i class="fas fa-chart-bar text-3xl mb-2"></i>
-                    <p>Aplicar filtros para visualizar dados</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Trend Chart -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-semibold text-gray-900">Tendência de Eventos</h3>
-                <div class="flex gap-2">
-                    <button class="text-gray-500 hover:text-gray-700" onclick="loadTrendData()">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="h-64 flex items-center justify-center" id="trendChart">
-                <div class="text-center text-gray-500">
-                    <i class="fas fa-chart-line text-3xl mb-2"></i>
-                    <p>Carregando tendência...</p>
-                </div>
-            </div>
-        </div>
+    <div class="grid grid-cols-1 gap-8 mb-8">
+
     </div>
     
     <!-- Events Table -->
@@ -385,12 +228,6 @@
                         <i class="fas fa-search text-gray-400"></i>
                     </div>
                 </div>
-                <select id="itemsPerPage" class="py-2 pl-3 pr-8 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-                    <option value="10">10 por página</option>
-                    <option value="25" selected>25 por página</option>
-                    <option value="50">50 por página</option>
-                    <option value="100">100 por página</option>
-                </select>
             </div>
         </div>
         
@@ -434,16 +271,11 @@
             <div class="text-sm text-gray-700">
                 Mostrando <span id="showingFrom">0</span> a <span id="showingTo">0</span> de <span id="totalResults">0</span> resultados
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 pagination-container">
                 <button id="prevPage" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg bg-primary-50 text-primary-700">1</button>
-                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
-                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">3</button>
-                <button class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
+                <!-- Page buttons will be dynamically generated here -->
                 <button id="nextPage" class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
                     <i class="fas fa-chevron-right"></i>
                 </button>
@@ -455,21 +287,50 @@
 
 {% block extra_js %}
 <script>
-// Toggle filter section
-document.getElementById('toggleFilters').addEventListener('click', function() {
-    const filterContent = document.getElementById('filterContent');
-    const filterIcon = document.getElementById('filterIcon');
+// Consolidated DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize pagination state first
+    window.currentPagination = {
+        page: 1,
+        itemsPerPage: 15
+    };
     
-    if (filterContent.classList.contains('hidden')) {
-        filterContent.classList.remove('hidden');
-        filterIcon.classList.remove('fa-chevron-down');
-        filterIcon.classList.add('fa-chevron-up');
-        this.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Recolher Filtros';
-    } else {
-        filterContent.classList.add('hidden');
-        filterIcon.classList.remove('fa-chevron-up');
-        filterIcon.classList.add('fa-chevron-down');
-        this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>Expandir Filtros';
+    // Initialize multiselect dropdowns
+    
+    // Initialize table search and pagination
+    initializeTableSearch();
+    
+    // Initialize export buttons
+    initializeExportButtons();
+    
+    // Load locations
+    loadLocations();
+    
+    // Set default dates
+    setDateRange(30);
+    
+    // Load initial data
+    loadReportData();
+    
+    // Initialize toggle filter button
+    const toggleFiltersBtn = document.getElementById('toggleFilters');
+    if (toggleFiltersBtn) {
+        toggleFiltersBtn.addEventListener('click', function() {
+            const filterContent = document.getElementById('filterContent');
+            const filterIcon = document.getElementById('filterIcon');
+            
+            if (filterContent.classList.contains('hidden')) {
+                filterContent.classList.remove('hidden');
+                filterIcon.classList.remove('fa-chevron-down');
+                filterIcon.classList.add('fa-chevron-up');
+                this.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Recolher Filtros';
+            } else {
+                filterContent.classList.add('hidden');
+                filterIcon.classList.remove('fa-chevron-up');
+                filterIcon.classList.add('fa-chevron-down');
+                this.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>Expandir Filtros';
+            }
+        });
     }
 });
 
@@ -511,14 +372,6 @@ function setThisYear() {
 }
 
 // Loading indicators
-function applyFiltersDebounced() {
-    showLoadingIndicator();
-    clearTimeout(filterTimeout);
-    filterTimeout = setTimeout(() => {
-        loadReportData();
-    }, 500);
-}
-
 function showLoadingIndicator() {
     const globalLoading = document.getElementById('globalLoading');
     const globalSuccess = document.getElementById('globalSuccess');
@@ -545,47 +398,6 @@ function hideLoadingIndicator() {
         }, 2000);
     }
 }
-
-function setThisMonth() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth(), 1);
-    const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    
-    document.getElementById('startDate').value = start.toISOString().split('T')[0];
-    document.getElementById('endDate').value = end.toISOString().split('T')[0];
-}
-
-function setLastMonth() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-    const end = new Date(now.getFullYear(), now.getMonth(), 0);
-    
-    document.getElementById('startDate').value = start.toISOString().split('T')[0];
-    document.getElementById('endDate').value = end.toISOString().split('T')[0];
-}
-
-function setThisYear() {
-    const now = new Date();
-    const start = new Date(now.getFullYear(), 0, 1);
-    const end = new Date(now.getFullYear(), 11, 31);
-    
-    document.getElementById('startDate').value = start.toISOString().split('T')[0];
-    document.getElementById('endDate').value = end.toISOString().split('T')[0];
-}
-
-// Set default dates (last 30 days)
-document.addEventListener('DOMContentLoaded', function() {
-    setDateRange(30);
-    
-    // Load initial data
-    loadReportData();
-    
-    // Load locations
-    loadLocations();
-    
-    // Initialize multiselect dropdowns
-    initializeMultiselects();
-});
 
 // Dynamic filtering with debounce
 let filterTimeout;
@@ -602,43 +414,10 @@ function applyFiltersDebounced() {
     }, 500);
 }
 
-// Show loading indicators
-function showLoadingIndicator() {
-    const globalLoading = document.getElementById('globalLoading');
-    const globalSuccess = document.getElementById('globalSuccess');
-    
-    if (globalLoading) {
-        globalLoading.classList.remove('hidden');
-    }
-    if (globalSuccess) {
-        globalSuccess.classList.add('hidden');
-    }
-}
-
-// Hide loading indicators and show success
-function hideLoadingIndicator() {
-    const globalLoading = document.getElementById('globalLoading');
-    const globalSuccess = document.getElementById('globalSuccess');
-    
-    if (globalLoading) {
-        globalLoading.classList.add('hidden');
-    }
-    if (globalSuccess) {
-        globalSuccess.classList.remove('hidden');
-        // Auto-hide success message after 2 seconds
-        setTimeout(() => {
-            globalSuccess.classList.add('hidden');
-        }, 2000);
-    }
-}
-
 // Reset filters with immediate update
 document.getElementById('resetFiltersBtn').addEventListener('click', function() {
     // Reset form
     document.getElementById('reportForm').reset();
-    
-    // Reset multiselect dropdowns
-    resetAllMultiselects();
     
     // Set default dates
     setDateRange(30);
@@ -652,7 +431,6 @@ document.getElementById('exportPdfBtn').addEventListener('click', function() {
     // Get form data
     const formData = new FormData(document.getElementById('reportForm'));
     formData.append('format', 'pdf');
-    formData.append('report_type', 'events_by_period');
     
     // Submit form to generate report
     submitReportForm(formData);
@@ -662,7 +440,6 @@ document.getElementById('exportExcelBtn').addEventListener('click', function() {
     // Get form data
     const formData = new FormData(document.getElementById('reportForm'));
     formData.append('format', 'excel');
-    formData.append('report_type', 'events_by_period');
     
     // Submit form to generate report
     submitReportForm(formData);
@@ -712,32 +489,42 @@ function loadReportData() {
         </tr>
     `;
     
-    // Get form data from multiselects and other inputs
+    // Get form data from selects and other inputs
     const params = new URLSearchParams();
     
     // Get date filters
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const reportType = document.getElementById('reportType').value;
     const status = document.getElementById('statusFilter').value;
     const search = document.getElementById('searchFilter').value;
     const responsibleSearch = document.getElementById('responsibleSearchFilter').value;
+    const department = document.getElementById('departmentFilter').value;
+    const eventType = document.getElementById('eventTypeFilter').value;
+    const location = document.getElementById('locationFilter').value;
     
     if (startDate) params.append('start_date', startDate);
     if (endDate) params.append('end_date', endDate);
-    if (reportType) params.append('report_type', reportType);
     if (status) params.append('status', status);
     if (search) params.append('search', search);
     if (responsibleSearch) params.append('responsible_search', responsibleSearch);
+    if (department) params.append('departments', department);
+    if (eventType) params.append('event_types', eventType);
+    if (location) params.append('locations', location);
     
-    // Get multiselect values
-    const departmentValues = getMultiselectValues('departmentMultiselect');
-    const eventTypeValues = getMultiselectValues('eventTypeMultiselect');
-    const locationValues = getMultiselectValues('locationMultiselect');
+    // Add pagination parameters
+    if (window.currentPagination) {
+        params.append('page', window.currentPagination.page);
+        params.append('page_size', window.currentPagination.itemsPerPage);
+    } else {
+        // Default pagination with 15 items per page
+        params.append('page', 1);
+        params.append('page_size', 15);
+    }
     
-    departmentValues.forEach(value => params.append('departments', value));
-    eventTypeValues.forEach(value => params.append('event_types', value));
-    locationValues.forEach(value => params.append('locations', value));
+    // Show loading indicator in the pagination info area
+    document.getElementById('showingFrom').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    document.getElementById('showingTo').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    document.getElementById('totalResults').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
     
     // Fetch data from API
     fetch('{% url "reports:api_data" %}?' + params.toString())
@@ -745,47 +532,6 @@ function loadReportData() {
         .then(data => {
             // Hide loading indicators
             hideLoadingIndicator();
-            
-            // Update stats
-            document.getElementById('totalEvents').textContent = data.total_events;
-            document.getElementById('completedEvents').textContent = data.completed_events;
-            document.getElementById('activeDepartments').textContent = data.departments_count;
-            document.getElementById('eventTypesCount').textContent = data.event_types_count;
-            
-            // Update completion rate
-            const completionRate = data.total_events > 0 ? 
-                Math.round((data.completed_events / data.total_events) * 100) : 0;
-            document.getElementById('completionRate').style.width = completionRate + '%';
-            document.getElementById('completionRateText').textContent = completionRate + '%';
-            
-            // Update additional stats
-            const avgEventsPerDepartment = data.departments_count > 0 ? 
-                Math.round(data.total_events / data.departments_count) : 0;
-            document.getElementById('avgEventsPerDepartment').textContent = avgEventsPerDepartment + ' eventos';
-            
-            // Update most common event type
-            if (data.events_by_type && data.events_by_type.length > 0) {
-                document.getElementById('mostCommonEventType').textContent = data.events_by_type[0].event_type__name;
-            } else {
-                document.getElementById('mostCommonEventType').textContent = '-';
-            }
-            
-            // Update comparison data
-            if (data.comparison) {
-                const totalChangeElement = document.getElementById('totalEventsChange');
-                const totalChangePercent = data.comparison.total_change_percent;
-                
-                if (totalChangePercent > 0) {
-                    totalChangeElement.innerHTML = `<i class="fas fa-arrow-up mr-1"></i>${totalChangePercent}%`;
-                    totalChangeElement.className = 'ml-2 text-green-600 font-medium flex items-center';
-                } else if (totalChangePercent < 0) {
-                    totalChangeElement.innerHTML = `<i class="fas fa-arrow-down mr-1"></i>${Math.abs(totalChangePercent)}%`;
-                    totalChangeElement.className = 'ml-2 text-red-600 font-medium flex items-center';
-                } else {
-                    totalChangeElement.innerHTML = `<i class="fas fa-equals mr-1"></i>${totalChangePercent}%`;
-                    totalChangeElement.className = 'ml-2 text-gray-600 font-medium flex items-center';
-                }
-            }
             
             // Update table
             if (data.events && data.events.length > 0) {
@@ -826,9 +572,7 @@ function loadReportData() {
                 tableBody.innerHTML = tableRows;
                 
                 // Update pagination
-                document.getElementById('showingFrom').textContent = '1';
-                document.getElementById('showingTo').textContent = Math.min(25, data.total_events);
-                document.getElementById('totalResults').textContent = data.total_events;
+                updatePaginationControls(data.current_page, data.total_pages, data.total_events, data.events.length);
             } else {
                 tableBody.innerHTML = `
                     <tr>
@@ -840,9 +584,7 @@ function loadReportData() {
                 `;
                 
                 // Update pagination
-                document.getElementById('showingFrom').textContent = '0';
-                document.getElementById('showingTo').textContent = '0';
-                document.getElementById('totalResults').textContent = '0';
+                updatePaginationControls(1, 1, 0, 0);
             }
             
             // Update charts
@@ -858,114 +600,78 @@ function loadReportData() {
                     </td>
                 </tr>
             `;
+            
+            // Update pagination with error state
+            updatePaginationControls(1, 1, 0, 0);
         });
 }
 
 // Update charts with data
 function updateCharts(data) {
-    // Events by Department Chart
-    if (data.events_by_department && data.events_by_department.length > 0) {
-        let chartHtml = `
-            <div class="w-full h-full">
-                <div class="flex flex-col h-full">
-                    <div class="flex-1 overflow-hidden">
-        `;
-        
-        // Find max count for scaling
-        const maxCount = Math.max(...data.events_by_department.map(item => item.count));
-        
-        // Determine layout based on number of items
-        const itemCount = data.events_by_department.length;
-        const useHorizontalLayout = itemCount > 4;
-        
-        if (useHorizontalLayout) {
-            // Horizontal bar chart for many departments
-            chartHtml += `
-                <div class="space-y-3 max-h-48 overflow-y-auto">
-            `;
-            
-            data.events_by_department.forEach((item, index) => {
-                const widthPercentage = maxCount > 0 ? (item.count / maxCount) * 100 : 0;
-                const colors = ['bg-pastel-blue-500', 'bg-pastel-green-500', 'bg-pastel-purple-500', 'bg-pastel-amber-500', 'bg-pastel-rose-500'];
-                const color = colors[index % colors.length];
-                
-                chartHtml += `
-                    <div class="flex items-center">
-                        <div class="w-24 text-xs text-gray-600 truncate pr-2" title="${item.department__name}">
-                            ${item.department__name}
-                        </div>
-                        <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
-                            <div class="${color} h-6 rounded-full flex items-center justify-end pr-2 transition-all duration-300" style="width: ${widthPercentage}%">
-                                <span class="text-xs font-medium text-white">${item.count}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            chartHtml += `
-                </div>
-            `;
-        } else {
-            // Vertical bar chart for fewer departments
-            chartHtml += `
-                <div class="flex items-end justify-center h-40 gap-4">
-            `;
-            
-            data.events_by_department.forEach((item, index) => {
-                const heightPercentage = maxCount > 0 ? (item.count / maxCount) * 90 : 0;
-                const colors = ['bg-pastel-blue-500', 'bg-pastel-green-500', 'bg-pastel-purple-500', 'bg-pastel-amber-500', 'bg-pastel-rose-500'];
-                const hoverColors = ['hover:bg-pastel-blue-600', 'hover:bg-pastel-green-600', 'hover:bg-pastel-purple-600', 'hover:bg-pastel-amber-600', 'hover:bg-pastel-rose-600'];
-                const color = colors[index % colors.length];
-                const hoverColor = hoverColors[index % hoverColors.length];
-                
-                chartHtml += `
-                    <div class="flex flex-col items-center group">
-                        <div class="relative">
-                            <div class="w-12 ${color} ${hoverColor} rounded-t transition-all duration-300 flex items-end justify-center pb-1" style="height: ${heightPercentage}%">
-                                <span class="text-xs font-bold text-white">${item.count}</span>
-                            </div>
-                        </div>
-                        <div class="text-xs text-gray-600 mt-2 text-center max-w-20">
-                            <div class="truncate" title="${item.department__name}">
-                                ${item.department__name}
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            chartHtml += `
-                </div>
-            `;
-        }
-        
-        chartHtml += `
-                    </div>
-                    <div class="mt-4 text-center">
-                        <div class="text-sm text-gray-600 font-medium">
-                            Eventos por departamento
-                        </div>
-                        <div class="text-xs text-gray-500 mt-1">
-                            Total: ${data.events_by_department.reduce((sum, item) => sum + item.count, 0)} eventos
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.getElementById('eventsByDepartmentChart').innerHTML = chartHtml;
-    } else {
-        document.getElementById('eventsByDepartmentChart').innerHTML = `
-            <div class="text-center text-gray-500 h-full flex items-center justify-center">
-                <div>
-                    <i class="fas fa-chart-bar text-3xl mb-2"></i>
-                    <p>Sem dados suficientes para exibir</p>
-                    <p class="text-xs mt-1">Aplique filtros para visualizar dados</p>
-                </div>
-            </div>
-        `;
+    /*
+    if (data.months && data.event_counts) {
+        updateTrendChart(data.months, data.event_counts);
     }
+    */
+}
+
+// Update trend chart
+function updateTrendChart(months, eventCounts) {
+    // Create a responsive line chart using CSS and HTML
+    let chartHtml = `
+        <div class="w-full h-full flex flex-col">
+            <div class="flex-1 relative overflow-hidden">
+                <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
+    `;
+    
+    // Calculate points for the line chart
+    const maxCount = Math.max(...eventCounts);
+    const points = [];
+    
+    months.forEach((month, index) => {
+        const x = (index / (months.length - 1)) * 380 + 10;
+        const y = 190 - (eventCounts[index] / maxCount) * 180;
+        points.push(`${x},${y}`);
+    });
+    
+    // Draw the line
+    chartHtml += `
+                    <polyline 
+                        points="${points.join(' ')}" 
+                        fill="none" 
+                        stroke="#3b82f6" 
+                        stroke-width="2"
+                        class="drop-shadow-sm">
+                    </polyline>
+    `;
+    
+    // Draw points
+    points.forEach((point, index) => {
+        const [x, y] = point.split(',');
+        chartHtml += `
+            <circle cx="${x}" cy="${y}" r="4" fill="#3b82f6" class="hover:r-6 transition-all"></circle>
+            <text x="${x}" y="${y - 10}" text-anchor="middle" font-size="10" fill="#4b5563" class="chart-label">${eventCounts[index]}</text>
+        `;
+    });
+    
+    // Draw x-axis labels
+    months.forEach((month, index) => {
+        const x = (index / (months.length - 1)) * 380 + 10;
+        chartHtml += `
+            <text x="${x}" y="210" text-anchor="middle" font-size="10" fill="#6b7280" class="chart-label">${month.substring(0, 3)}</text>
+        `;
+    });
+    
+    chartHtml += `
+                </svg>
+            </div>
+            <div class="text-center text-sm text-gray-600 mt-2">
+                Eventos nos últimos 12 meses
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('trendChart').innerHTML = chartHtml;
 }
 
 // Load trend data
@@ -973,11 +679,11 @@ function loadTrendData() {
     fetch('{% url "reports:api_trend" %}')
         .then(response => response.json())
         .then(data => {
-            // Create a simple line chart using CSS and HTML
+            // Create a responsive line chart using CSS and HTML
             let chartHtml = `
                 <div class="w-full h-full flex flex-col">
-                    <div class="flex-1 relative">
-                        <svg viewBox="0 0 400 200" class="w-full h-full">
+                    <div class="flex-1 relative overflow-hidden">
+                        <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
             `;
             
             // Calculate points for the line chart
@@ -1006,7 +712,7 @@ function loadTrendData() {
                 const [x, y] = point.split(',');
                 chartHtml += `
                     <circle cx="${x}" cy="${y}" r="4" fill="#3b82f6" class="hover:r-6 transition-all"></circle>
-                    <text x="${x}" y="${y - 10}" text-anchor="middle" font-size="10" fill="#4b5563">${data.event_counts[index]}</text>
+                    <text x="${x}" y="${y - 10}" text-anchor="middle" font-size="10" fill="#4b5563" class="chart-label">${data.event_counts[index]}</text>
                 `;
             });
             
@@ -1014,7 +720,7 @@ function loadTrendData() {
             data.months.forEach((month, index) => {
                 const x = (index / (data.months.length - 1)) * 380 + 10;
                 chartHtml += `
-                    <text x="${x}" y="210" text-anchor="middle" font-size="10" fill="#6b7280">${month.substring(0, 3)}</text>
+                    <text x="${x}" y="210" text-anchor="middle" font-size="10" fill="#6b7280" class="chart-label">${month.substring(0, 3)}</text>
                 `;
             });
             
@@ -1040,41 +746,21 @@ function loadTrendData() {
         });
 }
 
-// Toggle chart view (expand/collapse)
-function toggleChartView(chartId) {
-    const chart = document.getElementById(chartId);
-    const isExpanded = chart.classList.contains('expanded-chart');
-    
-    if (isExpanded) {
-        chart.classList.remove('expanded-chart');
-        chart.style.height = '16rem';
-    } else {
-        chart.classList.add('expanded-chart');
-        chart.style.height = '32rem';
-    }
-}
-
-// Load locations dynamically for multiselect
+// Load locations dynamically for select
 function loadLocations() {
     fetch('{% url "reports:api_locations" %}')
         .then(response => response.json())
         .then(data => {
-            const optionsContainer = document.getElementById('locationOptions');
-            optionsContainer.innerHTML = '';
+            const selectElement = document.getElementById('locationFilter');
+            
+            // Clear existing options except the first one
+            selectElement.innerHTML = '<option value="">Todas as Localizações</option>';
             
             data.locations.forEach(location => {
-                const label = document.createElement('label');
-                label.className = 'multiselect-option';
-                label.setAttribute('data-value', location.id);
-                label.setAttribute('data-text', location.name);
-                
-                label.innerHTML = `
-                    <input type="checkbox" name="locations" value="${location.id}" onchange="updateMultiselectSelection('locationMultiselect'); applyFiltersDebounced();">
-                    <span class="checkmark"></span>
-                    <span class="option-text">${location.name}</span>
-                `;
-                
-                optionsContainer.appendChild(label);
+                const option = document.createElement('option');
+                option.value = location.id;
+                option.textContent = location.name;
+                selectElement.appendChild(option);
             });
         })
         .catch(error => {
@@ -1084,96 +770,28 @@ function loadLocations() {
 
 // Custom Multiselect Functions
 function initializeMultiselects() {
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.custom-multiselect')) {
-            document.querySelectorAll('.multiselect-dropdown').forEach(dropdown => {
-                dropdown.style.display = 'none';
-            });
-            document.querySelectorAll('.multiselect-arrow i').forEach(arrow => {
-                arrow.className = 'fas fa-chevron-down';
-            });
-        }
-    });
+    // Function no longer needed with simple selects
 }
 
 function toggleMultiselect(multiselectId) {
-    const multiselect = document.getElementById(multiselectId);
-    const dropdown = multiselect.querySelector('.multiselect-dropdown');
-    const arrow = multiselect.querySelector('.multiselect-arrow i');
-    
-    // Close other dropdowns
-    document.querySelectorAll('.multiselect-dropdown').forEach(dd => {
-        if (dd !== dropdown) {
-            dd.style.display = 'none';
-        }
-    });
-    document.querySelectorAll('.multiselect-arrow i').forEach(arr => {
-        if (arr !== arrow) {
-            arr.className = 'fas fa-chevron-down';
-        }
-    });
-    
-    // Toggle current dropdown
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-        arrow.className = 'fas fa-chevron-down';
-    } else {
-        dropdown.style.display = 'block';
-        arrow.className = 'fas fa-chevron-up';
-    }
+    // Function no longer needed with simple selects
 }
 
 function updateMultiselectSelection(multiselectId) {
-    const multiselect = document.getElementById(multiselectId);
-    const selectedSpan = multiselect.querySelector('.multiselect-selected');
-    const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]:checked');
-    
-    if (checkboxes.length === 0) {
-        const defaultTexts = {
-            'departmentMultiselect': 'Selecionar departamentos...',
-            'eventTypeMultiselect': 'Selecionar tipos...',
-            'locationMultiselect': 'Selecionar localizações...'
-        };
-        selectedSpan.textContent = defaultTexts[multiselectId] || 'Selecionar...';
-        selectedSpan.className = 'multiselect-selected';
-    } else if (checkboxes.length === 1) {
-        selectedSpan.textContent = checkboxes[0].closest('.multiselect-option').getAttribute('data-text');
-        selectedSpan.className = 'multiselect-selected selected';
-    } else {
-        selectedSpan.textContent = `${checkboxes.length} itens selecionados`;
-        selectedSpan.className = 'multiselect-selected selected';
-    }
+    // Function no longer needed with simple selects
 }
 
 function getMultiselectValues(multiselectId) {
-    const multiselect = document.getElementById(multiselectId);
-    const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]:checked');
-    return Array.from(checkboxes).map(cb => cb.value);
+    // Function no longer needed with simple selects
+    return [];
 }
 
 function filterMultiselectOptions(multiselectId, searchText) {
-    const multiselect = document.getElementById(multiselectId);
-    const options = multiselect.querySelectorAll('.multiselect-option');
-    
-    options.forEach(option => {
-        const text = option.getAttribute('data-text').toLowerCase();
-        if (text.includes(searchText.toLowerCase())) {
-            option.style.display = 'block';
-        } else {
-            option.style.display = 'none';
-        }
-    });
+    // Function no longer needed with simple selects
 }
 
 function resetAllMultiselects() {
-    document.querySelectorAll('.custom-multiselect').forEach(multiselect => {
-        const checkboxes = multiselect.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(cb => cb.checked = false);
-        
-        const multiselectId = multiselect.id;
-        updateMultiselectSelection(multiselectId);
-    });
+    // Function no longer needed with simple selects
 }
 
 // Sort table by column
@@ -1195,13 +813,16 @@ function initializeTableSearch() {
         });
     }
     
-    // Items per page functionality
+    // Removed items per page functionality
+    /*
     const itemsPerPageSelect = document.getElementById('itemsPerPage');
     if (itemsPerPageSelect) {
         itemsPerPageSelect.addEventListener('change', function() {
-            updateTablePagination(parseInt(this.value));
+            const itemsPerPage = parseInt(this.value);
+            updateTablePagination(1, itemsPerPage); // Reset to first page when changing items per page
         });
     }
+    */
 }
 
 function filterTableRows(searchTerm) {
@@ -1236,10 +857,14 @@ function filterTableRows(searchTerm) {
     updatePaginationInfo(visibleCount);
 }
 
-function updateTablePagination(itemsPerPage) {
-    // This would normally re-fetch data with new page size
-    // For now, we'll just update the display
-    console.log('Items per page changed to:', itemsPerPage);
+function updateTablePagination(page, itemsPerPage) {
+    // Store current pagination state
+    window.currentPagination = {
+        page: page,
+        itemsPerPage: itemsPerPage
+    };
+    
+    // Re-fetch data with pagination parameters
     applyFiltersDebounced();
 }
 
@@ -1280,28 +905,23 @@ function exportReport(format) {
     // Get filter values
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const reportType = document.getElementById('reportType').value || 'events_by_period';
     const status = document.getElementById('statusFilter').value;
     const search = document.getElementById('searchFilter').value;
     const responsibleSearch = document.getElementById('responsibleSearchFilter').value;
+    const department = document.getElementById('departmentFilter').value;
+    const eventType = document.getElementById('eventTypeFilter').value;
+    const location = document.getElementById('locationFilter').value;
     
     // Add basic filters
     if (startDate) formData.append('start_date', startDate);
     if (endDate) formData.append('end_date', endDate);
-    formData.append('report_type', reportType);
     if (status) formData.append('status', status);
     if (search) formData.append('search', search);
     if (responsibleSearch) formData.append('responsible_search', responsibleSearch);
+    if (department) formData.append('departments', department);
+    if (eventType) formData.append('event_types', eventType);
+    if (location) formData.append('locations', location);
     formData.append('format', format);
-    
-    // Add multiselect values
-    const departmentValues = getMultiselectValues('departmentMultiselect');
-    const eventTypeValues = getMultiselectValues('eventTypeMultiselect');
-    const locationValues = getMultiselectValues('locationMultiselect');
-    
-    departmentValues.forEach(value => formData.append('departments', value));
-    eventTypeValues.forEach(value => formData.append('event_types', value));
-    locationValues.forEach(value => formData.append('locations', value));
     
     // Add CSRF token
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
@@ -1326,7 +946,7 @@ function exportReport(format) {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = `relatorio_${reportType}_${new Date().getTime()}.${format === 'pdf' ? 'pdf' : 'xlsx'}`;
+        a.download = `relatorio_${new Date().getTime()}.${format === 'pdf' ? 'pdf' : 'xlsx'}`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -1378,181 +998,174 @@ function showExportError(format, message) {
     }, 5000);
 }
 
-// Initialize with sample data
-document.addEventListener('DOMContentLoaded', function() {
-    // Set default dates
-    setDateRange(30);
+// Update pagination controls
+function updatePaginationControls(currentPage, totalPages, totalResults, itemsOnPage) {
+    // Update pagination info text
+    const showingFrom = totalResults > 0 ? ((currentPage - 1) * window.currentPagination.itemsPerPage) + 1 : 0;
+    const showingTo = Math.min(currentPage * window.currentPagination.itemsPerPage, totalResults);
     
-    // Initialize multiselects
-    initializeMultiselects();
+    document.getElementById('showingFrom').textContent = showingFrom;
+    document.getElementById('showingTo').textContent = showingTo;
+    document.getElementById('totalResults').textContent = totalResults;
     
-    // Initialize table search and pagination
-    initializeTableSearch();
+    // Update pagination buttons
+    const prevButton = document.getElementById('prevPage');
+    const nextButton = document.getElementById('nextPage');
     
-    // Initialize export buttons
-    initializeExportButtons();
+    // Enable/disable navigation buttons
+    if (prevButton) {
+        prevButton.disabled = currentPage <= 1;
+        prevButton.onclick = () => {
+            if (currentPage > 1) {
+                updateTablePagination(currentPage - 1, window.currentPagination.itemsPerPage);
+            }
+        };
+    }
     
-    // Load locations
-    loadLocations();
+    if (nextButton) {
+        nextButton.disabled = currentPage >= totalPages;
+        nextButton.onclick = () => {
+            if (currentPage < totalPages) {
+                updateTablePagination(currentPage + 1, window.currentPagination.itemsPerPage);
+            }
+        };
+    }
     
-    // Load trend data
-    loadTrendData();
+    // Generate page buttons
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
     
-    // Load initial report data
-    loadReportData();
-});
-
+    // Adjust start page if needed
+    if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    // Clear existing page buttons (except prev/next)
+    const paginationContainer = document.querySelector('.pagination-container');
+    
+    // Remove all page buttons except prev/next
+    const pageButtons = paginationContainer.querySelectorAll('button:not(#prevPage):not(#nextPage)');
+    pageButtons.forEach(button => button.remove());
+    
+    // Add new page buttons
+    for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.className = `px-3 py-1.5 text-sm border rounded-lg ${i === currentPage ? 'bg-primary-600 text-white border-primary-600' : 'border-gray-300 hover:bg-gray-50'}`;
+        pageButton.textContent = i;
+        pageButton.onclick = () => updateTablePagination(i, window.currentPagination.itemsPerPage);
+        
+        // Insert before next button
+        const nextButton = document.getElementById('nextPage');
+        if (nextButton) {
+            nextButton.parentNode.insertBefore(pageButton, nextButton);
+        } else {
+            paginationContainer.appendChild(pageButton);
+        }
+    }
+}
 </script>
 
 <style>
 /* Custom Multiselect Styles */
 .custom-multiselect {
-    position: relative;
-    width: 100%;
+    /* Styles no longer needed */
 }
 
 .multiselect-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-height: 44px;
+    /* Styles no longer needed */
 }
 
 .multiselect-trigger:hover {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 1px #3b82f6;
+    /* Styles no longer needed */
 }
 
 .multiselect-trigger:focus-within {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    /* Styles no longer needed */
 }
 
 .multiselect-selected {
-    color: #6b7280;
-    font-size: 14px;
-    flex: 1;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* Styles no longer needed */
 }
 
 .multiselect-selected.selected {
-    color: #1f2937;
-    font-weight: 500;
+    /* Styles no longer needed */
 }
 
 .multiselect-arrow {
-    margin-left: 8px;
-    transition: transform 0.2s ease;
+    /* Styles no longer needed */
 }
 
 .multiselect-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    z-index: 1000;
-    display: none;
-    max-height: 250px;
-    overflow: hidden;
+    /* Styles no longer needed */
 }
 
 .multiselect-search {
-    padding: 12px;
-    border-bottom: 1px solid #e5e7eb;
+    /* Styles no longer needed */
 }
 
 .multiselect-search-input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
-    outline: none;
+    /* Styles no longer needed */
 }
 
 .multiselect-search-input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 1px #3b82f6;
+    /* Styles no longer needed */
 }
 
 .multiselect-options {
-    max-height: 180px;
-    overflow-y: auto;
-    padding: 4px;
+    /* Styles no longer needed */
 }
 
 .multiselect-option {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 6px;
-    margin: 2px 0;
-    transition: background-color 0.15s ease;
-    position: relative;
-    user-select: none;
+    /* Styles no longer needed */
 }
 
 .multiselect-option:hover {
-    background-color: #f3f4f6;
+    /* Styles no longer needed */
 }
 
 .multiselect-option input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+    /* Styles no longer needed */
+}
+
+.multiselect-option input[type="radio"] {
+    /* Styles no longer needed */
 }
 
 .checkmark {
-    position: relative;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid #d1d5db;
-    border-radius: 4px;
-    margin-right: 12px;
-    background: white;
-    transition: all 0.2s ease;
+    /* Styles no longer needed */
 }
 
+/* Checkbox styles */
 .multiselect-option input[type="checkbox"]:checked ~ .checkmark {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
+    /* Styles no longer needed */
 }
 
 .multiselect-option input[type="checkbox"]:checked ~ .checkmark:after {
-    content: '';
-    position: absolute;
-    display: block;
-    left: 5px;
-    top: 2px;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    /* Styles no longer needed */
+}
+
+/* Radio button styles */
+.multiselect-option input[type="radio"] ~ .checkmark {
+    /* Styles no longer needed */
+}
+
+.multiselect-option input[type="radio"]:checked ~ .checkmark {
+    /* Styles no longer needed */
+}
+
+.multiselect-option input[type="radio"]:checked ~ .checkmark:after {
+    /* Styles no longer needed */
 }
 
 .option-text {
     font-size: 14px;
     color: #374151;
     flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Loading Indicators */
@@ -1618,50 +1231,53 @@ document.addEventListener('DOMContentLoaded', function() {
     background: #94a3b8;
 }
 
-/* Chart transitions */
-.expanded-chart {
-    transition: height 0.3s ease;
+/* Chart responsiveness improvements */
+.chart-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Enhanced chart styles */
-.bg-pastel-blue-500 {
-    background-color: #3b82f6;
+.chart-label {
+    font-family: 'Inter', sans-serif;
+    paint-order: stroke;
+    stroke: #ffffff;
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.bg-pastel-green-500 {
-    background-color: #10b981;
+/* Responsive improvements for charts */
+@media (max-width: 1024px) {
+    .chart-container {
+        min-height: 200px;
+    }
+    
+    .chart-label {
+        font-size: 8px;
+    }
 }
 
-.bg-pastel-purple-500 {
-    background-color: #8b5cf6;
+@media (max-width: 768px) {
+    .chart-container {
+        min-height: 180px;
+    }
+    
+    .chart-label {
+        font-size: 7px;
+    }
 }
 
-.bg-pastel-amber-500 {
-    background-color: #f59e0b;
-}
-
-.bg-pastel-rose-500 {
-    background-color: #f43f5e;
-}
-
-.hover\:bg-pastel-blue-600:hover {
-    background-color: #2563eb;
-}
-
-.hover\:bg-pastel-green-600:hover {
-    background-color: #059669;
-}
-
-.hover\:bg-pastel-purple-600:hover {
-    background-color: #7c3aed;
-}
-
-.hover\:bg-pastel-amber-600:hover {
-    background-color: #d97706;
-}
-
-.hover\:bg-pastel-rose-600:hover {
-    background-color: #e11d48;
+@media (max-width: 480px) {
+    .chart-container {
+        min-height: 150px;
+    }
+    
+    .chart-label {
+        font-size: 6px;
+    }
 }
 
 /* Export notification styles */
@@ -1684,6 +1300,41 @@ document.addEventListener('DOMContentLoaded', function() {
 .search-highlight {
     background-color: #fef3c7;
     font-weight: 600;
+}
+
+/* Pagination loading spinner */
+.pagination-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Pagination button states */
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .pagination-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .pagination-buttons {
+        justify-content: center;
+    }
 }
 </style>
 {% endblock %}

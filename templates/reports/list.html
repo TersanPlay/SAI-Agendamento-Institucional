@@ -13,7 +13,6 @@
             </div>
             {% if can_create_reports %}
             <div class="flex space-x-4">
-                <!-- Botão Relatório Rápido removido -->
                 <a href="{% url 'reports:create' %}" 
                    class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
                     <i class="fas fa-plus mr-2"></i>
@@ -205,8 +204,6 @@
     </div>
 </div>
 
-<!-- Modal de Relatório Rápido removido -->
-
 <!-- Loading Overlay -->
 <div id="loadingOverlay" class="fixed inset-0 z-50 hidden bg-gray-500 bg-opacity-75 flex items-center justify-center">
     <div class="bg-white rounded-lg p-6 text-center">
@@ -222,8 +219,6 @@ function generateReport(reportId) {
     showLoading();
     window.location.href = `{% url 'reports:generate' 0 %}`.replace('0', reportId);
 }
-
-// Funções de relatório rápido removidas
 
 function showLoading() {
     document.getElementById('loadingOverlay').classList.remove('hidden');

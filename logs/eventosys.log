@@ -12450,3 +12450,1839 @@ Watching for file changes with StatReloader
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 18227
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 7130
+"GET /accounts/login/ HTTP/1.1" 200 19380
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /dashboard/ HTTP/1.1" 200 52708
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 111226
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7241
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26 HTTP/1.1" 200 2602
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26 HTTP/1.1" 200 2602
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26 HTTP/1.1" 200 2602
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26&report_type=events_by_type HTTP/1.1" 200 2602
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26&report_type=events_by_status HTTP/1.1" 200 2602
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-08-19&end_date=2025-08-26&report_type=events_by_status&status=planejado HTTP/1.1" 200 1391
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 111226
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 111226
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7241
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 110945
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7241
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 110857
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26 HTTP/1.1" 200 7988
+"GET /reports/ HTTP/1.1" 200 113577
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113577
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 454: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194218
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 454: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194218
+Watching for file changes with StatReloader
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+Internal Server Error: /reports/
+Traceback (most recent call last):
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\Play\pop\reports\views.py", line 102, in reports_view
+    return render(request, 'reports/advanced.html', context)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Play\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 449: 'block'. Looking for one of: endblock.
+"GET /reports/ HTTP/1.1" 500 194312
+"GET /reports/ HTTP/1.1" 200 113845
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113845
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113845
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113845
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Not Found: /.well-known/appspecific/com.chrome.devtools.json
+"GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7241
+"GET /reports/ HTTP/1.1" 200 113845
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 111401
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 111401
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114333
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114333
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114538
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /accounts/profile/ HTTP/1.1" 200 37144
+"GET /media/avatars/1660156290.jpg HTTP/1.1" 200 151520
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /accounts/profile/edit/ HTTP/1.1" 200 39024
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114249
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114623
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 114623
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 116943
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 116984
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 116984
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 116984
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113168
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=50 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=100 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=planejado&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=em_andamento&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=cancelado&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&report_type=events_by_period&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&report_type=events_by_period&departments=7&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&report_type=events_by_period&departments=7&event_types=19&locations=7&page=1&page_size=10 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113168
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&event_types=19&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&departments=8&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&departments=8&departments=4&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/ HTTP/1.1" 200 113168
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Watching for file changes with StatReloader
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113168
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 113168
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=8&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=4&page=1&page_size=25 HTTP/1.1" 200 1394
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=8&departments=4&page=1&page_size=25 HTTP/1.1" 200 1394
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&departments=8&departments=4&page=1&page_size=25 HTTP/1.1" 200 2317
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 111942
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=8&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&locations=1&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&locations=1&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-05-28&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7981
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-05-28&end_date=2025-08-26&report_type=events_by_department&page=1&page_size=25 HTTP/1.1" 200 7981
+"GET /reports/api/data/?start_date=2025-05-28&end_date=2025-08-26&report_type=events_by_department&status=planejado&page=1&page_size=25 HTTP/1.1" 200 4245
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-05-28&end_date=2025-08-26&report_type=events_by_department&status=planejado&locations=7&page=1&page_size=25 HTTP/1.1" 200 394
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 112931
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&locations=4&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 98137
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 95112
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 93656
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=25 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&page=1&page_size=25 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=9&event_types=13&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=9&event_types=15&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=9&locations=7&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=9&locations=2&page=1&page_size=25 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 91628
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 87628
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 87688
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 87688
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 87688
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=planejado&page=1&page_size=25 HTTP/1.1" 200 3655
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=em_andamento&page=1&page_size=25 HTTP/1.1" 200 1839
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=concluido&page=1&page_size=25 HTTP/1.1" 200 4045
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=cancelado&page=1&page_size=25 HTTP/1.1" 200 3197
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&status=em_andamento&page=1&page_size=25 HTTP/1.1" 200 1839
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=25 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=10 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=50 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=100 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 84646
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 84646
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 80648
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/trend/ HTTP/1.1" 200 212
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/ HTTP/1.1" 200 79653
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/locations/ HTTP/1.1" 200 2456
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&page=1&page_size=15 HTTP/1.1" 200 7988
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&page=1&page_size=15 HTTP/1.1" 200 1315
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&page=1&page_size=15 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&locations=7&page=1&page_size=15 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=13&page=1&page_size=15 HTTP/1.1" 200 986
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=19&page=1&page_size=15 HTTP/1.1" 200 398
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=18&page=1&page_size=15 HTTP/1.1" 200 398
+"GET /reports/api/data/?start_date=2025-07-27&end_date=2025-08-26&departments=7&event_types=15&page=1&page_size=15 HTTP/1.1" 200 781
+"GET /calendar/ HTTP/1.1" 200 58711
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /calendar/data/?start=2025-07-27T00%3A00%3A00-03%3A00&end=2025-09-07T00%3A00%3A00-03%3A00 HTTP/1.1" 200 28480
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /dashboard/ HTTP/1.1" 200 52138
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/create/ HTTP/1.1" 200 42048
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /events/ HTTP/1.1" 200 186810
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Watching for file changes with StatReloader
