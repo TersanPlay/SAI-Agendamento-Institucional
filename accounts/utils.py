@@ -116,12 +116,11 @@ def can_view_event(user: User, event) -> bool:
                 event.created_by == user or
                 event.responsible_person == user)
     
-    # Visualizadores podem ver eventos públicos e eventos onde participam
+    # Visualizadores podem ver eventos públicos e eventos onde são responsáveis
     if profile.is_viewer:
         return (event.is_public or 
                 event.created_by == user or
-                event.responsible_person == user or
-                event.participants.filter(user=user).exists())
+                event.responsible_person == user)
     
     return False
 
@@ -150,12 +149,11 @@ def get_user_accessible_events(user: User):
         q_objects.add(Q(responsible_person=user), Q.OR)
         return getattr(Event, 'objects').filter(q_objects).distinct()
     
-    # Visualizadores veem eventos públicos e onde participam
+    # Visualizadores veem eventos públicos e onde são responsáveis
     if profile.is_viewer:
         q_objects = Q(is_public=True)
         q_objects.add(Q(created_by=user), Q.OR)
         q_objects.add(Q(responsible_person=user), Q.OR)
-        q_objects.add(Q(participants__user=user), Q.OR)
         return getattr(Event, 'objects').filter(q_objects).distinct()
     
     return getattr(Event, 'objects').filter(is_public=True)

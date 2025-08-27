@@ -50,7 +50,7 @@ def user_logout(request):
 
 
 class UserRegistrationView(CreateView):
-    """View para registro de novos usuários (apenas para administradores)"""
+    """View para registro de novos usuários - automaticamente configura como visualizador"""
     model = User
     form_class = UserRegistrationForm
     template_name = 'accounts/register.html'
@@ -58,9 +58,18 @@ class UserRegistrationView(CreateView):
     
     def form_valid(self, form):
         user = form.save()
-        messages.success(self.request, 'Usuário criado com sucesso!')
+        messages.success(
+            self.request, 
+            f'Conta criada com sucesso para {user.get_full_name() or user.username}! '
+            f'Sua conta foi configurada com perfil de Visualizador. '
+            f'Faça login para acessar o sistema.'
+        )
         # Log the action with the newly created user's ID
-        log_user_action(self.request, self.request.user, 'create_user', f'user_{user.id}')
+        if self.request.user.is_authenticated:
+            log_user_action(self.request, self.request.user, 'create_user', f'user_{user.id}')
+        else:
+            # Para registro público, criar um log sem usuário autenticado
+            log_user_action(self.request, user, 'self_register', f'user_{user.id}')
         return super().form_valid(form)
 
 

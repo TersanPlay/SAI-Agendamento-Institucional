@@ -6,48 +6,80 @@ from events.models import Department  # Import Department directly to avoid circ
 
 
 class UserRegistrationForm(UserCreationForm):
-    """Formulário para registro de novos usuários"""
-    email = forms.EmailField(required=True, label='Email')
-    first_name = forms.CharField(max_length=30, required=True, label='Nome')
-    last_name = forms.CharField(max_length=30, required=True, label='Sobrenome')
-    user_type = forms.ChoiceField(
-        choices=[],  # Will be set in __init__
-        required=True,
-        label='Tipo de Usuário',
-        widget=forms.Select(attrs={'class': 'form-select'})
+    """Formulário para registro de novos usuários - automaticamente configura como visualizador"""
+    email = forms.EmailField(
+        required=True, 
+        label='Email',
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'seu.email@exemplo.com'
+        })
+    )
+    first_name = forms.CharField(
+        max_length=30, 
+        required=True, 
+        label='Nome',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Digite seu primeiro nome'
+        })
+    )
+    last_name = forms.CharField(
+        max_length=30, 
+        required=True, 
+        label='Sobrenome',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Digite seu sobrenome'
+        })
     )
     department = forms.ModelChoiceField(
         queryset=None,
         required=False,
         label='Departamento',
-        widget=forms.Select(attrs={'class': 'form-select'})
+        widget=forms.Select(attrs={
+            'class': 'form-select'
+        }),
+        help_text='Selecione seu departamento (opcional)'
     )
     
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'placeholder': 'Digite um nome de usuário único'
+            }),
+            'password1': forms.PasswordInput(attrs={
+                'placeholder': 'Digite uma senha segura'
+            }),
+            'password2': forms.PasswordInput(attrs={
+                'placeholder': 'Confirme sua senha'
+            }),
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['user_type'].choices = UserProfile.USER_TYPES
         self.fields['department'].queryset = Department.objects.all()
         
         # Adicionar classes CSS para Tailwind
         for field_name, field in self.fields.items():
-            if field_name not in ['user_type', 'department']:
+            if field_name not in ['department']:
                 field.widget.attrs.update({
                     'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
                 })
+        
+        # Aplicar classes CSS específicas para o campo department
+        self.fields['department'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+        })
     
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
-            # Criar ou atualizar o perfil
+            # Criar ou atualizar o perfil - sempre como visualizador para novos registros
             profile, created = UserProfile.objects.get_or_create(user=user)
-            profile.user_type = self.cleaned_data['user_type']
-            profile.department = self.cleaned_data['department']
+            profile.user_type = 'visualizador'  # Automaticamente configura como visualizador
+            profile.department = self.cleaned_data.get('department')
             profile.save()
         return user
 
