@@ -1,137 +1,273 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Registro de Usuário - EventoSys{% endblock %}
+{% block title %}Credenciais de Acesso - EventoSys{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="flex justify-center">
-            <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                <i class="fas fa-user-plus text-white text-xl"></i>
+<div class="min-h-screen bg-gray-50 py-8 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="flex justify-center mb-4">
+                <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-user-plus text-white text-2xl"></i>
+                </div>
             </div>
+            <h1 class="text-3xl font-bold text-gray-900">Credenciais de Acesso</h1>
+            <p class="mt-2 text-lg text-gray-600">Configure seus dados para acesso ao sistema</p>
         </div>
-        <h2 class="mt-6 text-center text-3xl font-bold text-gray-900">
-            Criar Nova Conta
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-            Preencha as informações para criar um novo usuário no sistema
-        </p>
-        <div class="mt-3 text-center">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                <i class="fas fa-eye mr-2"></i>
-                Sua conta será criada com perfil de <strong>Visualizador</strong>
-            </div>
-        </div>
-    </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow-sm border border-gray-200 rounded-xl sm:px-10">
-            <form method="post" class="space-y-6">
+        <!-- Progress Indicator -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center">
+                <div class="flex items-center space-x-4">
+                    <!-- Step 1 -->
+                    <div class="flex items-center">
+                        <div id="step-1-indicator" class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold step-indicator active">
+                            1
+                        </div>
+                        <span id="step-1-label" class="ml-2 text-sm font-medium text-blue-600 step-label active">Dados Pessoais</span>
+                    </div>
+                    
+                    <!-- Connector -->
+                    <div class="w-16 h-1 bg-gray-300 step-connector" id="connector-1"></div>
+                    
+                    <!-- Step 2 -->
+                    <div class="flex items-center">
+                        <div id="step-2-indicator" class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-semibold step-indicator">
+                            2
+                        </div>
+                        <span id="step-2-label" class="ml-2 text-sm font-medium text-gray-500 step-label">Contato</span>
+                    </div>
+                    
+                    <!-- Connector -->
+                    <div class="w-16 h-1 bg-gray-300 step-connector" id="connector-2"></div>
+                    
+                    <!-- Step 3 -->
+                    <div class="flex items-center">
+                        <div id="step-3-indicator" class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-semibold step-indicator">
+                            3
+                        </div>
+                        <span id="step-3-label" class="ml-2 text-sm font-medium text-gray-500 step-label">Acesso</span>
+                    </div>
+                    
+                    <!-- Connector -->
+                    <div class="w-16 h-1 bg-gray-300 step-connector" id="connector-3"></div>
+                    
+                    <!-- Step 4 -->
+                    <div class="flex items-center">
+                        <div id="step-4-indicator" class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-semibold step-indicator">
+                            4
+                        </div>
+                        <span id="step-4-label" class="ml-2 text-sm font-medium text-gray-500 step-label">Revisão</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Form Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <form method="post" id="registration-form" class="space-y-0">
                 {% csrf_token %}
                 
-                <!-- Username -->
-                <div>
-                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.username.label }}
-                    </label>
-                    {{ form.username }}
-                    {% if form.username.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
-                    {% endif %}
-                    <p class="mt-1 text-xs text-gray-500">Nome único para identificar sua conta no sistema</p>
-                </div>
-
-                <!-- First Name -->
-                <div>
-                    <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.first_name.label }}
-                    </label>
-                    {{ form.first_name }}
-                    {% if form.first_name.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
-                    {% endif %}
-                </div>
-
-                <!-- Last Name -->
-                <div>
-                    <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.last_name.label }}
-                    </label>
-                    {{ form.last_name }}
-                    {% if form.last_name.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
-                    {% endif %}
-                </div>
-
-                <!-- Email -->
-                <div>
-                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.email.label }}
-                    </label>
-                    {{ form.email }}
-                    {% if form.email.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
-                    {% endif %}
-                    <p class="mt-1 text-xs text-gray-500">Usado para notificações e recuperação de senha</p>
-                </div>
-
-                <!-- Department -->
-                <div>
-                    <label for="{{ form.department.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.department.label }}
-                    </label>
-                    {{ form.department }}
-                    {% if form.department.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.department.errors.0 }}</p>
-                    {% endif %}
-                    {% if form.department.help_text %}
-                        <p class="mt-1 text-xs text-gray-500">{{ form.department.help_text }}</p>
-                    {% endif %}
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.password1.label }}
-                    </label>
-                    {{ form.password1 }}
-                    {% if form.password1.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
-                    {% endif %}
-                    <p class="mt-1 text-xs text-gray-500">Mínimo 8 caracteres, use letras, números e símbolos</p>
-                </div>
-
-                <!-- Password Confirmation -->
-                <div>
-                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        {{ form.password2.label }}
-                    </label>
-                    {{ form.password2 }}
-                    {% if form.password2.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
-                    {% endif %}
-                    <p class="mt-1 text-xs text-gray-500">Digite novamente a mesma senha para confirmação</p>
-                </div>
-
-                <!-- Informative Message -->
-                <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-info-circle text-blue-400"></i>
+                <!-- Step 1: Personal Data -->
+                <div id="step-1" class="step-content p-8">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Dados Pessoais</h3>
+                    
+                    <!-- Username -->
+                    <div class="mb-6">
+                        <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.username.label }}
+                        </label>
+                        {{ form.username }}
+                        <div id="username-validation" class="mt-2 hidden">
+                            <div id="username-feedback" class="flex items-center text-sm">
+                                <i class="fas fa-spinner fa-spin mr-2 text-gray-500" id="username-spinner"></i>
+                                <span id="username-message">Verificando disponibilidade...</span>
+                            </div>
                         </div>
-                        <div class="ml-3">
-                            <h3 class="text-sm font-medium text-blue-800">
-                                Informações sobre o Perfil
-                            </h3>
-                            <div class="mt-2 text-sm text-blue-700">
-                                <p>Sua conta será automaticamente criada com perfil de <strong>Visualizador</strong>, permitindo:</p>
-                                <ul class="mt-1 ml-4 list-disc">
-                                    <li>Visualizar eventos públicos no calendário</li>
-                                    <li>Acessar informações gerais do sistema</li>
-                                    <li>Editar seu próprio perfil</li>
-                                </ul>
-                                <p class="mt-2 text-xs">Para solicitar permissões adicionais, entre em contato com o administrador.</p>
+                        {% if form.username.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
+                        {% endif %}
+                        <p class="mt-1 text-xs text-gray-500">Nome único para identificar sua conta no sistema</p>
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="mb-6">
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.first_name.label }}
+                        </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="mb-6">
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.last_name.label }}
+                        </label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Step 2: Contact -->
+                <div id="step-2" class="step-content p-8 hidden">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Contato</h3>
+                    
+                    <!-- Email -->
+                    <div class="mb-6">
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.email.label }}
+                        </label>
+                        {{ form.email }}
+                        <div id="email-validation" class="mt-2 hidden">
+                            <div id="email-feedback" class="flex items-center text-sm">
+                                <i class="fas fa-spinner fa-spin mr-2 text-gray-500" id="email-spinner"></i>
+                                <span id="email-message">Verificando disponibilidade...</span>
+                            </div>
+                        </div>
+                        {% if form.email.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                        <p class="mt-1 text-xs text-gray-500">Usado para notificações e recuperação de senha</p>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="mb-6">
+                        <label for="{{ form.department.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.department.label }}
+                        </label>
+                        {{ form.department }}
+                        {% if form.department.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.department.errors.0 }}</p>
+                        {% endif %}
+                        {% if form.department.help_text %}
+                            <p class="mt-1 text-xs text-gray-500">{{ form.department.help_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Step 3: Access -->
+                <div id="step-3" class="step-content p-8 hidden">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Acesso</h3>
+                    
+                    <!-- Password -->
+                    <div class="mb-6">
+                        <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.password1.label }}
+                        </label>
+                        <div class="relative">
+                            {{ form.password1 }}
+                            <button type="button" id="toggle-password1" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye text-gray-400 hover:text-gray-600" id="password1-icon"></i>
+                            </button>
+                        </div>
+                        {% if form.password1.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
+                        {% endif %}
+                        
+                        <!-- Password Strength Indicator -->
+                        <div class="mt-3">
+                            <div class="text-sm text-gray-600 mb-2">Força da senha:</div>
+                            <div class="flex space-x-1 mb-2">
+                                <div class="h-2 flex-1 rounded bg-gray-200">
+                                    <div id="password-strength-bar" class="h-full rounded transition-all duration-300"></div>
+                                </div>
+                            </div>
+                            <div id="password-requirements" class="text-xs space-y-1">
+                                <div id="req-length" class="flex items-center text-gray-500">
+                                    <i class="fas fa-times mr-2"></i> Mínimo 8 caracteres
+                                </div>
+                                <div id="req-uppercase" class="flex items-center text-gray-500">
+                                    <i class="fas fa-times mr-2"></i> Pelo menos 1 letra maiúscula
+                                </div>
+                                <div id="req-lowercase" class="flex items-center text-gray-500">
+                                    <i class="fas fa-times mr-2"></i> Pelo menos 1 letra minúscula
+                                </div>
+                                <div id="req-number" class="flex items-center text-gray-500">
+                                    <i class="fas fa-times mr-2"></i> Pelo menos 1 número
+                                </div>
+                                <div id="req-special" class="flex items-center text-gray-500">
+                                    <i class="fas fa-times mr-2"></i> Pelo menos 1 caractere especial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="mb-6">
+                        <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                            {{ form.password2.label }}
+                        </label>
+                        <div class="relative">
+                            {{ form.password2 }}
+                            <button type="button" id="toggle-password2" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye text-gray-400 hover:text-gray-600" id="password2-icon"></i>
+                            </button>
+                        </div>
+                        {% if form.password2.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
+                        {% endif %}
+                        <div id="password-match" class="mt-2 text-xs hidden">
+                            <div id="match-indicator" class="flex items-center">
+                                <i class="fas fa-times mr-2 text-red-500"></i>
+                                <span class="text-red-500">As senhas não coincidem</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review -->
+                <div id="step-4" class="step-content p-8 hidden">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Revisão e Confirmação</h3>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <h4 class="text-lg font-medium text-gray-900 mb-4">Confirme seus dados:</h4>
+                        
+                        <dl class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Usuário</dt>
+                                <dd id="review-username" class="mt-1 text-sm text-gray-900">-</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Nome Completo</dt>
+                                <dd id="review-name" class="mt-1 text-sm text-gray-900">-</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Email</dt>
+                                <dd id="review-email" class="mt-1 text-sm text-gray-900">-</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Departamento</dt>
+                                <dd id="review-department" class="mt-1 text-sm text-gray-900">-</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Perfil</dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        <i class="fas fa-eye mr-1"></i>
+                                        Visualizador
+                                    </span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Edit Warning -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700">
+                                    Deseja alterar alguma informação? Use os botões "Voltar" para editar os dados antes de confirmar.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -139,31 +275,477 @@
 
                 <!-- Form Errors -->
                 {% if form.non_field_errors %}
-                    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                    <div class="bg-red-50 border border-red-200 rounded-md p-4 mx-8 mb-6">
                         {% for error in form.non_field_errors %}
                             <p class="text-sm text-red-600">{{ error }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
 
-                <!-- Submit Button -->
-                <div>
-                    <button type="submit" 
-                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        <i class="fas fa-user-plus mr-2"></i>
+                <!-- Navigation Buttons -->
+                <div class="px-8 py-6 bg-gray-50 border-t border-gray-200 flex justify-between">
+                    <button type="button" id="prev-btn" class="hidden px-6 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Voltar
+                    </button>
+                    
+                    <div class="flex-1"></div>
+                    
+                    <button type="button" id="next-btn" class="px-6 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        Próximo
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    
+                    <button type="submit" id="submit-btn" class="hidden px-6 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                        <i class="fas fa-check mr-2"></i>
                         Criar Conta
                     </button>
                 </div>
-
-                <!-- Back to Login -->
-                <div class="text-center">
-                    <a href="{% url 'accounts:login' %}" 
-                       class="text-sm text-blue-600 hover:text-blue-500 transition-colors duration-200">
-                        ← Voltar ao Login
-                    </a>
-                </div>
             </form>
+        </div>
+
+        <!-- Profile Information Card -->
+        <div class="mt-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">
+                            Informações sobre o Perfil
+                        </h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>Sua conta será automaticamente criada com perfil de <strong>Visualizador</strong>, permitindo:</p>
+                            <ul class="mt-1 ml-4 list-disc">
+                                <li>Visualizar eventos públicos no calendário</li>
+                                <li>Acessar informações gerais do sistema</li>
+                                <li>Editar seu próprio perfil</li>
+                            </ul>
+                            <p class="mt-2 text-xs">Para solicitar permissões adicionais, entre em contato com o administrador.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Back to Login -->
+        <div class="text-center mt-6">
+            <a href="{% url 'accounts:login' %}" 
+               class="text-sm text-blue-600 hover:text-blue-500 transition-colors duration-200">
+                ← Voltar ao Login
+            </a>
         </div>
     </div>
 </div>
+
+<!-- JavaScript for Multi-Step Wizard -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentStep = 1;
+    const totalSteps = 4;
+    
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const submitBtn = document.getElementById('submit-btn');
+    const form = document.getElementById('registration-form');
+    
+    // Password validation elements
+    const password1Input = document.getElementById('{{ form.password1.id_for_label }}');
+    const password2Input = document.getElementById('{{ form.password2.id_for_label }}');
+    const passwordStrengthBar = document.getElementById('password-strength-bar');
+    const passwordMatch = document.getElementById('password-match');
+    const matchIndicator = document.getElementById('match-indicator');
+    
+    // Real-time validation elements
+    const usernameInput = document.getElementById('{{ form.username.id_for_label }}');
+    const emailInput = document.getElementById('{{ form.email.id_for_label }}');
+    let usernameValid = false;
+    let emailValid = false;
+    let validationTimeouts = {};
+    
+    // Password requirements
+    const requirements = {
+        length: document.getElementById('req-length'),
+        uppercase: document.getElementById('req-uppercase'),
+        lowercase: document.getElementById('req-lowercase'),
+        number: document.getElementById('req-number'),
+        special: document.getElementById('req-special')
+    };
+    
+    // Password toggle functionality
+    document.getElementById('toggle-password1').addEventListener('click', function() {
+        togglePasswordVisibility('{{ form.password1.id_for_label }}', 'password1-icon');
+    });
+    
+    document.getElementById('toggle-password2').addEventListener('click', function() {
+        togglePasswordVisibility('{{ form.password2.id_for_label }}', 'password2-icon');
+    });
+    
+    function togglePasswordVisibility(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    
+    // Password strength validation
+    if (password1Input) {
+        password1Input.addEventListener('input', function() {
+            validatePassword(this.value);
+        });
+    }
+    
+    // Password match validation
+    if (password2Input) {
+        password2Input.addEventListener('input', function() {
+            validatePasswordMatch();
+        });
+    }
+    
+    // Real-time validation for username
+    if (usernameInput) {
+        usernameInput.addEventListener('input', function() {
+            const username = this.value.trim();
+            
+            // Clear previous timeout
+            if (validationTimeouts.username) {
+                clearTimeout(validationTimeouts.username);
+            }
+            
+            if (username.length >= 3) {
+                // Show loading state
+                showValidationFeedback('username', 'loading', 'Verificando disponibilidade...');
+                
+                // Debounce validation request
+                validationTimeouts.username = setTimeout(() => {
+                    validateField('username', username);
+                }, 500);
+            } else if (username.length > 0) {
+                showValidationFeedback('username', 'error', 'Nome de usuário deve ter pelo menos 3 caracteres');
+                usernameValid = false;
+            } else {
+                hideValidationFeedback('username');
+                usernameValid = false;
+            }
+        });
+    }
+    
+    // Real-time validation for email
+    if (emailInput) {
+        emailInput.addEventListener('input', function() {
+            const email = this.value.trim();
+            
+            // Clear previous timeout
+            if (validationTimeouts.email) {
+                clearTimeout(validationTimeouts.email);
+            }
+            
+            if (email.length > 0 && email.includes('@')) {
+                // Show loading state
+                showValidationFeedback('email', 'loading', 'Verificando disponibilidade...');
+                
+                // Debounce validation request
+                validationTimeouts.email = setTimeout(() => {
+                    validateField('email', email);
+                }, 500);
+            } else if (email.length > 0) {
+                showValidationFeedback('email', 'error', 'Digite um email válido');
+                emailValid = false;
+            } else {
+                hideValidationFeedback('email');
+                emailValid = false;
+            }
+        });
+    }
+    
+    // Validation helper functions
+    function validateField(fieldType, value) {
+        const url = `/accounts/validate/${fieldType}/`;
+        
+        fetch(`${url}?${fieldType}=${encodeURIComponent(value)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.valid) {
+                    showValidationFeedback(fieldType, 'success', data.message);
+                    if (fieldType === 'username') usernameValid = true;
+                    if (fieldType === 'email') emailValid = true;
+                } else {
+                    showValidationFeedback(fieldType, 'error', data.message);
+                    if (fieldType === 'username') usernameValid = false;
+                    if (fieldType === 'email') emailValid = false;
+                }
+            })
+            .catch(error => {
+                console.error('Validation error:', error);
+                showValidationFeedback(fieldType, 'error', 'Erro ao verificar disponibilidade');
+                if (fieldType === 'username') usernameValid = false;
+                if (fieldType === 'email') emailValid = false;
+            });
+    }
+    
+    function showValidationFeedback(fieldType, status, message) {
+        const validationDiv = document.getElementById(`${fieldType}-validation`);
+        const feedbackDiv = document.getElementById(`${fieldType}-feedback`);
+        const messageSpan = document.getElementById(`${fieldType}-message`);
+        const spinner = document.getElementById(`${fieldType}-spinner`);
+        const input = document.getElementById(`id_${fieldType}`);
+        
+        if (!validationDiv || !feedbackDiv || !messageSpan) return;
+        
+        validationDiv.classList.remove('hidden');
+        messageSpan.textContent = message;
+        
+        // Remove previous status classes
+        feedbackDiv.className = 'flex items-center text-sm';
+        
+        if (status === 'loading') {
+            feedbackDiv.classList.add('text-gray-600');
+            if (spinner) {
+                spinner.classList.remove('hidden', 'fa-check', 'fa-times');
+                spinner.classList.add('fa-spinner', 'fa-spin');
+            }
+            if (input) {
+                input.classList.remove('border-green-500', 'border-red-500');
+                input.classList.add('border-gray-300');
+            }
+        } else if (status === 'success') {
+            feedbackDiv.classList.add('text-green-600');
+            if (spinner) {
+                spinner.classList.remove('fa-spinner', 'fa-spin', 'fa-times');
+                spinner.classList.add('fa-check');
+            }
+            if (input) {
+                input.classList.remove('border-gray-300', 'border-red-500');
+                input.classList.add('border-green-500');
+            }
+        } else if (status === 'error') {
+            feedbackDiv.classList.add('text-red-600');
+            if (spinner) {
+                spinner.classList.remove('fa-spinner', 'fa-spin', 'fa-check');
+                spinner.classList.add('fa-times');
+            }
+            if (input) {
+                input.classList.remove('border-gray-300', 'border-green-500');
+                input.classList.add('border-red-500');
+            }
+        }
+    }
+    
+    function hideValidationFeedback(fieldType) {
+        const validationDiv = document.getElementById(`${fieldType}-validation`);
+        const input = document.getElementById(`id_${fieldType}`);
+        
+        if (validationDiv) {
+            validationDiv.classList.add('hidden');
+        }
+        
+        if (input) {
+            input.classList.remove('border-green-500', 'border-red-500');
+            input.classList.add('border-gray-300');
+        }
+    }
+    
+    function validatePassword(password) {
+        const checks = {
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /[0-9]/.test(password),
+            special: /[^A-Za-z0-9]/.test(password)
+        };
+        
+        let score = 0;
+        Object.keys(checks).forEach(key => {
+            const element = requirements[key];
+            const icon = element.querySelector('i');
+            
+            if (checks[key]) {
+                element.classList.remove('text-gray-500');
+                element.classList.add('text-green-600');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-check');
+                score++;
+            } else {
+                element.classList.remove('text-green-600');
+                element.classList.add('text-gray-500');
+                icon.classList.remove('fa-check');
+                icon.classList.add('fa-times');
+            }
+        });
+        
+        // Update strength bar
+        const percentage = (score / 5) * 100;
+        passwordStrengthBar.style.width = percentage + '%';
+        
+        if (score < 2) {
+            passwordStrengthBar.className = 'h-full rounded transition-all duration-300 bg-red-500';
+        } else if (score < 4) {
+            passwordStrengthBar.className = 'h-full rounded transition-all duration-300 bg-yellow-500';
+        } else {
+            passwordStrengthBar.className = 'h-full rounded transition-all duration-300 bg-green-500';
+        }
+        
+        return score === 5;
+    }
+    
+    function validatePasswordMatch() {
+        const password1 = password1Input ? password1Input.value : '';
+        const password2 = password2Input ? password2Input.value : '';
+        
+        if (password2.length > 0) {
+            passwordMatch.classList.remove('hidden');
+            
+            if (password1 === password2) {
+                matchIndicator.innerHTML = '<i class="fas fa-check mr-2 text-green-500"></i><span class="text-green-500">As senhas coincidem</span>';
+            } else {
+                matchIndicator.innerHTML = '<i class="fas fa-times mr-2 text-red-500"></i><span class="text-red-500">As senhas não coincidem</span>';
+            }
+        } else {
+            passwordMatch.classList.add('hidden');
+        }
+    }
+    
+    // Step navigation
+    nextBtn.addEventListener('click', function() {
+        if (validateCurrentStep()) {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateStep();
+            }
+        }
+    });
+    
+    prevBtn.addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            updateStep();
+        }
+    });
+    
+    function validateCurrentStep() {
+        let isValid = true;
+        const currentStepElement = document.getElementById(`step-${currentStep}`);
+        const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+        
+        inputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.classList.add('border-red-500');
+                isValid = false;
+            } else {
+                input.classList.remove('border-red-500');
+            }
+        });
+        
+        // Step-specific validation
+        if (currentStep === 1) {
+            // Personal data validation - check username uniqueness
+            const usernameInput = document.getElementById('id_username');
+            if (usernameInput && usernameInput.value.trim() && !usernameValid) {
+                isValid = false;
+            }
+        } else if (currentStep === 2) {
+            // Contact validation - check email uniqueness
+            const emailInput = document.getElementById('id_email');
+            if (emailInput && emailInput.value.trim() && !emailValid) {
+                isValid = false;
+            }
+        } else if (currentStep === 3) {
+            // Password validation
+            const password1 = password1Input ? password1Input.value : '';
+            const password2 = password2Input ? password2Input.value : '';
+            
+            if (!validatePassword(password1) || password1 !== password2) {
+                isValid = false;
+            }
+        }
+        
+        return isValid;
+    }
+    
+    function updateStep() {
+        // Hide all steps
+        for (let i = 1; i <= totalSteps; i++) {
+            document.getElementById(`step-${i}`).classList.add('hidden');
+            
+            // Update progress indicators
+            const indicator = document.getElementById(`step-${i}-indicator`);
+            const label = document.getElementById(`step-${i}-label`);
+            const connector = document.getElementById(`connector-${i}`);
+            
+            if (i < currentStep) {
+                // Completed step
+                indicator.className = 'w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-semibold step-indicator completed';
+                indicator.innerHTML = '<i class="fas fa-check"></i>';
+                label.className = 'ml-2 text-sm font-medium text-green-600 step-label completed';
+                if (connector) connector.className = 'w-16 h-1 bg-green-600 step-connector completed';
+            } else if (i === currentStep) {
+                // Current step
+                indicator.className = 'w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold step-indicator active';
+                indicator.innerHTML = i;
+                label.className = 'ml-2 text-sm font-medium text-blue-600 step-label active';
+                if (connector) connector.className = 'w-16 h-1 bg-blue-600 step-connector active';
+            } else {
+                // Future step
+                indicator.className = 'w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-500 font-semibold step-indicator';
+                indicator.innerHTML = i;
+                label.className = 'ml-2 text-sm font-medium text-gray-500 step-label';
+                if (connector) connector.className = 'w-16 h-1 bg-gray-300 step-connector';
+            }
+        }
+        
+        // Show current step
+        document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+        
+        // Update navigation buttons
+        if (currentStep === 1) {
+            prevBtn.classList.add('hidden');
+        } else {
+            prevBtn.classList.remove('hidden');
+        }
+        
+        if (currentStep === totalSteps) {
+            nextBtn.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+            updateReview();
+        } else {
+            nextBtn.classList.remove('hidden');
+            submitBtn.classList.add('hidden');
+        }
+    }
+    
+    function updateReview() {
+        // Update review step with current form data
+        document.getElementById('review-username').textContent = document.getElementById('{{ form.username.id_for_label }}').value || '-';
+        
+        const firstName = document.getElementById('{{ form.first_name.id_for_label }}').value || '';
+        const lastName = document.getElementById('{{ form.last_name.id_for_label }}').value || '';
+        document.getElementById('review-name').textContent = `${firstName} ${lastName}`.trim() || '-';
+        
+        document.getElementById('review-email').textContent = document.getElementById('{{ form.email.id_for_label }}').value || '-';
+        
+        const departmentSelect = document.getElementById('{{ form.department.id_for_label }}');
+        const departmentText = departmentSelect.options[departmentSelect.selectedIndex]?.text || 'Não selecionado';
+        document.getElementById('review-department').textContent = departmentText;
+    }
+    
+    // Form submission
+    form.addEventListener('submit', function(e) {
+        if (!validateCurrentStep()) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Initialize
+    updateStep();
+});
+</script>
 {% endblock %}

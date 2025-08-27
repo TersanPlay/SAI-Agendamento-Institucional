@@ -59,21 +59,83 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['department'].queryset = Department.objects.all()
         
+        # Set required fields
+        self.fields['username'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['email'].required = True
+        self.fields['password1'].required = True
+        self.fields['password2'].required = True
+        
         # Adicionar classes CSS para Tailwind
         for field_name, field in self.fields.items():
             if field_name not in ['department']:
                 field.widget.attrs.update({
-                    'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200'
                 })
         
         # Aplicar classes CSS específicas para o campo department
         self.fields['department'].widget.attrs.update({
-            'class': 'w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200'
         })
+        
+        # Update password fields for better styling
+        self.fields['password1'].widget.attrs.update({
+            'class': 'w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200'
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200'
+        })
+    
+    def clean_username(self):
+        """Validação personalizada para o campo username"""
+        username = self.cleaned_data.get('username')
+        
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Este nome de usuário já está em uso.')
+        
+        return username
+    
+    def clean_email(self):
+        """Validação personalizada para o campo email"""
+        email = self.cleaned_data.get('email')
+        
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Este email já está cadastrado no sistema.')
+        
+        return email
+    
+    def clean_first_name(self):
+        """Validação personalizada para o campo first_name"""
+        first_name = self.cleaned_data.get('first_name')
+        
+        if not first_name or not first_name.strip():
+            raise forms.ValidationError('Nome é obrigatório.')
+        
+        # Check for reasonable length
+        if len(first_name.strip()) < 2:
+            raise forms.ValidationError('Nome deve ter pelo menos 2 caracteres.')
+        
+        return first_name.strip()
+    
+    def clean_last_name(self):
+        """Validação personalizada para o campo last_name"""
+        last_name = self.cleaned_data.get('last_name')
+        
+        if not last_name or not last_name.strip():
+            raise forms.ValidationError('Sobrenome é obrigatório.')
+        
+        # Check for reasonable length
+        if len(last_name.strip()) < 2:
+            raise forms.ValidationError('Sobrenome deve ter pelo menos 2 caracteres.')
+        
+        return last_name.strip()
     
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         if commit:
             user.save()
             # Criar ou atualizar o perfil - sempre como visualizador para novos registros

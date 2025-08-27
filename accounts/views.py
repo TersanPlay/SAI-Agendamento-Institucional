@@ -10,6 +10,9 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.db.models import Count, Q
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 from .forms import UserRegistrationForm, UserProfileForm
 from .models import UserProfile, AccessLog
 from .utils import log_user_action
@@ -144,3 +147,83 @@ def user_management_view(request):
     
     users = User.objects.select_related('profile').all()
     return render(request, 'accounts/user_management.html', {'users': users})
+
+
+@require_http_methods(["GET"])
+@csrf_exempt
+def validate_username_ajax(request):
+    """AJAX endpoint para validar disponibilidade do username"""
+    username = request.GET.get('username', '').strip()
+    
+    if not username:
+        return JsonResponse({
+            'valid': False,
+            'message': 'Nome de usuário é obrigatório'
+        })
+    
+    # Check if username already exists
+    if User.objects.filter(username=username).exists():
+        return JsonResponse({
+            'valid': False,
+            'message': 'Este nome de usuário já está em uso'
+        })
+    
+    # Basic validation
+    if len(username) < 3:
+        return JsonResponse({
+            'valid': False,
+            'message': 'Nome de usuário deve ter pelo menos 3 caracteres'
+        })
+    
+    if len(username) > 150:
+        return JsonResponse({
+            'valid': False,
+            'message': 'Nome de usuário deve ter no máximo 150 caracteres'
+        })
+    
+    # Check for valid characters (alphanumeric, @, ., +, -, _)
+    import re
+    if not re.match(r'^[\w.@+-]+$', username):
+        return JsonResponse({
+            'valid': False,
+            'message': 'Nome de usuário contém caracteres inválidos'
+        })
+    
+    return JsonResponse({
+        'valid': True,
+        'message': 'Nome de usuário disponível'
+    })
+
+
+@require_http_methods(["GET"])
+@csrf_exempt
+def validate_email_ajax(request):
+    """AJAX endpoint para validar disponibilidade do email"""
+    email = request.GET.get('email', '').strip()
+    
+    if not email:
+        return JsonResponse({
+            'valid': False,
+            'message': 'Email é obrigatório'
+        })
+    
+    # Check if email already exists
+    if User.objects.filter(email=email).exists():
+        return JsonResponse({
+            'valid': False,
+            'message': 'Este email já está cadastrado no sistema'
+        })
+    
+    # Basic email format validation
+    import re
+    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_pattern, email):
+        return JsonResponse({
+            'valid': False,
+            'message': 'Formato de email inválido'
+        })
+    
+    return JsonResponse({
+        'valid': True,
+        'message': 'Email disponível'
+    })

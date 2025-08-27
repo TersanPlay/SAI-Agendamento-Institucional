@@ -10,6 +10,10 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('register/', views.UserRegistrationView.as_view(), name='register'),
     
+    # AJAX validation endpoints
+    path('validate/username/', views.validate_username_ajax, name='validate_username'),
+    path('validate/email/', views.validate_email_ajax, name='validate_email'),
+    
     # Password Reset
     path('password-reset/', 
          auth_views.PasswordResetView.as_view(

@@ -14893,3 +14893,306 @@ Watching for file changes with StatReloader
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
 "GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 33581
+"GET /notifications/api/unread-count/ HTTP/1.1" 200 13
+"GET /accounts/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 18806
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 18843
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/login/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/password-reset/ HTTP/1.1" 200 14358
+"GET / HTTP/1.1" 200 18228
+"GET /accounts/register/ HTTP/1.1" 200 18843
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET / HTTP/1.1" 200 18228
+"GET /accounts/register/ HTTP/1.1" 200 21135
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 21862
+"GET /accounts/register/ HTTP/1.1" 200 27133
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 28537
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\forms.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 38993
+"GET /accounts/register/ HTTP/1.1" 200 38993
+- Broken pipe from ('127.0.0.1', 57193)
+"GET /accounts/register/ HTTP/1.1" 200 38993
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\forms.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 38993
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\urls.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\forms.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\forms.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/register/ HTTP/1.1" 200 40125
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"POST /accounts/register/ HTTP/1.1" 200 46423
+"GET /accounts/validate/username/?username=admin HTTP/1.1" 200 81
+- Broken pipe from ('127.0.0.1', 57505)
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/validate/username/?username=newuser123 HTTP/1.1" 200 66
+- Broken pipe from ('127.0.0.1', 57515)
+"POST /accounts/register/ HTTP/1.1" 200 47042
+"POST /accounts/register/ HTTP/1.1" 200 47042
+"GET /accounts/validate/username/?username=arie%C3%A7 HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=ari HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=ariel HTTP/1.1" 200 81
+"GET /accounts/validate/username/?username=arie%C3%A7 HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=arie HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=arie%C3%A7 HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=arie HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=ariel HTTP/1.1" 200 81
+"GET /accounts/validate/username/?username=ariel%20silva HTTP/1.1" 200 89
+"GET /accounts/validate/username/?username=ariel%20silva HTTP/1.1" 200 89
+"GET /accounts/validate/username/?username=ariel%20silva%20jari HTTP/1.1" 200 89
+"GET /accounts/validate/username/?username=ariel%20silva HTTP/1.1" 200 89
+"GET /accounts/validate/username/?username=ariel HTTP/1.1" 200 81
+"GET /accounts/validate/username/?username=arie HTTP/1.1" 200 66
+"GET /accounts/validate/username/?username=ariels HTTP/1.1" 200 66
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"POST /accounts/register/ HTTP/1.1" 200 47042
+"GET /accounts/register/ HTTP/1.1" 200 46605
+"GET / HTTP/1.1" 200 18228
+"GET /accounts/validate/email/?email=admin@admin.com HTTP/1.1" 200 51
+- Broken pipe from ('127.0.0.1', 57538)
+"GET /accounts/login/ HTTP/1.1" 200 19380
+"GET /accounts/password-reset/ HTTP/1.1" 200 14358
+"POST /accounts/password-reset/ HTTP/1.1" 302 0
+"GET /accounts/password-reset/done/ HTTP/1.1" 200 13119
+"GET /accounts/login/ HTTP/1.1" 200 19380
+"GET /accounts/password-reset/ HTTP/1.1" 200 14358
+"POST /accounts/password-reset/ HTTP/1.1" 302 0
+"GET /accounts/password-reset/done/ HTTP/1.1" 200 13119
+"GET /accounts/register/ HTTP/1.1" 200 46605
+- Broken pipe from ('127.0.0.1', 57568)
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\PC\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+"GET /accounts/login/ HTTP/1.1" 200 19380
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /accounts/validate/username/?username=testuser HTTP/1.1" 200 66
+- Broken pipe from ('127.0.0.1', 57621)
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+"GET /accounts/validate/username/?username=admin HTTP/1.1" 200 81
+- Broken pipe from ('127.0.0.1', 57638)
+"GET /notifications/api/unread-count/ HTTP/1.1" 302 0
+"GET /accounts/login/?next=/notifications/api/unread-count/ HTTP/1.1" 200 19380
+C:\Users\PC\SAI-Agendamento-Institucional\accounts\views.py changed, reloading.
+Watching for file changes with StatReloader
