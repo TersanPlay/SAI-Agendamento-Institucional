@@ -15,6 +15,7 @@ urlpatterns = [
     
     # Event CRUD
     path('events/', views.EventListView.as_view(), name='event_list'),
+    path('events/api/', views.events_api, name='events_api'),
     path('events/create/', views.EventCreateView.as_view(), name='event_create'),
     path('events/<uuid:pk>/', views.EventDetailView.as_view(), name='event_detail'),
     path('events/<uuid:pk>/edit/', views.EventUpdateView.as_view(), name='event_edit'),

@@ -113,9 +113,9 @@ def report_data_api(request):
     end_date = request.GET.get('end_date')
     report_type = request.GET.get('report_type', 'events_by_period')
     status = request.GET.get('status')
-    department_ids = request.GET.getlist('departments')
-    event_type_ids = request.GET.getlist('event_types')
-    location_ids = request.GET.getlist('locations')
+    department_ids = [d for d in request.GET.getlist('departments') if d]
+    event_type_ids = [e for e in request.GET.getlist('event_types') if e]
+    location_ids = [l for l in request.GET.getlist('locations') if l]
     search = request.GET.get('search')
     responsible_search = request.GET.get('responsible_search')
     
@@ -344,9 +344,9 @@ def export_report(request):
             report_type = request.POST.get('report_type', 'events_by_period')
             format_type = request.POST.get('format', 'pdf')
             status = request.POST.get('status')
-            department_ids = request.POST.getlist('departments')
-            event_type_ids = request.POST.getlist('event_types')
-            location_ids = request.POST.getlist('locations')
+            department_ids = [d for d in request.POST.getlist('departments') if d]
+            event_type_ids = [e for e in request.POST.getlist('event_types') if e]
+            location_ids = [l for l in request.POST.getlist('locations') if l]
             search = request.POST.get('search')
             responsible_search = request.POST.get('responsible_search')
             

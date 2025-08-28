@@ -426,54 +426,6 @@ document.getElementById('resetFiltersBtn').addEventListener('click', function() 
     loadReportData();
 });
 
-// Export functions
-document.getElementById('exportPdfBtn').addEventListener('click', function() {
-    // Get form data
-    const formData = new FormData(document.getElementById('reportForm'));
-    formData.append('format', 'pdf');
-    
-    // Submit form to generate report
-    submitReportForm(formData);
-});
-
-document.getElementById('exportExcelBtn').addEventListener('click', function() {
-    // Get form data
-    const formData = new FormData(document.getElementById('reportForm'));
-    formData.append('format', 'excel');
-    
-    // Submit form to generate report
-    submitReportForm(formData);
-});
-
-// Submit report form for export
-function submitReportForm(formData) {
-    // Create a temporary form to submit
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '{% url "reports:export" %}';
-    
-    // Add CSRF token
-    const csrfToken = document.createElement('input');
-    csrfToken.type = 'hidden';
-    csrfToken.name = 'csrfmiddlewaretoken';
-    csrfToken.value = document.querySelector('[name=csrfmiddlewaretoken]').value;
-    form.appendChild(csrfToken);
-    
-    // Add form data
-    for (const [key, value] of formData.entries()) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
-    }
-    
-    // Submit form
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-}
-
 // Load report data from API with improved form handling
 function loadReportData() {
     // Show loading state
@@ -944,9 +896,24 @@ function exportReport(format) {
     })
     .then(response => {
         if (response.ok) {
-            return response.blob();
+            // Check if response is actually a file (blob)
+            const contentType = response.headers.get('content-type');
+            if (contentType && (contentType.includes('application/pdf') || contentType.includes('application/vnd.openxmlformats') || contentType.includes('text/csv'))) {
+                return response.blob();
+            } else {
+                // Likely an error response in JSON format
+                return response.json().then(data => {
+                    throw new Error(data.error || 'Erro desconhecido no servidor');
+                });
+            }
+        } else {
+            // Handle HTTP error responses
+            return response.json().then(data => {
+                throw new Error(data.error || `Erro HTTP ${response.status}: ${response.statusText}`);
+            }).catch(() => {
+                throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
+            });
         }
-        throw new Error('Erro na resposta do servidor');
     })
     .then(blob => {
         // Create download link
@@ -1075,96 +1042,6 @@ function updatePaginationControls(currentPage, totalPages, totalResults, itemsOn
 </script>
 
 <style>
-/* Custom Multiselect Styles */
-.custom-multiselect {
-    /* Styles no longer needed */
-}
-
-.multiselect-trigger {
-    /* Styles no longer needed */
-}
-
-.multiselect-trigger:hover {
-    /* Styles no longer needed */
-}
-
-.multiselect-trigger:focus-within {
-    /* Styles no longer needed */
-}
-
-.multiselect-selected {
-    /* Styles no longer needed */
-}
-
-.multiselect-selected.selected {
-    /* Styles no longer needed */
-}
-
-.multiselect-arrow {
-    /* Styles no longer needed */
-}
-
-.multiselect-dropdown {
-    /* Styles no longer needed */
-}
-
-.multiselect-search {
-    /* Styles no longer needed */
-}
-
-.multiselect-search-input {
-    /* Styles no longer needed */
-}
-
-.multiselect-search-input:focus {
-    /* Styles no longer needed */
-}
-
-.multiselect-options {
-    /* Styles no longer needed */
-}
-
-.multiselect-option {
-    /* Styles no longer needed */
-}
-
-.multiselect-option:hover {
-    /* Styles no longer needed */
-}
-
-.multiselect-option input[type="checkbox"] {
-    /* Styles no longer needed */
-}
-
-.multiselect-option input[type="radio"] {
-    /* Styles no longer needed */
-}
-
-.checkmark {
-    /* Styles no longer needed */
-}
-
-/* Checkbox styles */
-.multiselect-option input[type="checkbox"]:checked ~ .checkmark {
-    /* Styles no longer needed */
-}
-
-.multiselect-option input[type="checkbox"]:checked ~ .checkmark:after {
-    /* Styles no longer needed */
-}
-
-/* Radio button styles */
-.multiselect-option input[type="radio"] ~ .checkmark {
-    /* Styles no longer needed */
-}
-
-.multiselect-option input[type="radio"]:checked ~ .checkmark {
-    /* Styles no longer needed */
-}
-
-.multiselect-option input[type="radio"]:checked ~ .checkmark:after {
-    /* Styles no longer needed */
-}
 
 .option-text {
     font-size: 14px;

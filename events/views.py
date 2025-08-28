@@ -7,6 +7,8 @@ from django.urls import reverse_lazy, reverse
 from django.db.models import Q, Count
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.db import transaction
 from accounts.utils import has_permission, can_edit_event, can_view_event, get_user_accessible_events, log_user_action
@@ -389,6 +391,68 @@ def calendar_data_view(request):
         })
     
     return JsonResponse(calendar_events, safe=False)
+
+
+@login_required
+def events_api(request):
+    """API endpoint for dynamic event filtering"""
+    # Get filter parameters from request
+    queryset = get_user_accessible_events(request.user)
+    
+    # Apply filters using the same logic as EventListView
+    form = EventFilterForm(request.GET)
+    if form.is_valid():
+        if form.cleaned_data.get('event_type'):
+            queryset = queryset.filter(event_type=form.cleaned_data['event_type'])
+        
+        if form.cleaned_data.get('department'):
+            queryset = queryset.filter(department=form.cleaned_data['department'])
+        
+        if form.cleaned_data.get('status'):
+            queryset = queryset.filter(status=form.cleaned_data['status'])
+        
+        if form.cleaned_data.get('responsible_person'):
+            queryset = queryset.filter(responsible_person=form.cleaned_data['responsible_person'])
+        
+        if form.cleaned_data.get('start_date'):
+            queryset = queryset.filter(start_datetime__date__gte=form.cleaned_data['start_date'])
+        
+        if form.cleaned_data.get('end_date'):
+            queryset = queryset.filter(start_datetime__date__lte=form.cleaned_data['end_date'])
+        
+        if form.cleaned_data.get('search'):
+            search_term = form.cleaned_data['search']
+            queryset = queryset.filter(
+                Q(name__icontains=search_term) |
+                Q(description__icontains=search_term)
+            )
+    
+    # Apply the same select_related optimization
+    queryset = queryset.select_related('event_type', 'department', 'responsible_person', 'location')
+    
+    # Pagination
+    paginator = Paginator(queryset, 20)  # Same as EventListView
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+    
+    # Render the events grid HTML
+    events_html = render_to_string('events/partials/events_grid.html', {
+        'events': page_obj,
+        'page_obj': page_obj,
+        'request': request
+    })
+    
+    # Return JSON response
+    return JsonResponse({
+        'events_html': events_html,
+        'total_count': paginator.count,
+        'current_page': page_obj.number,
+        'total_pages': paginator.num_pages,
+        'has_previous': page_obj.has_previous(),
+        'has_next': page_obj.has_next(),
+        'start_index': page_obj.start_index() if page_obj else 0,
+        'end_index': page_obj.end_index() if page_obj else 0,
+    })
 
 
 @login_required
