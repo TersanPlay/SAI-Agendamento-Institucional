@@ -231,33 +231,33 @@
             </div>
         </div>
         
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
+        <div class="w-full">
+            <table class="w-full table-fixed divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(0)">
+                        <th scope="col" class="w-1/4 px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(0)">
                             Evento <i class="fas fa-sort ml-1"></i>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(1)">
+                        <th scope="col" class="w-1/6 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(1)">
                             Tipo <i class="fas fa-sort ml-1"></i>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(2)">
+                        <th scope="col" class="w-1/6 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(2)">
                             Departamento <i class="fas fa-sort ml-1"></i>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(3)">
+                        <th scope="col" class="w-1/6 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(3)">
                             Data <i class="fas fa-sort ml-1"></i>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(4)">
+                        <th scope="col" class="w-1/8 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(4)">
                             Status <i class="fas fa-sort ml-1"></i>
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(5)">
+                        <th scope="col" class="w-1/6 px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer" onclick="sortTable(5)">
                             Responsável <i class="fas fa-sort ml-1"></i>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200" id="eventsTableBody">
                     <tr>
-                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                        <td colspan="6" class="px-4 py-4 text-center text-gray-500">
                             <i class="fas fa-filter text-gray-400 mr-2"></i>
                             Aplique filtros para carregar os eventos
                         </td>
@@ -480,7 +480,7 @@ function loadReportData() {
     const tableBody = document.getElementById('eventsTableBody');
     tableBody.innerHTML = `
         <tr>
-            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+            <td colspan="6" class="px-4 py-4 text-center text-gray-500">
                 <div class="flex items-center justify-center">
                     <i class="fas fa-spinner fa-spin mr-2 text-primary-600"></i>
                     Carregando dados...
@@ -539,32 +539,40 @@ function loadReportData() {
                 data.events.forEach(event => {
                     tableRows += `
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">${event.name}</div>
+                            <td class="px-4 py-4">
+                                <div class="text-sm font-medium text-gray-900 truncate" title="${event.name}">
+                                    ${event.name}
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            <td class="px-3 py-4">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 truncate" title="${event.event_type}">
                                     ${event.event_type}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                ${event.department}
+                            <td class="px-3 py-4">
+                                <div class="text-sm text-gray-500 truncate" title="${event.department}">
+                                    ${event.department}
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                ${event.start_datetime}
+                            <td class="px-3 py-4">
+                                <div class="text-sm text-gray-500 whitespace-nowrap">
+                                    ${event.start_datetime}
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-3 py-4">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                                     event.status === 'Concluído' ? 'bg-green-100 text-green-800' :
                                     event.status === 'Em Andamento' ? 'bg-yellow-100 text-yellow-800' :
                                     event.status === 'Planejado' ? 'bg-blue-100 text-blue-800' :
                                     'bg-red-100 text-red-800'
-                                }">
+                                }" title="${event.status}">
                                     ${event.status}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                ${event.responsible_person}
+                            <td class="px-3 py-4">
+                                <div class="text-sm text-gray-500 truncate" title="${event.responsible_person}">
+                                    ${event.responsible_person}
+                                </div>
                             </td>
                         </tr>
                     `;
@@ -576,7 +584,7 @@ function loadReportData() {
             } else {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                        <td colspan="6" class="px-4 py-4 text-center text-gray-500">
                             <i class="fas fa-info-circle text-gray-400 mr-2"></i>
                             Nenhum evento encontrado com os filtros aplicados
                         </td>
@@ -594,7 +602,7 @@ function loadReportData() {
             console.error('Error loading report data:', error);
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="px-6 py-4 text-center text-red-500">
+                    <td colspan="6" class="px-4 py-4 text-center text-red-500">
                         <i class="fas fa-exclamation-triangle mr-2"></i>
                         Erro ao carregar dados. Tente novamente.
                     </td>
@@ -1258,6 +1266,57 @@ function updatePaginationControls(currentPage, totalPages, totalResults, itemsOn
     .chart-label {
         font-size: 8px;
     }
+}
+
+/* Responsive Table Styles - No Scroll */
+.table-fixed {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* Text truncation for table cells */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Responsive table columns */
+@media (max-width: 1024px) {
+    .table-fixed th:nth-child(3),
+    .table-fixed td:nth-child(3) {
+        display: none; /* Hide department on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .table-fixed {
+        font-size: 0.875rem;
+    }
+    
+    .table-fixed th:nth-child(2),
+    .table-fixed td:nth-child(2),
+    .table-fixed th:nth-child(6),
+    .table-fixed td:nth-child(6) {
+        display: none; /* Hide type and responsible on mobile */
+    }
+    
+    .table-fixed th,
+    .table-fixed td {
+        padding: 0.5rem 0.25rem;
+    }
+}
+
+/* Improved tooltips for truncated text */
+[title]:hover {
+    position: relative;
+}
+
+/* Ensure table doesn't overflow */
+.w-full {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
 }
 
 @media (max-width: 768px) {

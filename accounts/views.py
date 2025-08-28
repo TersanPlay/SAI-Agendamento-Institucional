@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -13,7 +13,7 @@ from django.db.models import Count, Q
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from .forms import UserRegistrationForm, UserProfileForm
+from .forms import UserRegistrationForm, UserProfileForm, CustomPasswordChangeForm
 from .models import UserProfile, AccessLog
 from .utils import log_user_action
 
@@ -227,3 +227,26 @@ def validate_email_ajax(request):
         'valid': True,
         'message': 'Email disponível'
     })
+
+
+@login_required
+def password_change_view(request):
+    """View para alterar senha do usuário logado"""
+    if request.method == 'POST':
+        form = CustomPasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Atualizar a sessão para que o usuário não seja deslogado
+            update_session_auth_hash(request, user)
+            
+            # Log da ação
+            log_user_action(request, user, 'password_change', 'user_password')
+            
+            messages.success(request, 'Sua senha foi alterada com sucesso!')
+            return redirect('accounts:profile')
+        else:
+            messages.error(request, 'Por favor, corrija os erros abaixo.')
+    else:
+        form = CustomPasswordChangeForm(request.user)
+    
+    return render(request, 'accounts/password_change.html', {'form': form})

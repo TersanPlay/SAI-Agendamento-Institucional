@@ -211,6 +211,19 @@
                 </div>
             </a>
 
+            <a href="{% url 'accounts:password_change' %}" 
+               class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-key text-red-600"></i>
+                    </div>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-gray-900">Alterar Senha</p>
+                    <p class="text-xs text-gray-500">Atualizar segurança</p>
+                </div>
+            </a>
+
             <a href="{% url 'notifications:preferences' %}" 
                class="flex items-center p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow duration-200">
                 <div class="flex-shrink-0">

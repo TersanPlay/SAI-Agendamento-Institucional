@@ -32,5 +32,4 @@ Atualize a documentação: manuais, help desk e treinamentos devem refletir a mu
 
 Monitore erros: após retirar o módulo ou APP, acompanhe logs.
 
-
 analise menus e interfaces: elimine links, botões ou rotas quebradas.

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from .models import UserProfile  # Import the model directly
 from events.models import Department  # Import Department directly to avoid circular import issues
@@ -235,3 +235,31 @@ class UserTypeUpdateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Set department queryset
         self.fields['department'].queryset = Department.objects.all()
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    """Formulário personalizado para alterar senha do usuário logado"""
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Customizar labels
+        self.fields['old_password'].label = 'Senha Atual'
+        self.fields['new_password1'].label = 'Nova Senha'
+        self.fields['new_password2'].label = 'Confirmar Nova Senha'
+        
+        # Adicionar classes CSS para Tailwind
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200',
+                'placeholder': self._get_placeholder(field_name)
+            })
+    
+    def _get_placeholder(self, field_name):
+        """Retorna placeholder apropriado para cada campo"""
+        placeholders = {
+            'old_password': 'Digite sua senha atual',
+            'new_password1': 'Digite sua nova senha',
+            'new_password2': 'Confirme sua nova senha'
+        }
+        return placeholders.get(field_name, '')

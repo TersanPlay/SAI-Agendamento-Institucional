@@ -46,6 +46,7 @@ urlpatterns = [
     # Profile management
     path('profile/', views.profile_view, name='profile'),
     path('profile/edit/', views.ProfileUpdateView.as_view(), name='profile_edit'),
+    path('profile/password/', views.password_change_view, name='password_change'),
     
     # Admin views
     path('users/', views.user_management_view, name='user_management'),

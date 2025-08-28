@@ -231,17 +231,18 @@
                 🔐 Segurança da Conta
             </h3>
             <p class="mt-1 text-sm text-red-700">
-                Para alterar sua senha ou dados de segurança, entre em contato com o administrador do sistema.
+                Gerencie a segurança da sua conta. Altere sua senha regularmente para manter sua conta protegida.
             </p>
         </div>
         <div class="px-6 py-4">
             <div class="flex items-center justify-between">
                 <div>
                     <h4 class="text-sm font-medium text-gray-900">Senha</h4>
-                    <p class="text-sm text-gray-500">Última alteração há {{ user.password_changed_days|default:"--" }} dias</p>
+                    <p class="text-sm text-gray-500">Mantenha sua conta segura com uma senha forte</p>
                 </div>
-                <a href="{% url 'admin:auth_user_password_change' user.id %}" 
+                <a href="{% url 'accounts:password_change' %}" 
                    class="inline-flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <i class="fas fa-key mr-2"></i>
                     Alterar Senha
                 </a>
             </div>
